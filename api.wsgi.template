@@ -1,0 +1,8 @@
+#!/bin/python
+activate_this = '/srv/[domain]/venv/bin/activate_this.py'
+execfile(activate_this, dict(__file__=activate_this))
+
+import sys
+sys.path.append('/srv/[domain]')
+
+from app import app as application

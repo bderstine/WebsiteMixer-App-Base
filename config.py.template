@@ -1,0 +1,15 @@
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '[appname].db')
+#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost:3306/[appname]_data'
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
+# email server
+MAIL_SERVER = 'localhost' # your mailserver
+MAIL_PORT = 25
+MAIL_USE_TLS = False
+MAIL_USE_SSL = False
+#MAIL_USERNAME = 'you'
+#MAIL_PASSWORD = 'your-password'
+
