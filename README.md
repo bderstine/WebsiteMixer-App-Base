@@ -3,7 +3,9 @@
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ### Do these steps after unzipping...
+
 Need to add this as a setup.py, but documenting manual steps.
+
 * python setup.py
 * mkdir /srv/[domain]
 * cd /srv/[domain]
