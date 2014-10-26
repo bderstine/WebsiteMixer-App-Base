@@ -13,6 +13,7 @@ Need to add this as a setup.py, but documenting manual steps.
 * cd /etc/apache2/sites-available
 * ln -s /srv/[domain]/virtualhosts/[domain].conf [domain].conf
 * a2ensite [domain].conf
+* service apache2 reload
 
 ### Run this to setup venv
 * virtualenv venv
