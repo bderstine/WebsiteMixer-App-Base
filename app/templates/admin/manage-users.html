@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">Manage Users</h1>
+   <a href="/admin/adduser/">Add New</a>
+
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+          <th>Registered</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {% for entry in userData %}
+      <tr>
+         <td>{{ entry.username }}</td>
+	 <td><a href="mailto:{{ entry.email }}">{{ entry.email }}</a></td>
+         <td><a href="/admin/profile/{{entry.username}}/">Profile</a> | <a href="/admin/deleteuser/{{ entry.id }}/">Delete</a></td>
+         <td>{{ entry.registered_on }}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

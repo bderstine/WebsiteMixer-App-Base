@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">Manage Posts</h1>
+   <a href="/admin/addpost/">Add New</a>
+
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th width="33%">Title</th>
+          <th>Author</th>
+          <th>Publish Date</th>
+          <th>Last Update</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {% for entry in postData %}
+      <tr>
+	 <td>{{ entry.id }}</td>
+         <td>{{ entry.post_title }}<br/>
+         <a href="/admin/editpost/{{entry.id}}/">Edit</a> | <a href="/admin/deletepost/{{ entry.id }}/">Delete</a> | <a href="{{entry.post_slug}}" target="_blank">View</a></td>
+         <td>{{ entry.post_author }}</td>
+         <td>{{ entry.post_date }}</td>
+         <td>{{ entry.post_modified }}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

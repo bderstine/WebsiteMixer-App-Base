@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<h1 class="page-header">Manage Files</h1>
+
+<h2>Upload New File</h2>
+<form action="" method=post enctype=multipart/form-data>
+    <span class="btn btn-default btn-file"><input type="file" name="file"></span>
+    <button type="submit" class="btn btn-success">Upload</button>
+</form>
+<hr>
+   <h2>File Manager</h2>
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Modified Time</th>
+          <th>Delete?</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {%- for item in tree.children recursive %}
+      <tr>
+         <td><a href="/static/upload/{{item.name}}" target="_blank">{{item.name}}</a></td>
+         <td>{{ item.size|filesizeformat(item.size) }}</td>
+         <td>{{ moment(item.mtime).format('MMMM Do YYYY, h:mm a') }}</td>
+         <td><a href="/admin/delete-file/?filename={{item.name}}">Delete</a></td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+{% endblock %}
+   

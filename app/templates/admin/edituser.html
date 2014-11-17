@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+
+{% block headjs %}
+<script src="{{ url_for('static', filename='ckeditor/ckeditor.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1>User Profile</h1>
+  <form class="myElements" method="post" action="">
+  Username<br/><input id="username" type="text" name="username" value="{{userData.username}}" size="40" readonly><br/><br/>
+  Email<br/><input id="email" type="text" name="email" value="{{userData.email}}" size="55" required><br/><br/>
+  <button type="submit" class="btn btn-success">Save</button>
+  </form>
+
+  <h3>Change Password</h3>
+  <form class="myEleements2" method="post" action="/admin/changepassword/">
+  <input type="hidden" name="username" value="{{userData.username}}">
+  Password<br/><input id="password1" type="password" name="password1" value="" size="40" required><br/><br/>
+  Confirm Password<br/><input id="password2" type="password" name="password2" value="" size="40" required><br/><br/>
+  <button type="submit" class="btn btn-success">Change Password</button>
+  </form>
+
+</form>
+</div>
+
+<script>
+CKEDITOR.replace('content',{
+    width: '100%',
+    height: '400px',
+    uiColor: '#9AB8F3'
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "admin/base.html" %}
+
+{% block headjs %}
+<script src="{{ url_for('static', filename='ckeditor/ckeditor.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1>Edit Page</h1>
+  <form class="myElements" method="post" action="">
+  <div style="margin-bottom:25px;">
+    <div style="float:left;margin-right:10px;">
+      Page Title<br/><input id="title" type="text" name="title" value="{{pageData.page_title}}" size="70">
+    </div>
+
+    <div style="float:left;">
+      Page URL<br/><input id="slug" type="text" name="slug" value="{{pageData.page_slug}}" size="40">
+    </div>
+
+    <div style="clear:both;"></div>
+  </div>
+
+  <textarea id="content" name="content" rows="25" cols="60">{{pageData.page_content}}</textarea>
+
+  <div style="width:300px;float:left;margin-bottom:7px;margin-top:10px;">
+    Subheading Text<br><small>(shown under title, optional)</small><br/><input type="text" name="subheading" value="{{pageData.page_subheading}}" size="70" placeholder="Optional">
+  </div>
+  <div style="clear:both;"></div>
+
+  <div style="width:300px;float:left;margin-bottom:7px;margin-top:10px;">
+    Featured IMG URL<br/><input type="text" name="featureimg" value="{{pageData.page_image}}" size="70" placeholder="Optional">
+  </div>
+  <div style="clear:both;"></div>
+
+  <!-- <input type="submit" value="Save"> -->
+  <button type="submit" class="btn btn-success">Save</button>
+
+</form>
+</div>
+
+<script>
+CKEDITOR.replace('content',{
+    width: '100%',
+    height: '400px',
+    uiColor: '#9AB8F3'
+});
+</script>
+
+{% endblock %}

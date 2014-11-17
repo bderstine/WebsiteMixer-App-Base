@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">Manage Pages</h1>
+   <a href="/admin/addpage/">Add New</a>
+
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="33%">Title</th>
+          <th>Actions</th>
+          <th>Last Update</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {% for entry in pageData %}
+      <tr>
+         <td>{{ entry.page_title }}</td>
+	 <td><a href="/admin/editpage/{{entry.id}}/">Edit</a> | <a href="/admin/deletepage/{{ entry.id }}/">Delete</a> | <a href="{{entry.page_slug}}" target="_blank">View</a></td>
+         <td>{{ entry.page_modified }}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/post-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{ postData.post_title }}</h1>
+                        <h2 class="subheading">{{ postData.post_subheading }}</h2>
+                        <span class="meta">Posted by <a href="#">{{ postData.post_author }}</a> on {{ postData.post_date }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+		{{ postData.post_content|safe }}
+                </div>
+            </div>
+        </div>
+    </article>
+
+{% endblock %}
