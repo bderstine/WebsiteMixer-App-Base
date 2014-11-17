@@ -1,5 +1,5 @@
 #!venv/bin/python
-import getpass, sys
+import getpass, sys, os
 
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
