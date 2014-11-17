@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, abort, render_template, jsonify
 from app import app
 
 @app.route('/')
-def sendhome():
+def home():
     return render_template('index.html')
 
 #######################################################################
