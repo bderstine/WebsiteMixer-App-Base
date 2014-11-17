@@ -8,8 +8,6 @@ from app import app
 from models import *
 from config import *
 
-import grademypc
-
 #######################################################################
 from flask.ext.login import LoginManager
 login_manager = LoginManager()
