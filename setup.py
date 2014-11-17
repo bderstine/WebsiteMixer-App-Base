@@ -23,7 +23,7 @@ f.close()
 #config.py.template -> config.py, update [appname]
 secretkey = os.urandom(24)
 with open ("config.py.template", "r") as myfile:
-    data=myfile.read().replace('[appname]', appname).replace('[secretkey'],secretkey)
+    data=myfile.read().replace('[appname]', appname).replace('[secretkey]',secretkey)
 f = open('config.py', 'w')
 f.write(data)
 f.close()
