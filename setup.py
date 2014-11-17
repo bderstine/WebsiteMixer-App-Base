@@ -1,11 +1,5 @@
 #!venv/bin/python
-import getpass
-
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from app import db
-import os.path
+import getpass, sys
 
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
@@ -46,6 +40,12 @@ f.close()
 # $ service apache2 reload
 
 # Setup database
+from migrate.versioning import api
+from config import SQLALCHEMY_DATABASE_URI
+from config import SQLALCHEMY_MIGRATE_REPO
+from app import db
+import os.path
+
 db.create_all()
 if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
     api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
