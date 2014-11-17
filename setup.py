@@ -1,5 +1,5 @@
 #!venv/bin/python
-import getpass, sys, os
+import getpass, sys, os, uuid
 
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
@@ -21,7 +21,10 @@ f.write(data)
 f.close()
 
 #config.py.template -> config.py, update [appname]
-secretkey = os.urandom(24)
+#import string, random
+#secretkey = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+secretkey = uuid.uuid4()
+
 with open ("config.py.template", "r") as myfile:
     data=myfile.read().replace('[appname]', appname).replace('[secretkey]',secretkey)
 f = open('config.py', 'w')
