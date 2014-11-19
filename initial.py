@@ -83,5 +83,5 @@ db.session.add(s4)
 
 db.session.commit()
 
-print("Setup.py is complete! You should remove setup.sh!")
+print("Setup is complete!")
 

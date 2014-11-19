@@ -105,6 +105,7 @@ body {
 }
 
 div.label{
+  display: block;
   width: 200px;
   color: black;
   text-align: right;
