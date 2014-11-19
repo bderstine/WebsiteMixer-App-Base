@@ -1,12 +1,12 @@
 #!venv/bin/python
 import getpass, sys, os, uuid
 
-print("========================================")
+print("================================================================================")
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
 appname = raw_input('Enter the app name that will be used (one word, no special chars!): ')
 
-print("========================================")
+print("================================================================================")
 adminuser = raw_input('Enter the username for the first admin user: ')
 adminpw1 = getpass.getpass()
 adminpw2 = getpass.getpass('Confirm Password: ')
@@ -15,7 +15,7 @@ if adminpw1 != adminpw2:
     sys.exit(0)
 adminemail = raw_input('Enter an email address for the first admin user: ')
 
-print("========================================")
+print("================================================================================")
 #api.wsgi.template -> api.wsgi, update [domain]
 with open ("api.wsgi.template", "r") as myfile:
     data=myfile.read().replace('[domain]', domain)
@@ -48,7 +48,7 @@ f.close()
 from migrate.versioning import api
 from config import SQLALCHEMY_DATABASE_URI
 from config import SQLALCHEMY_MIGRATE_REPO
-from app import db
+from app import db, models
 import os.path
 
 db.create_all()
@@ -74,4 +74,4 @@ db.session.add(s4)
 
 db.session.commit()
 
-print("Setup.py is complete! You should remove that file!")
+print("Setup.py is complete! You should remove setup.sh!")
