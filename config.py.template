@@ -7,7 +7,7 @@ enable_login = 1
 SECRET_KEY = '[secretkey]'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '[appname].db')
-#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost:3306/[appname]_data'
+#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost:3310/[appname]_data'
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 # email server

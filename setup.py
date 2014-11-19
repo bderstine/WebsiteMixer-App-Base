@@ -1,18 +1,21 @@
 #!venv/bin/python
 import getpass, sys, os, uuid
 
+print("========================================")
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
 appname = raw_input('Enter the app name that will be used (one word, no special chars!): ')
 
-adminemail = raw_input('Enter an email address for the first admin user: ')
+print("========================================")
 adminuser = raw_input('Enter the username for the first admin user: ')
 adminpw1 = getpass.getpass()
 adminpw2 = getpass.getpass('Confirm Password: ')
 if adminpw1 != adminpw2:
     print 'Admin passwords do not match! Abort!'
     sys.exit(0)
+adminemail = raw_input('Enter an email address for the first admin user: ')
 
+print("========================================")
 #api.wsgi.template -> api.wsgi, update [domain]
 with open ("api.wsgi.template", "r") as myfile:
     data=myfile.read().replace('[domain]', domain)
@@ -59,3 +62,5 @@ else:
 #User = 
 
 # Pre-load content?
+
+print("Setup.py is complete!")
