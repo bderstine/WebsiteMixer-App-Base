@@ -12,3 +12,5 @@ pip install flask-mail
 ./venv/bin/python initial.py
 rm initial.py
 rm setup.sh
+
+rm -rf .git
