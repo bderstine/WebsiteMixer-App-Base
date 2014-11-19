@@ -7,13 +7,13 @@ domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
 appname = raw_input('Enter the app name that will be used (one word, no special chars!): ')
 
 print("================================================================================")
-adminuser = raw_input('Enter the USERNAME for the first admin user: ')
+adminuser = raw_input('Enter admin USERNAME (do not use "admin"!): ')
 adminpw1 = getpass.getpass()
 adminpw2 = getpass.getpass('Confirm Password: ')
 if adminpw1 != adminpw2:
     print 'Admin passwords do not match! Abort!'
     sys.exit(0)
-adminemail = raw_input('Enter an EMAIL address for the first admin user: ')
+adminemail = raw_input('Enter admin EMAIL address: ')
 
 print("================================================================================")
 #api.wsgi.template -> api.wsgi, update [domain]
