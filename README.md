@@ -6,10 +6,12 @@ This README would normally document whatever steps are necessary to get your app
 * cd testapp
 * virtualenv venv
 * source venv/bin/activate
-* (venv)$ pip install flask
-* (venv)$ pip install flask-sqlalchemy
-* (venv)$ pip install flask-mail
-* (venv)$ pip install sqlalchemy-migrate
+* pip install flask
+* pip install flask-sqlalchemy
+* pip install sqlalchemy-migrate
+* pip install flask-mail
+* pip install flask-moment
+* pip install flask-login
 * ./setup.py
 
 And follow instructions.
