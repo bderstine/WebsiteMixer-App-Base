@@ -4,14 +4,8 @@ This README would normally document whatever steps are necessary to get your app
 
 * git clone https://bitbucket.org/bderstine/websitemixer-app-base testapp
 * cd testapp
-* virtualenv venv
-* source venv/bin/activate
-* pip install flask
-* pip install flask-sqlalchemy
-* pip install sqlalchemy-migrate
-* pip install flask-mail
-* pip install flask-moment
-* pip install flask-login
-* ./setup.py
+* ./setup.sh
 
 And follow instructions.
+
+To run, use ./run.py to use port 5000 test server.
