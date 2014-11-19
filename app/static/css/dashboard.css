@@ -104,3 +104,8 @@ body {
   border-radius: 50%;
 }
 
+div.label{
+  width: 200px;
+  color: black;
+  text-align: right;
+}
