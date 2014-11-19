@@ -59,8 +59,19 @@ else:
     api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
 # Pre-load first user
-#User = 
+u = User(adminuser,adminpw1,adminemail)
+db.session.add(u)
 
-# Pre-load content?
+# Pre-load initial settings
+s1 = Settings('siteName',appname)
+s2 = Settings('siteUrl','http://' + domain)
+s3 = Settings('headerForeground', 'ffffff')
+s4 = Settings('headerBackground', 'cccccc')
+db.session.add(s1)
+db.session.add(s2)
+db.session.add(s3)
+db.session.add(s4)
 
-print("Setup.py is complete!")
+db.session.commit()
+
+print("Setup.py is complete! You should remove that file!")
