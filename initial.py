@@ -42,7 +42,10 @@ f.close()
 # Create UPLOAD_FOLDER
 directory = '/srv/' + domain + '/app/static/upload/'
 if not os.path.exists(directory):
+    print('Creating upload dir: ' + directory)
     os.makedirs(directory)
+else:
+    print('Upload dir exists: ' + directory)
 
 # Update Apache
 # $ ln -s /etc/apache2/virtualhosts/[domain].conf /srv/[domain]/virtualhosts/[domain].conf
