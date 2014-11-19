@@ -48,26 +48,26 @@ f.close()
 from migrate.versioning import api
 from config import SQLALCHEMY_DATABASE_URI
 from config import SQLALCHEMY_MIGRATE_REPO
-from app import db
-from models import *
+from app import db, models
 import os.path
 
 db.create_all()
 if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
     api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
+    #api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
 else:
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
+    print('Database already exists!')
+    #api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
 # Pre-load first user
-u = User(adminuser,adminpw1,adminemail)
+u = models.User(adminuser,adminpw1,adminemail)
 db.session.add(u)
 
 # Pre-load initial settings
-s1 = Settings('siteName',appname)
-s2 = Settings('siteUrl','http://' + domain)
-s3 = Settings('headerForeground', 'ffffff')
-s4 = Settings('headerBackground', 'cccccc')
+s1 = models.Settings('siteName',appname)
+s2 = models.Settings('siteUrl','http://' + domain)
+s3 = models.Settings('headerForeground', 'ffffff')
+s4 = models.Settings('headerBackground', 'cccccc')
 db.session.add(s1)
 db.session.add(s2)
 db.session.add(s3)
@@ -76,3 +76,4 @@ db.session.add(s4)
 db.session.commit()
 
 print("Setup.py is complete! You should remove setup.sh!")
+
