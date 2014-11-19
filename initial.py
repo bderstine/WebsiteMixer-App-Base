@@ -40,7 +40,7 @@ f.write(data)
 f.close()
 
 # Create UPLOAD_FOLDER
-directory = '/srv/' + domain + '/app/static/upload/'
+directory = 'app/static/upload/'
 if not os.path.exists(directory):
     print('Creating upload dir: ' + directory)
     os.makedirs(directory)
