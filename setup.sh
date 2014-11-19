@@ -9,6 +9,6 @@ pip install sqlalchemy-migrate
 pip install flask-login
 pip install flask-mail
 
-python initial.py
+./venv/bin/python initial.py
 #rm initial.py
 
