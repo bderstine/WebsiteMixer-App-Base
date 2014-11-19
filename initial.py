@@ -39,6 +39,11 @@ f = open('virtualhosts/' + domain + '.conf', 'w')
 f.write(data)
 f.close()
 
+# Create UPLOAD_FOLDER
+directory = '/srv/' + domain + '/app/static/upload/'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
 # Update Apache
 # $ ln -s /etc/apache2/virtualhosts/[domain].conf /srv/[domain]/virtualhosts/[domain].conf
 # $ a2ensite [domain].conf
