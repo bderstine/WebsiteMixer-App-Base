@@ -6,67 +6,26 @@
 
 {% block content %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Manage Settings</h1>
+        <h1 class="page-header">Manage Settings</h1>
+	<form method="post" action="">
+	<table>
+	<tr><td></td><td><h3>Site Settings</h3></td></tr>
+	<tr><td><div class="label">Name</div></td><td><input type="text" name="siteName" value="{{s.siteName}}" size="55"></td></tr>
+	<tr><td><div class="label">Site URL</div></td><td><input type="text" name="siteUrl" value="{{s.siteUrl}}" size="55"></td></tr>
+	<tr><td></td><td><input type="submit" value="Save All"></td></tr>
+	</table>
+	<hr>
+	<table>
+	<tr><td></td><td><h3>Color Settings</h3></td></tr>
+        <tr><td><div class="label">Header Text</div></td><td><input class="color" type="text" name="headerForeground" value="{{s.headerForeground}}" size="20"></td></tr>
+	<tr>
+	  <td><div class="label">Header Background</div></td>
+	  <td><input class="color" type="text" name="headerBackground" value="{{s.headerBackground}}" size="20"></td>
+	</tr>
+	<tr><td></td><td><input type="submit" value="Save All"></td></tr>
+	</table>
+	</form>
 
-<h3>Site Settings</h3>
-<span class="description">These are used across the site and for the toolbar after-login.</span><br/>
-<form method="post" action="">
-<table>
-<tr><td class="label">Name</td><td><input type="text" name="siteName" value="{{s.siteName}}" size="55"></td></tr>
-<tr><td class="label">Website</td><td><input type="text" name="siteWebsite" value="{{s.siteWebsite}}" size="55"></td></tr>
-<tr><td class="label">Facebook</td><td><input type="text" name="siteFacebook" value="{{s.siteFacebook}}" size="55"></td></tr>
-<tr><td class="label">Twitter</td><td><input type="text" name="siteTwitter" value="{{s.siteTwitter}}" size="55"></td></tr>
-<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-</table>
-<hr>
-<h3>Color Settings</h3>
-<span class="description">These are used in the pre-login and after-login layouts.</span><br/>
-<table>
-<tr><td class="label">Text</td><td><input class="color" type="text" name="colorForeground" value="{{s.colorForeground}}" size="20"></td></tr>
-<tr><td class="label">Background</td><td><input class="color" type="text" name="colorBackground" value="{{s.colorBackground}}" size="20"></td></tr>
-<tr><td class="label">Links</td><td><input class="color" type="text" name="colorLinks" value="{{s.colorLinks}}" size="20"></td></tr>
-<tr><td class="label">Accept Button</td><td><input class="color" type="text" name="colorAcceptButton" value="{{s.colorAcceptButton}}" size="20"></td></tr>
-<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-</table>
-<hr>
-<h3>Image Settings</h3>
-<span class="description">These are used in the pre-login and after-login layouts.</span><br/>
-<table>
-<tr><td class="label">Logo</td><td><input type="text" name="imageLogo" value="{{s.imageLogo}}" size="60"> <span class="description">300x100px</span></td></tr>
-<tr><td class="label">Toolbar Logo</td><td><input type="text" name="imageToolbarLogo" value="{{s.imageToolbarLogo}}" size="60"> <span class="description">89x36px</span></td></tr>
-<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-</table>
-<hr>
-<h3>Content Settings</h3>
-<table>
-<tr>
-  <td class="label">Welcome<br/><span class="description">html allowed!</span></td>
-  <td><textarea name="contentWelcome" cols="65" rows="5">{{s.contentWelcome}}</textarea></td>
-</tr>
-<tr>
-  <td class="label">Pre Login Ad<br/><span class="description">Next to Accept&Connect<br/>html allowed!<br/>No links!</span></td>
-  <td><textarea name="contentPreLoginAd" cols="65" rows="5">{{s.contentPreLoginAd}}</textarea></td></tr>
-<tr>
-  <td class="label">Header<br/><span class="description">Top of after-login<br/>html allowed!</span></td>
-  <td><textarea name="contentHeadboard" cols="65" rows="7">{{s.contentHeadboard}}</textarea></td>
-</tr>
-<tr><td class="label">Copyright</td><td><textarea name="contentCopyright" cols="65" rows="3">{{s.contentCopyright}}</textarea></td></tr>
-<tr><td class="label">RSS Feeds<br/><span class="description">One per line!</span></td><td><textarea name="rssFeeds" cols="65" rows="5">{{s.rssFeeds}}</textarea></td></tr>
-<tr>
-  <td class="label">Google Analytics<br/><span class="description">html allowed!</span></td>
-  <td><textarea name="googleAnalytics" cols="55" rows="7">{{s.googleAnalytics}}</textarea></td>
-</tr>
-<tr>
-  <td class="label">Google Adsense<br/><span class="description">html allowed!</span></td>
-  <td><textarea name="googleAdsense" cols="55" rows="7">{{s.googleAdsense}}</textarea></td>
-</tr>
-<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-</table>
-<hr>
-<h3>Read-Only Settings</h3>
-<span class="description">These settings are read-only. Contact support for help with these!</span><br/>
-checkInStatus = "{{s.checkInStatus}}"<br/>
-<br/><br/><br/>
-</form>
+        </div>
 {% endblock %}
 

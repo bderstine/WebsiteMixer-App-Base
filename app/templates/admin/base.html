@@ -11,7 +11,7 @@
     <title>GradeMyPC Admin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{url_for('static',filename='css/dashboard.css')}}" rel="stylesheet">
@@ -43,7 +43,6 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/admin/">Overview</a></li>
-            <!-- <li><a href="/admin/settings/">Settings</a></li> -->
             <li><a href="/admin/profile/">Profile</a></li>
             <li><a href="/admin/logout/">Logout</a></li>
           </ul>
@@ -65,7 +64,7 @@
             <li {% if request.path == "/admin/pages/" %}class="active"{% endif %}><a href="/admin/pages/">Pages</a></li>
             <li {% if request.path == "/admin/files/" %}class="active"{% endif %}><a href="/admin/files/">Files</a></li>
             <li {% if request.path == "/admin/users/" %}class="active"{% endif %}><a href="/admin/users/">Users</a></li>
-            <!-- <li {% if request.path == "/admin/settings/" %}class="active"{% endif %}><a href="/admin/settings/">Settings</a></li> -->
+            <li {% if request.path == "/admin/settings/" %}class="active"{% endif %}><a href="/admin/settings/">Settings</a></li>
             <li><a href="/admin/logout/">Logout</a></li>
           </ul>
         </div>

@@ -101,10 +101,17 @@ def adminpages():
     pageData = Pages.query.order_by(Pages.page_title).all()
     return render_template('admin/manage-pages.html',pageData=pageData)
 
-@app.route('/admin/settings/')
+@app.route('/admin/settings/',methods=['GET','POST'])
 @login_required
-def adminsettings():
-    s = getSettings
+def manageSettings():
+    s = getSettings()
+    if request.method == 'POST':
+        update = Settings.query.filter_by(setting_name='siteName').update(dict(setting_value=request.form['siteName']))
+        update = Settings.query.filter_by(setting_name='siteUrl').update(dict(setting_value=request.form['siteUrl']))
+        update = Settings.query.filter_by(setting_name='headerBackground').update(dict(setting_value=request.form['headerBackground']))
+        update = Settings.query.filter_by(setting_name='headerForeground').update(dict(setting_value=request.form['headerForeground']))
+        db.session.commit()
+        return redirect(url_for('manageSettings'))
     return render_template('admin/manage-settings.html',s=s)
 
 @app.route('/admin/files/',methods=['GET','POST'])

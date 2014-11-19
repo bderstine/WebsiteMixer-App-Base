@@ -21,9 +21,7 @@ f.write(data)
 f.close()
 
 #config.py.template -> config.py, update [appname]
-#import string, random
-#secretkey = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
-secretkey = uuid.uuid4()
+secretkey = str(uuid.uuid4())
 
 with open ("config.py.template", "r") as myfile:
     data=myfile.read().replace('[appname]', appname).replace('[secretkey]',secretkey)
