@@ -104,7 +104,7 @@ def adminposts():
 def adminpages():
     s = getSettings()
     pageData = Pages.query.order_by(Pages.page_title).all()
-    return render_template('admin/manage-pages.html',pageData=pageData)
+    return render_template('admin/manage-pages.html',pageData=pageData,s=s)
 
 @app.route('/admin/settings/',methods=['GET','POST'])
 @login_required
