@@ -76,10 +76,13 @@ s1 = models.Settings('siteName',appname)
 s2 = models.Settings('siteUrl','http://' + domain)
 s3 = models.Settings('headerForeground', 'ffffff')
 s4 = models.Settings('headerBackground', 'cccccc')
+s5 = models.Settings('siteAnalytics', '')
+
 db.session.add(s1)
 db.session.add(s2)
 db.session.add(s3)
 db.session.add(s4)
+db.session.add(s5)
 
 db.session.commit()
 

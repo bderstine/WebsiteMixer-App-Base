@@ -62,14 +62,16 @@ def make_tree(path):
 
 @app.route('/')
 def home():
+    s = getSettings()
     blogData = Posts.query.order_by(Posts.post_date.desc()).all()
-    return render_template('index.html',blogData=blogData)
+    return render_template('index.html',blogData=blogData,s=s)
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
+    s = getSettings()
     error = None
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.html',s=s)
     username = request.form['username']
     password = request.form['password']
     registered_user = User.query.filter_by(username=username,password=password).first()
@@ -306,27 +308,30 @@ def logout():
 
 @app.route('/<path:path>')
 def content(path):
+    s = getSettings()
     slug = "/" + path
     # check if path=post_slug, if yes show
     postData = Posts.query.filter_by(post_slug=slug).first()
     if postData is not None:
-        return render_template('post.html',postData=postData)
+        return render_template('post.html',postData=postData,s=s)
     # check if path=page_slug, if yes show
     pageData = Pages.query.filter_by(page_slug=slug).first()
     if pageData is not None:
-        return render_template('page.html',pageData=pageData)
+        return render_template('page.html',pageData=pageData,s=s)
     # else show 404
-    return render_template('404.html'), 404
+    return render_template('404.html',s=s), 404
 
 #######################################################################
 # Error handlers
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html'), 404
+    s = getSettings()
+    return render_template('404.html',s=s), 404
 
 @app.errorhandler(500)
 def internal_error(error):
+    s = getSettings()
     db.session.rollback()
-    return render_template('500.html'), 500
+    return render_template('500.html',s=s), 500
 
