@@ -137,7 +137,7 @@ def manageFiles():
 def adminusers():
     s = getSettings()
     userData = User.query.order_by(User.username).all()
-    return render_template('admin/manage-users.html',userData=userData)
+    return render_template('admin/manage-users.html',userData=userData,s=s)
 
 @app.route('/admin/adduser/',methods=['GET','POST'])
 @login_required
