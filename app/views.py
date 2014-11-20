@@ -109,6 +109,7 @@ def manageSettings():
     s = getSettings()
     if request.method == 'POST':
         update = Settings.query.filter_by(setting_name='siteName').update(dict(setting_value=request.form['siteName']))
+        update = Settings.query.filter_by(setting_name='siteSubheading').update(dict(setting_value=request.form['siteSubheading']))
         update = Settings.query.filter_by(setting_name='siteUrl').update(dict(setting_value=request.form['siteUrl']))
         update = Settings.query.filter_by(setting_name='headerBackground').update(dict(setting_value=request.form['headerBackground']))
         update = Settings.query.filter_by(setting_name='headerForeground').update(dict(setting_value=request.form['headerForeground']))
