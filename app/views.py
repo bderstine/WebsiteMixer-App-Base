@@ -88,18 +88,21 @@ def login():
 @app.route('/admin/')
 @login_required
 def admin():
+    s = getSettings()
     eventData = Events.query.order_by(Events.event_date.desc()).limit(25)
-    return render_template('admin/index.html',eventData=eventData)
+    return render_template('admin/index.html',eventData=eventData,s=s)
 
 @app.route('/admin/posts/')
 @login_required
 def adminposts():
+    s = getSettings()
     postData = Posts.query.order_by(Posts.post_date.desc()).all()
-    return render_template('admin/manage-posts.html',postData=postData)
+    return render_template('admin/manage-posts.html',postData=postData,s=s)
 
 @app.route('/admin/pages/')
 @login_required
 def adminpages():
+    s = getSettings()
     pageData = Pages.query.order_by(Pages.page_title).all()
     return render_template('admin/manage-pages.html',pageData=pageData)
 
@@ -120,23 +123,26 @@ def manageSettings():
 @app.route('/admin/files/',methods=['GET','POST'])
 @login_required
 def manageFiles():
+    s = getSettings()
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER,filename))
             return redirect(url_for('manageFiles'))
-    return render_template('admin/manage-files.html',tree=make_tree(UPLOAD_FOLDER))
+    return render_template('admin/manage-files.html',tree=make_tree(UPLOAD_FOLDER),s=s)
 
 @app.route('/admin/users/')
 @login_required
 def adminusers():
+    s = getSettings()
     userData = User.query.order_by(User.username).all()
     return render_template('admin/manage-users.html',userData=userData)
 
 @app.route('/admin/adduser/',methods=['GET','POST'])
 @login_required
 def adminadduser():
+    s = getSettings()
     if request.method == 'POST':
         username = request.form['username']
         if User.query.get(username) is not None:
@@ -150,14 +156,15 @@ def adminadduser():
         db.session.add(addUser)
         db.session.commit()
         return redirect("/admin/users/")
-    return render_template('admin/adduser.html')
+    return render_template('admin/adduser.html',s=s)
 
 @app.route('/admin/profile/',methods=['GET','POST'])
 @login_required
 def adminprofile():
+    s = getSettings()
     if request.method == 'GET':
         userData = User.query.filter_by(username=current_user.username).first()
-        return render_template('admin/edituser.html',userData=userData)
+        return render_template('admin/edituser.html',userData=userData,s=s)
     else:
         update = User.query.filter_by(username=current_user.username).update(dict(email=request.form['email']))
         db.session.commit()
@@ -166,9 +173,10 @@ def adminprofile():
 @app.route('/admin/profile/<user>/',methods=['GET','POST'])
 @login_required
 def adminprofileuser(user):
+    s = getSettings()
     if request.method == 'GET':
         userData = User.query.filter_by(username=user).first()
-        return render_template('admin/edituser.html',userData=userData)
+        return render_template('admin/edituser.html',userData=userData,s=s)
     else:
         update = User.query.filter_by(username=user).update(dict(email=request.form['email']))
         db.session.commit()
@@ -177,8 +185,9 @@ def adminprofileuser(user):
 @app.route('/admin/addpost/',methods=['GET','POST'])
 @login_required
 def addpost():
+    s = getSettings()
     if request.method == 'GET':
-        return render_template('admin/addpost.html')
+        return render_template('admin/addpost.html',s=s)
     else:
         addPost = Posts(current_user.username,request.form['title'],request.form['slug'],request.form['content'],request.form['subheading'],request.form['featureimg'])
         db.session.add(addPost)
@@ -188,8 +197,9 @@ def addpost():
 @app.route('/admin/addpage/',methods=['GET','POST'])
 @login_required
 def addpage():
+    s = getSettings()
     if request.method == 'GET':
-        return render_template('admin/addpage.html')
+        return render_template('admin/addpage.html',s=s)
     else:
         addPage = Pages(request.form['title'],request.form['slug'],request.form['content'],request.form['subheading'],request.form['featureimg'])
         db.session.add(addPage)
@@ -199,9 +209,10 @@ def addpage():
 @app.route('/admin/editpost/<id>/',methods=['GET','POST'])
 @login_required
 def editpost(id):
+    s = getSettings()
     if request.method == 'GET':
         postData = Posts.query.filter_by(id=id).first()
-        return render_template('admin/editpost.html',id=id,postData=postData)
+        return render_template('admin/editpost.html',id=id,postData=postData,s=s)
     else:
         update = Posts.query.filter_by(id=id).update(dict(post_title=request.form['title'],post_slug=request.form['slug'],post_content=request.form['content'],post_subheading=request.form['subheading'],post_image=request.form['featureimg'],post_modified=datetime.utcnow()))
         db.session.commit()
@@ -211,9 +222,10 @@ def editpost(id):
 @app.route('/admin/editpage/<id>/',methods=['GET','POST'])
 @login_required
 def editpage(id):
+    s = getSettings()
     if request.method == 'GET':
         pageData = Pages.query.filter_by(id=id).first()
-        return render_template('admin/editpage.html',id=id,pageData=pageData)
+        return render_template('admin/editpage.html',id=id,pageData=pageData,s=s)
     else:
         form_title=request.form['title']
         form_slug=request.form['slug']
@@ -228,6 +240,7 @@ def editpage(id):
 @app.route('/admin/deletepost/<id>/')
 @login_required
 def deletepost(id):
+    s = getSettings()
     if request.args.get('confirmed'):
         postData = Posts.query.filter_by(id=id).first()
         db.session.delete(postData)
@@ -243,6 +256,7 @@ def deletepost(id):
 @app.route('/admin/deletepage/<id>/')
 @login_required
 def deletepage(id):
+    s = getSettings()
     if request.args.get('confirmed'):
         pageData = Pages.query.filter_by(id=id).first()
         db.session.delete(pageData)
@@ -258,6 +272,7 @@ def deletepage(id):
 @app.route('/admin/delete-file/')
 @login_required
 def deleteFile():
+    s = getSettings()
     filename = request.args.get('filename')
     if request.args.get('confirmed'):
         os.remove(os.path.join(UPLOAD_FOLDER,filename))
@@ -287,6 +302,7 @@ def deleteUser(id):
 @app.route('/admin/changepassword/',methods=['POST'])
 @login_required
 def changePW():
+    s = getSettings()
     username = request.form['username']
     password1 = request.form['password1']
     password2 = request.form['password2']
