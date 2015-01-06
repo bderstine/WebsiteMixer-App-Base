@@ -1,6 +1,9 @@
 from datetime import datetime
 from app import db
 
+#=======================================================
+# Standard database tables
+
 class Posts(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer,primary_key=True)
@@ -22,6 +25,8 @@ class Posts(db.Model):
         self.post_slug = slug
         self.post_content = content
         self.post_image = image
+        self.post_date = datetime.utcnow()
+        self.post_modified = datetime.utcnow()
 
 class Pages(db.Model):
     __tablename__ = 'pages'
@@ -49,6 +54,7 @@ class User(db.Model):
     username = db.Column('username',db.String(20),unique=True,index=True)
     password = db.Column('password',db.String(10))
     email = db.Column('email',db.String(50),unique=True,index=True)
+    profile = db.Column('profile',db.Integer,default=0)
     registered_on = db.Column('registered_on',db.DateTime)
     admin = db.Column('admin',db.Integer,default=0)
 
@@ -80,15 +86,37 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+class Logs(db.Model):
+    __tablename__ = 'logs'
+    id = db.Column(db.Integer,primary_key=True)
+    log_message = db.Column(db.Text)
+    log_date = db.Column(db.DateTime)
+
+    def __init__(self,content):
+        self.log_message = content
+        self.log_date = datetime.utcnow()
+
 class Events(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer,primary_key=True)
-    event_message = db.Column(db.Text)
-    event_date = db.Column(db.DateTime)
+    name = db.Column(db.String(255))
+    description = db.Column(db.Text)
+    location = db.Column(db.String(255))
+    date = db.Column(db.DateTime)
+    starttime = db.Column(db.DateTime)
+    endtime = db.Column(db.DateTime)
+    roles = db.Column(db.Text)
+    centers = db.Column(db.Text)
 
-    def __init__(self,content):
-        self.event_message = content
-        self.event_date = datetime.utcnow()
+    def __init__(self,name,description,location,date,starttime,endtime,roles,centers):
+        self.name = name
+        self.description = description
+        self.location = location
+        self.date = date
+        self.starttime = starttime
+        self.endtime = endtime
+        self.roles = roles
+        self.centers = centers
 
 class Settings(db.Model):
     __tablename__ = 'settings'
@@ -99,4 +127,81 @@ class Settings(db.Model):
     def __init__(self,settingname,settingvalue):
         self.setting_name = settingname
         self.setting_value = settingvalue
+
+class Roles(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column('role_id',db.Integer,primary_key=True)
+    rolename = db.Column('rolename',db.String(255))
+    roledesc = db.Column('roledesc',db.String(255))
+
+    def __init__(self,name,desc):
+        self.rolename = name
+        self.roledesc = desc
+
+class RoleMembership(db.Model):
+    __tablename__ = 'roles_users'
+    id = db.Column('ru_id',db.Integer,primary_key=True)
+    role_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
+
+    def __init__(self,roleid,userid):
+        self.role_id = roleid
+        self.user_id = userid
+
+#=========================================================
+
+class Forms(db.Model):
+    __tablename__ = 'forms'
+    id = db.Column(db.Integer,primary_key=True)
+    formname = db.Column(db.String(255))
+    formdesc = db.Column(db.Text)
+    formroles = db.Column(db.Text)
+    dataroles = db.Column(db.Text)
+    last_modified = db.Column(db.DateTime, default = datetime.utcnow())
+
+    def __init__(self,formname,formdesc,formroles,dataroles):
+        self.formname = formname
+        self.formdesc = formdesc
+        self.formroles = formroles
+        self.dataroles = dataroles
+
+class FormFieldTypes(db.Model):
+    __tablename__ = 'form_field_types'
+    id = db.Column(db.Integer,primary_key=True)
+    fieldname = db.Column(db.String(255))
+    fieldtype = db.Column(db.String(100))
+    display_order = db.Column(db.Integer, default = 1)
+    
+    def __init__(self,fieldname,fieldtype):
+        self.fieldname = fieldname
+        self.fieldtype = fieldtype
+        self.display_order = 1
+
+class FormFields(db.Model):
+    __tablename__ = 'forms_fields'
+    id = db.Column(db.Integer,primary_key=True)
+    form_id = db.Column(db.Integer)
+    fields = db.Column(db.Text)
+    indate = db.Column(db.DateTime)
+    status = db.Column(db.Integer)
+
+    def __init__(self,form_id,fields):
+        self.form_id = form_id
+        self.fields = fields
+        self.indate = datetime.utcnow()
+        self.status = 1
+
+class FormData(db.Model):
+    __tablename__ = 'forms_data'
+    id = db.Column(db.Integer,primary_key=True)
+    form_id = db.Column(db.Integer)
+    form_data = db.Column(db.Text)
+    submitted_by = db.Column(db.String(100))
+    indate = db.Column(db.DateTime, default = datetime.utcnow())
+    status = db.Column(db.Integer, default = 1)
+
+    def __init__(self,submitted_by,form_id,form_data):
+        self.form_id = form_id
+        self.form_data = form_data
+        self.submitted_by = submitted_by
 
