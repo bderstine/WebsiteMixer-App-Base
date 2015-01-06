@@ -8,6 +8,8 @@ pip install flask-sqlalchemy
 pip install sqlalchemy-migrate
 pip install flask-login
 pip install flask-mail
+pip install feedparser
+pip install beautifulsoup4
 
 ./venv/bin/python initial.py
 
