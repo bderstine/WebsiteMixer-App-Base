@@ -10,6 +10,7 @@ pip install flask-login
 pip install flask-mail
 pip install feedparser
 pip install beautifulsoup4
+pip install pymysql
 
 ./venv/bin/python initial.py
 
