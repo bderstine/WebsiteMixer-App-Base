@@ -1,5 +1,9 @@
-{% extends "base.html" %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
 {% block content %}
     <div class="container">
     <div style="width:275px;margin-left:auto;margin-right:auto;">
@@ -9,20 +13,18 @@
     {% if error %}
         <p class=error><strong>Error:</strong> {{ error }}
     {% endif %}
-    <div class="control-group">
+    <div class="control-group" style="margin-bottom:10px;">
         <div class="controls">
-          <input type="text" id="username" name="username" class="input-xlarge"
-            placeholder="Enter Username" required>
+          <input type="text" id="username" name="username" class="form-control input-xlarge" placeholder="Enter Username" required>
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="control-group" style="margin-bottom:10px;">
         <div class="controls">
-          <input type="password" id="password" name="password" class="input-xlarge"
-            placeholder="Enter Password" required>
+          <input type="password" id="password" name="password" class="form-control input-xlarge" placeholder="Enter Password" required>
         </div>
     </div>
-
+    
     <div class="control-group">
         <div class="controls">
           <button type="submit" class="btn btn-success">Signin</button>
@@ -33,3 +35,8 @@
     </div>
     </div> <!-- /container -->
 {% endblock %}
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
