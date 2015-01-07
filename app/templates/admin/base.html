@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="{{url_for('static',filename='admin/dashboard.css')}}" rel="stylesheet">
+    <link href="/static/admin/dashboard.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,8 +23,13 @@
     <![endif]-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {{ moment.include_moment() }}
+    <script src="/static/admin/moment-with-locales.js"></script>
+
 
     {% block headjs %}{% endblock %}
+    {% block headcss %}{% endblock %}
+
   </head>
 
   <body>
@@ -42,15 +47,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/admin/">Overview</a></li>
-            <li><a href="/admin/profile/">Profile</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/admin/">Admin</a></li>
             <li><a href="/admin/logout/">Logout</a></li>
           </ul>
-	<!--
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+          <form class="navbar-form navbar-right" method="GET" action="/admin/search/">
+            <input type="text" class="form-control" placeholder="Search..." name="q">
           </form>
-	-->
         </div>
       </div>
     </nav>
@@ -128,7 +131,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="{{url_for('static',filename='admin/holder.js')}}"></script>
+    <script src="/static/admin/holder.js"></script>
+    {% block footerjs %}{% endblock %}
   </body>
 </html>
 

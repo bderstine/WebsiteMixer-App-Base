@@ -115,13 +115,15 @@ def adminpages():
 def manageSettings():
     s = getSettings()
     if request.method == 'POST':
-        update = Settings.query.filter_by(setting_name='siteName').update(dict(setting_value=request.form['siteName']))
-        update = Settings.query.filter_by(setting_name='siteUrl').update(dict(setting_value=request.form['siteUrl']))
-        update = Settings.query.filter_by(setting_name='headerBackground').update(dict(setting_value=request.form['headerBackground']))
-        update = Settings.query.filter_by(setting_name='headerForeground').update(dict(setting_value=request.form['headerForeground']))
-        update = Settings.query.filter_by(setting_name='colorLinks').update(dict(setting_value=request.form['colorLinks']))
-        db.session.commit()
-        return redirect(url_for('manageSettings'))
+        for key, value in request.form.iteritems():
+            check = Settings.query.filter_by(setting_name=key).first()
+            if check is None:
+                a = Settings(key,value)
+                db.session.add(a)
+            else:
+                update = Settings.query.filter_by(setting_name=key).update(dict(setting_value=value))
+            db.session.commit()
+        return redirect('/admin/settings/')
     return render_template('admin/manage-settings.html',s=s)
 
 @app.route('/admin/files/',methods=['GET','POST'])

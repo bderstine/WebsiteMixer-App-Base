@@ -2,6 +2,12 @@
  * Base structure
  */
 
+.clearfix:after { content: "\00A0"; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;}
+.clearfix{ display: inline-block;}
+html[xmlns] .clearfix { display: block;}
+* html .clearfix{ height: 1%;}
+.clearfix {display: block}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
@@ -105,8 +111,41 @@ body {
 }
 
 div.label{
-  display: block;
-  width: 200px;
-  color: black;
-  text-align: right;
+	display: block;
+	width: 200px;
+	color: black;
+	text-align: right;
 }
+
+#submenu{
+	margin-left: 0;
+	margin-bottom: 20px;
+	padding-left: 0;
+}
+
+#submenu li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 7px;
+}
+
+.form-group{
+	margin:10px 0;
+	padding:0;
+}
+
+.field-properties{
+	text-align: left;
+	padding: 3px;
+        margin-top: 7px;
+        background: #C4DEFF;
+        border: 1px solid #428bca;
+}
+
+.field-settings{
+	display: none;
+	padding: 2px;
+	text-align: left;
+	background: white;
+}
+
