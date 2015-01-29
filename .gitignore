@@ -1,2 +1,5 @@
 venv/
 *.pyc
+*.db
+sql/
+db_repository/
