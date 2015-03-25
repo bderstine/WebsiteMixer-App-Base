@@ -11,4 +11,4 @@ WebsiteMixer is an early attempt to build a WordPress/Drupal like cms using Pyth
 
 `./setup.sh`
 
-`./setup.sh`
+`./run.sh`
