@@ -1,24 +1,14 @@
-# README #
+WebsiteMixer-App-Base
+========
 
-==Quick Start==
+> “the ones who are crazy enough to think that they can change the world, are the ones who do” - Steve Jobs
 
-1. Create VM/VPS and update. I use Ubuntu 14.04 x64.
+WebsiteMixer is an early attempt to build a WordPress/Drupal like cms using Python and Flask.
 
-* apt-get update && apt-get upgrade
-* reboot
+### Quick Start
 
-2. Install dependencies:
+`git clone https://github.com/bderstine/WebsiteMixer-App-Base`
 
-* apt-get install vim git python-virtualenv python-dev python-mysqldb gcc
+`./setup.sh`
 
-Optional: apt-get install apache2 libapache2-mod-wsgi php5 mysql-server php5-mysql
-
-3. Clone and install websitemixer-app-base:
-
-* git clone https://github.com/bderstine/WebsiteMixer-App-Base testapp
-* cd testapp
-* ./setup.sh
-
-4. And follow instructions.
-
-5. To run, use ./run.py to use port 5000 test server.
+`./setup.sh`
