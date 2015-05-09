@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import json
 from app import app
 from models import *
