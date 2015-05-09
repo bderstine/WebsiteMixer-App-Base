@@ -13,4 +13,5 @@ moment = Moment(app)
 from app import views, models
 
 from functions import *
-#app.jinja_env.globals.update(count_questions=count_questions)
+app.jinja_env.globals.update(first_paragraph=first_paragraph)
+

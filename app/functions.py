@@ -165,3 +165,10 @@ def buildFormField(d):
 def get_option_value(d,num):
     search = "value"+num
     return d[search]
+
+def first_paragraph(content):
+    #take content and return just the first <p></p> content, used in blog loop template
+    soup = BeautifulSoup(content)
+    thespan = soup.find('p')
+    return thespan.string
+
