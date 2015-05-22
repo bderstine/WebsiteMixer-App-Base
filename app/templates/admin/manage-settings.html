@@ -9,43 +9,43 @@
         <h1 class="page-header">Manage Settings</h1>
 
 	<form method="post" action="">
-	  <div class="form-group">
+	  <div class="form-group col-xs-4">
 	    <label for="siteName">Site Name</label>
-	    <input type="text" class="form-control col-lg-4" id="siteName" name="siteName"value="{{s.siteName}}">
+	    <input type="text" class="form-control" id="siteName" name="siteName"value="{{s.siteName}}">
 	  </div>
-          <div class="form-group">
+          <div class="form-group col-xs-4">
             <label for="siteSubheading">Site SubHeading</label>
-            <input type="text" class="form-control col-lg-6" id="siteSubheading" name="siteSubheading" value="{{s.siteSubheading}}">
+            <input type="text" class="form-control" id="siteSubheading" name="siteSubheading" value="{{s.siteSubheading}}">
           </div>
-          <div class="form-group">
+          <div class="form-group col-xs-4">
             <label for="siteUrl">Site URL</label>
-            <input type="text" class="form-control col-lg-8" id="siteUrl" name="siteUrl" value="{{s.siteUrl}}">
+            <input type="text" class="form-control" id="siteUrl" name="siteUrl" value="{{s.siteUrl}}">
           </div>
 
           <h1>Color Settings</h1>
-          <div class="form-group">
+          <div class="form-group col-xs-2">
             <label for="headerForeground">Header Text</label>
-            <input type="text" class="form-control color col-lg-2" id="headerForeground" name="headerForeground"value="{{s.headerForeground}}">
+            <input type="text" class="form-control" id="headerForeground" name="headerForeground"value="{{s.headerForeground}}">
           </div>
-          <div class="form-group">
+          <div class="form-group col-xs-2">
             <label for="headerBackground">Header Background</label>
-            <input type="text" class="form-control color col-lg-2" id="headerBackground" name="headerBackground" value="{{s.headerBackground}}">
+            <input type="text" class="form-control" id="headerBackground" name="headerBackground" value="{{s.headerBackground}}">
           </div>
-          <div class="form-group">
+          <div class="form-group col-xs-2">
             <label for="colorLinks">Link Color</label>
-            <input type="text" class="form-control color col-lg-2" id="colorLinks" name="colorLinks" value="{{s.colorLinks}}">
+            <input type="text" class="form-control" id="colorLinks" name="colorLinks" value="{{s.colorLinks}}">
           </div>
-          <div class="form-group">
+          <div class="form-group col-xs-2">
             <label for="colorHover">Site Name</label>
-            <input type="text" class="form-control color col-lg-2" id="colorHover" name="colorHover" value="{{s.colorHover}}">
+            <input type="text" class="form-control" id="colorHover" name="colorHover" value="{{s.colorHover}}">
           </div>
 
           <h1>Other Settings</h1>
-          <div class="form-group">
+          <div class="form-group col-xs-4">
             <label for="googleAnal">Google Analytics</label>
             <textarea class="form-control" rows="3" id="googleAnal" name="googleAnal">{{s.googleAnal}}</textarea>
           </div>
-          <div class="form-group">
+          <div class="form-group col-xs-4">
             <label for="siteAds">Adsense/Ad Code</label>
             <textarea class="form-control" rows="3" id="siteAds" name="siteAds">{{s.siteAds}}</textarea>
           </div>
