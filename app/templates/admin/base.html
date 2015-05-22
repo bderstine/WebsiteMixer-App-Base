@@ -63,11 +63,11 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li {% if request.path == "/admin/" %}class="active"{% endif %}><a href="/admin/">Overview</a></li>
-            <li {% if request.path == "/admin/posts/" %}class="active"{% endif %}><a href="/admin/posts/">Posts</a></li>
-            <li {% if request.path == "/admin/pages/" %}class="active"{% endif %}><a href="/admin/pages/">Pages</a></li>
-            <li {% if request.path == "/admin/files/" %}class="active"{% endif %}><a href="/admin/files/">Files</a></li>
-            <li {% if request.path == "/admin/users/" %}class="active"{% endif %}><a href="/admin/users/">Users</a></li>
-            <li {% if request.path == "/admin/settings/" %}class="active"{% endif %}><a href="/admin/settings/">Settings</a></li>
+            <li {% if "/admin/posts/" in request.path %}class="active"{% endif %}><a href="/admin/posts/">Posts</a></li>
+            <li {% if "/admin/pages/" in request.path %}class="active"{% endif %}><a href="/admin/pages/">Pages</a></li>
+            <li {% if "/admin/files/" in request.path %}class="active"{% endif %}><a href="/admin/files/">Files</a></li>
+            <li {% if "/admin/users/" in request.path %}class="active"{% endif %}><a href="/admin/users/">Users</a></li>
+            <li {% if "/admin/settings/" in request.path %}class="active"{% endif %}><a href="/admin/settings/">Settings</a></li>
             <li><a href="/admin/logout/">Logout</a></li>
           </ul>
         </div>
