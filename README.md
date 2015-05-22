@@ -15,6 +15,7 @@ Some of these aren't necessary, I should clean up this list... -Brad
 
 ## Quick Start
 
+* apt-get update && apt-get install python-virtualenv
 * git clone https://github.com/bderstine/WebsiteMixer-App-Base sometargetfolder/
 * cd sometargetfolder/
 * ./setup.sh
