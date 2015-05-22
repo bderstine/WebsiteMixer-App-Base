@@ -7,26 +7,50 @@
 {% block content %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Manage Settings</h1>
+
 	<form method="post" action="">
-	<table>
-	<tr><td></td><td><h3>Site Settings</h3></td></tr>
-	<tr><td><div class="label">Name</div></td><td><input type="text" name="siteName" value="{{s.siteName}}" size="55"></td></tr>
-        <tr><td><div class="label">Subheading</div></td><td><input type="text" name="siteSubheading" value="{{s.siteSubheading}}" size="55"></td></tr>
-	<tr><td><div class="label">Site URL</div></td><td><input type="text" name="siteUrl" value="{{s.siteUrl}}" size="55"></td></tr>
-	<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-	</table>
-	<hr>
-	<table>
-	<tr><td></td><td><h3>Color Settings</h3></td></tr>
-        <tr><td><div class="label">Header Text</div></td><td><input class="color" type="text" name="headerForeground" value="{{s.headerForeground}}" size="20"></td></tr>
-	<tr>
-	  <td><div class="label">Header Background</div></td>
-	  <td><input class="color" type="text" name="headerBackground" value="{{s.headerBackground}}" size="20"></td>
-	</tr>
-        <tr><td><div class="label">Link Color</div></td><td><input class="color" type="text" name="colorLinks" value="{{s.colorLinks}}" size="20"></td></tr>
-        <tr><td><div class="label">Hover Color</div></td><td><input class="color" type="text" name="colorHover" value="{{s.colorHover}}" size="20"></td></tr>
-	<tr><td></td><td><input type="submit" value="Save All"></td></tr>
-	</table>
+	  <div class="form-group">
+	    <label for="siteName">Site Name</label>
+	    <input type="text" class="form-control" id="siteName" name="siteName"value="{{s.siteName}}">
+	  </div>
+          <div class="form-group">
+            <label for="siteSubheading">Site SubHeading</label>
+            <input type="text" class="form-control" id="siteSubheading" name="siteSubheading" value="{{s.siteSubheading}}">
+          </div>
+          <div class="form-group">
+            <label for="siteUrl">Site URL</label>
+            <input type="text" class="form-control" id="siteUrl" name="siteUrl" value="{{s.siteUrl}}">
+          </div>
+
+          <h1>Color Settings</h1>
+          <div class="form-group">
+            <label for="headerForeground">Header Text</label>
+            <input type="text" class="form-control" id="headerForeground" name="headerForeground"value="{{s.headerForeground}}">
+          </div>
+          <div class="form-group">
+            <label for="headerBackground">Header Background</label>
+            <input type="text" class="form-control" id="headerBackground" name="headerBackground" value="{{s.headerBackground}}">
+          </div>
+          <div class="form-group">
+            <label for="colorLinks">Link Color</label>
+            <input type="text" class="form-control" id="colorLinks" name="colorLinks" value="{{s.colorLinks}}">
+          </div>
+          <div class="form-group">
+            <label for="colorHover">Site Name</label>
+            <input type="text" class="form-control" id="colorHover" name="colorHover" value="{{s.colorHover}}">
+          </div>
+
+          <h1>Other Settings</h1>
+          <div class="form-group">
+            <label for="googleAnal">Google Analytics</label>
+            <input type="text" class="form-control" id="googleAnal" name="googleAnal" value="{{s.googleAnal}}">
+          </div>
+          <div class="form-group">
+            <label for="siteAds">Adsense/Ad Code</label>
+            <input type="text" class="form-control" id="siteAds" name="siteAds" value="{{s.siteAds}}">
+          </div>
+
+	  <button type="submit" class="btn btn-default">Save Settings</button>
 	</form>
 
         </div>
