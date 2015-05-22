@@ -25,29 +25,29 @@
           <h1>Color Settings</h1>
           <div class="form-group">
             <label for="headerForeground">Header Text</label>
-            <input type="text" class="form-control" id="headerForeground" name="headerForeground"value="{{s.headerForeground}}">
+            <input type="text" class="form-control color" id="headerForeground" name="headerForeground"value="{{s.headerForeground}}">
           </div>
           <div class="form-group">
             <label for="headerBackground">Header Background</label>
-            <input type="text" class="form-control" id="headerBackground" name="headerBackground" value="{{s.headerBackground}}">
+            <input type="text" class="form-control color" id="headerBackground" name="headerBackground" value="{{s.headerBackground}}">
           </div>
           <div class="form-group">
             <label for="colorLinks">Link Color</label>
-            <input type="text" class="form-control" id="colorLinks" name="colorLinks" value="{{s.colorLinks}}">
+            <input type="text" class="form-control color" id="colorLinks" name="colorLinks" value="{{s.colorLinks}}">
           </div>
           <div class="form-group">
             <label for="colorHover">Site Name</label>
-            <input type="text" class="form-control" id="colorHover" name="colorHover" value="{{s.colorHover}}">
+            <input type="text" class="form-control color" id="colorHover" name="colorHover" value="{{s.colorHover}}">
           </div>
 
           <h1>Other Settings</h1>
           <div class="form-group">
             <label for="googleAnal">Google Analytics</label>
-            <input type="text" class="form-control" id="googleAnal" name="googleAnal" value="{{s.googleAnal}}">
+            <textarea class="form-control" rows="3" id="googleAnal" name="googleAnal">{{s.googleAnal}}</textarea>
           </div>
           <div class="form-group">
             <label for="siteAds">Adsense/Ad Code</label>
-            <input type="text" class="form-control" id="siteAds" name="siteAds" value="{{s.siteAds}}">
+            <textarea class="form-control" rows="3" id="siteAds" name="siteAds">{{s.siteAds}}</textarea>
           </div>
 
 	  <button type="submit" class="btn btn-default">Save Settings</button>
