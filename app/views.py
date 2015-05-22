@@ -61,7 +61,7 @@ def login():
     if request.method == 'GET':
         return render_template('login.html',s=s)
     username = request.form['username']
-    password = request.form['password']
+    password = hashlib.md5(request.form['password']).hexdigest()
     registered_user = User.query.filter_by(username=username,password=password).first()
     if registered_user is None:
         addLogEvent('Failed login attempt for ' + username)
