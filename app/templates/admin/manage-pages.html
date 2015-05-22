@@ -21,7 +21,7 @@
       {% for entry in pageData %}
       <tr>
          <td>{{ entry.page_title }}</td>
-	 <td><a href="/admin/editpage/{{entry.id}}/">Edit</a> | <a href="/admin/deletepage/{{ entry.id }}/">Delete</a> | <a href="{{entry.page_slug}}" target="_blank">View</a></td>
+	 <td><a href="/admin/pages/edit/{{entry.id}}/">Edit</a> | <a href="/admin/pages/delete/{{ entry.id }}/">Delete</a> | <a href="{{entry.page_slug}}" target="_blank">View</a></td>
          <td>{{ entry.page_modified }}</td>
       </tr>
       {% endfor %}

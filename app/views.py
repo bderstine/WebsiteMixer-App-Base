@@ -39,20 +39,7 @@ def add_header(response):
 def home():
     s = getSettings()
     blogData = Posts.query.order_by(Posts.post_date.desc()).all()
-    c = 0
-    instagram = []
-    feedurl = "http://iconosquare.com/feed/bderstine528"
-    d = feedparser.parse(feedurl)
-    for e in d.entries:
-        soup = BeautifulSoup(e.summary)
-        rawimage = soup.findAll('img')
-        image = str(rawimage[0]).replace('<img src="','').replace('"/>','')
-        link = e.link
-	pub_date = e.published_parsed
-        if c < 8:
-            instagram.append({"image":image,"link":link,"pub_date":pub_date})
-        c += 1
-    return render_template('index.html',blogData=blogData,instagram=instagram,s=s)
+    return render_template('index.html',blogData=blogData,s=s)
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -82,8 +69,7 @@ def admin():
 
 @app.route('/admin/clear-logs/',methods=['GET','POST'])
 @login_required
-def adminclearlogs():
-    #s = getSettings()
+def clearlogs():
     if request.args.get('confirmed'):
         logs = Logs.query.all()
         for e in logs:
@@ -98,21 +84,21 @@ def adminclearlogs():
 
 @app.route('/admin/posts/')
 @login_required
-def adminposts():
+def manageposts():
     s = getSettings()
     postData = Posts.query.order_by(Posts.post_date.desc()).all()
     return render_template('admin/manage-posts.html',postData=postData,s=s)
 
 @app.route('/admin/pages/')
 @login_required
-def adminpages():
+def managepages():
     s = getSettings()
     pageData = Pages.query.order_by(Pages.page_title).all()
     return render_template('admin/manage-pages.html',pageData=pageData,s=s)
 
 @app.route('/admin/settings/',methods=['GET','POST'])
 @login_required
-def manageSettings():
+def managesettings():
     s = getSettings()
     if request.method == 'POST':
         for key, value in request.form.iteritems():
@@ -128,7 +114,7 @@ def manageSettings():
 
 @app.route('/admin/files/',methods=['GET','POST'])
 @login_required
-def manageFiles():
+def managefiles():
     s = getSettings()
     if request.method == 'POST':
         file = request.files['file']
@@ -144,14 +130,14 @@ def manageFiles():
 
 @app.route('/admin/users/')
 @login_required
-def adminusers():
+def manageusers():
     s = getSettings()
     userData = User.query.order_by(User.username).all()
     return render_template('admin/manage-users.html',userData=userData,s=s)
 
 @app.route('/admin/users/add/',methods=['GET','POST'])
 @login_required
-def adminadduser():
+def usersadd():
     s = getSettings()
     if request.method == 'POST':
         username = request.form['username']
@@ -162,7 +148,8 @@ def adminadduser():
         if password1 != password2:
             return "Passwords do not match! Click back and try again!"
         email = request.form['email']
-        addUser = User(username,password1,email)
+        password = hashlib.md5(request.form['password1']).hexdigest()
+        addUser = User(username,password,email)
         db.session.add(addUser)
         db.session.commit()
         return redirect("/admin/users/")
@@ -170,7 +157,7 @@ def adminadduser():
 
 @app.route('/admin/profile/',methods=['GET','POST'])
 @login_required
-def adminprofile():
+def profile():
     s = getSettings()
     if request.method == 'GET':
         userData = User.query.filter_by(username=current_user.username).first()
@@ -202,7 +189,7 @@ def adminprofileuser(user):
 
 @app.route('/admin/posts/add/',methods=['GET','POST'])
 @login_required
-def addpost():
+def postsadd():
     s = getSettings()
     if request.method == 'GET':
         return render_template('admin/posts-add.html',s=s)
@@ -214,7 +201,7 @@ def addpost():
 
 @app.route('/admin/pages/add/',methods=['GET','POST'])
 @login_required
-def addpage():
+def pagesadd():
     s = getSettings()
     if request.method == 'GET':
         return render_template('admin/pages-add.html',s=s)
@@ -224,9 +211,9 @@ def addpage():
         db.session.commit()
         return redirect("/admin/pages/")
 
-@app.route('/admin/editpost/<id>/',methods=['GET','POST'])
+@app.route('/admin/posts/edit/<id>/',methods=['GET','POST'])
 @login_required
-def editpost(id):
+def postsedit(id):
     s = getSettings()
     if request.method == 'GET':
         postData = Posts.query.filter_by(id=id).first()
@@ -237,9 +224,9 @@ def editpost(id):
         addLogEvent('Post "' + request.form['title'] + '" was updated by ' + current_user.username)
         return redirect("/admin/posts/")
 
-@app.route('/admin/editpage/<id>/',methods=['GET','POST'])
+@app.route('/admin/pages/edit/<id>/',methods=['GET','POST'])
 @login_required
-def editpage(id):
+def pagesedit(id):
     s = getSettings()
     if request.method == 'GET':
         pageData = Pages.query.filter_by(id=id).first()
@@ -255,9 +242,9 @@ def editpage(id):
         addLogEvent('Page "' + form_title + '" was updated by ' + current_user.username)
         return redirect("/admin/pages/")
 
-@app.route('/admin/deletepost/<id>/')
+@app.route('/admin/posts/delete/<id>/')
 @login_required
-def deletepost(id):
+def postsdelete(id):
     s = getSettings()
     if request.args.get('confirmed'):
         postData = Posts.query.filter_by(id=id).first()
@@ -267,13 +254,13 @@ def deletepost(id):
         return redirect("/admin/posts/")
     else:
         message = 'Are you sure you want to delete ID: ' + id + '?<br/><br/>'
-        message+= '<a href="/admin/deletepost/' + id + '/?confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/posts/delete/' + id + '/?confirmed=yes">Click here to delete!</a> | '
         message+= '<a href="/admin/posts/">No take me back!</a>'
         return message
 
-@app.route('/admin/deletepage/<id>/')
+@app.route('/admin/pages/delete/<id>/')
 @login_required
-def deletepage(id):
+def pagesdelete(id):
     s = getSettings()
     if request.args.get('confirmed'):
         pageData = Pages.query.filter_by(id=id).first()
@@ -283,13 +270,13 @@ def deletepage(id):
         return redirect("/admin/pages/")
     else:
         message = 'Are you sure you want to delete ID: ' + id + '?<br/><br/>'
-        message+= '<a href="/admin/deletepage/' + id + '/?confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/pages/delete/' + id + '/?confirmed=yes">Click here to delete!</a> | '
         message+= '<a href="/admin/">No take me back!</a>'
         return message
 
 @app.route('/admin/delete-file/')
 @login_required
-def deleteFile():
+def filesdelete():
     s = getSettings()
     filename = request.args.get('filename')
     if request.args.get('confirmed'):
@@ -304,7 +291,7 @@ def deleteFile():
 
 @app.route('/admin/deleteuser/<id>/')
 @login_required
-def deleteUser(id):
+def usersdelete(id):
     userData = User.query.filter_by(id=id).first()
     if request.args.get('confirmed'):
         db.session.delete(userData)
@@ -326,7 +313,8 @@ def changePW():
     password2 = request.form['password2']
     if password1 != password2:
         return "Passwords do not match! Click back and try again!"
-    update = User.query.filter_by(username=username).update(dict(password=password1))
+    password = hashlib.md5(request.form['password1']).hexdigest()
+    update = User.query.filter_by(username=username).update(dict(password=password))
     db.session.commit()
     addLogEvent('Password changed for ' + username + ' by ' + current_user.username)
     return redirect(url_for('adminusers'))
