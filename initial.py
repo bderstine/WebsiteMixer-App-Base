@@ -69,6 +69,19 @@ settings = {'siteName':appname, 'siteUrl':'http://'+domain, 'headerForeground':'
 for k,v in settings.iteritems():
     a = models.Settings(k,v)
     db.session.add(a)
-
 db.session.commit()
+
+# Pre-load initial post
+a = Posts(adminuser,'Hello World!','/hello-world/','This is the first post! You can delete this post and add more vi /admin/!','','')
+db.session.add(a)
+db.session.commit()
+
+# Pre-load initial pages
+a = Pages('About','/about/','Yep, it\'s an about page!','','')
+db.session.add(a)
+db.session.commit()
+a = Pages('Contact','/contact/','Yep, it\'s a contact page!','','')
+db.session.add(a)
+db.session.commit()
+
 print("Setup is complete!")
