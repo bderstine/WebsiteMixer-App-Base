@@ -1,10 +1,24 @@
 ### A Python/Flask alternative to WordPress & Drupal
 
+## Dependencies
+* flask
+* flask-moment
+* flask-sqlalchemy
+* sqlalchemy-migrate
+* flask-login
+* flask-mail
+* feedparser
+* beautifulsoup4
+* pymysql
+
+Some of these aren't necessary, I should clean up this list... -Brad
+
 ## Quick Start
 
-* git clone https://github.com/bderstine/WebsiteMixer-App-Base
+* git clone https://github.com/bderstine/WebsiteMixer-App-Base sometargetfolder/
+* cd sometargetfolder/
 * ./setup.sh
-* ./run.sh
+* ./run.sh (launches build in python web server! listens on 0.0.0.0:5000)
 
 ## Installation
 
