@@ -1,4 +1,4 @@
-# A Python/Flask alternative to WordPress & Drupal
+### A Python/Flask alternative to WordPress & Drupal
 
 ## Quick Start
 
