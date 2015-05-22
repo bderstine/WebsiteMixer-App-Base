@@ -65,21 +65,10 @@ u = models.User(adminuser,adminpw1,adminemail)
 db.session.add(u)
 
 # Pre-load initial settings
-s1 = models.Settings('siteName',appname)
-s2 = models.Settings('siteUrl','http://' + domain)
-s3 = models.Settings('headerForeground', 'ffffff')
-s4 = models.Settings('headerBackground', 'cccccc')
-s6 = models.Settings('colorLinks', 'cccccc')
-s7 = models.Settings('colorHover', '666666')
-
-db.session.add(s1)
-db.session.add(s2)
-db.session.add(s3)
-db.session.add(s4)
-db.session.add(s6)
-db.session.add(s7)
+settings = {'siteName':appname, 'siteUrl':'http://'+domain, 'headerForeground':'ffffff', 'headerBackground':'cccccc', 'colorLinks':'cccccc', 'colorHover':'666666'}
+for k,v in settings:
+    a = models.Settings(k,v)
+    db.session.add(a)
 
 db.session.commit()
-
 print("Setup is complete!")
-
