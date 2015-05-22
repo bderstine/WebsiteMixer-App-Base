@@ -1,10 +1,5 @@
 #!venv/bin/python
 import getpass, sys, os, uuid
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from app import db, models
-import os.path
 
 print("================================================================================")
 #This will need to ask for values and then update and deploy template files with those values.
@@ -15,7 +10,6 @@ print("=========================================================================
 dbname = raw_input('Enter database name to use: ')
 dbuser = raw_input('Enter database username to use: ')
 dbpass = raw_input('Enter database password to use: ')
-db.create_all()
 
 print("================================================================================")
 adminuser = raw_input('Enter admin USERNAME (do not use "admin"!): ')
@@ -42,6 +36,13 @@ with open ("config.py.template", "r") as myfile:
 f = open('config.py', 'w')
 f.write(data)
 f.close()
+
+from migrate.versioning import api
+from config import SQLALCHEMY_DATABASE_URI
+from config import SQLALCHEMY_MIGRATE_REPO
+from app import db, models
+import os.path
+db.create_all()
 
 #virtualhosts/template.com.conf -> [domain].com.conf, update [domain] and [appname]
 with open ("virtualhosts/template.com.conf", "r") as myfile:
