@@ -7,9 +7,9 @@ domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
 appname = raw_input('Enter the app name that will be used (one word, no special chars!): ')
 
 print("================================================================================")
-dbname = raw_input('Enter database name to use: ')
 dbuser = raw_input('Enter database username to use: ')
 dbpass = raw_input('Enter database password to use: ')
+dbname = raw_input('Enter database name to use: ')
 
 print("================================================================================")
 adminuser = raw_input('Enter admin USERNAME (do not use "admin"!): ')
