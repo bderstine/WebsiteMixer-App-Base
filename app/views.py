@@ -1,4 +1,4 @@
-import os, time, re, urllib2
+import os, time, re, urllib2, hashlib
 from flask import Flask, Response, session, request, url_for, redirect, render_template, abort, g, send_from_directory
 from flask.ext.moment import Moment
 from flask.ext.login import login_user , logout_user , current_user , login_required
