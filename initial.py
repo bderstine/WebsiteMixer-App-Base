@@ -72,15 +72,15 @@ for k,v in settings.iteritems():
 db.session.commit()
 
 # Pre-load initial post
-a = Posts(adminuser,'Hello World!','/hello-world/','This is the first post! You can delete this post and add more vi /admin/!','','')
+a = models.Posts(adminuser,'Hello World!','/hello-world/','This is the first post! You can delete this post and add more vi /admin/!','','')
 db.session.add(a)
 db.session.commit()
 
 # Pre-load initial pages
-a = Pages('About','/about/','Yep, it\'s an about page!','','')
+a = models.Pages('About','/about/','Yep, it\'s an about page!','','')
 db.session.add(a)
 db.session.commit()
-a = Pages('Contact','/contact/','Yep, it\'s a contact page!','','')
+a = models.Pages('Contact','/contact/','Yep, it\'s a contact page!','','')
 db.session.add(a)
 db.session.commit()
 
