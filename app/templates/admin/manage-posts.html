@@ -11,28 +11,31 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th width="33%">Title</th>
-          <th>Author</th>
-          <th>Publish Date</th>
+          <th>Title</th>
           <th>Last Update</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
 
       {% for entry in postData %}
       <tr>
-	 <td>{{ entry.id }}</td>
-         <td>{{ entry.post_title }}<br/>
-         <a href="/admin/posts/edit/{{entry.id}}/">Edit</a> | <a href="/admin/posts/delete/{{ entry.id }}/">Delete</a> | <a href="{{entry.post_slug}}" target="_blank">View</a></td>
-         <td>{{ entry.post_author }}</td>
-         <td>{{ entry.post_date }}</td>
-         <td>{{ entry.post_modified }}</td>
+         <td>
+           {{ entry.post_title }}<br/>
+           <small>by: {{ entry.post_author }} on {{ moment(entry.post_date).format('MMMM Do YYYY, h:mm a') }}</small>
+         </td>
+         <td>{{ moment(entry.post_modified).format('MMMM Do YYYY, h:mm a') }}</td>
+         <td>
+           <a href="/admin/posts/edit/{{entry.id}}/"><button class="btn btn-success">Edit</button></a>
+           <a href="/admin/posts/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a>
+           <a href="{{entry.post_slug}}" target="_blank"><button class="btn btn-primary">View</button></a>
+         </td>
       </tr>
       {% endfor %}
 
       </tbody>
     </table>
   </div>
+
 </div>
 {% endblock %}
