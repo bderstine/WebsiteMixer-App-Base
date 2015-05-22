@@ -1,10 +1,21 @@
 #!venv/bin/python
 import getpass, sys, os, uuid
+from migrate.versioning import api
+from config import SQLALCHEMY_DATABASE_URI
+from config import SQLALCHEMY_MIGRATE_REPO
+from app import db, models
+import os.path
 
 print("================================================================================")
 #This will need to ask for values and then update and deploy template files with those values.
 domain = raw_input('Enter the domain name that will be used (.com/.net/.org): ')
 appname = raw_input('Enter the app name that will be used (one word, no special chars!): ')
+
+print("================================================================================")
+dbname = raw_input('Enter database name to use: ')
+dbuser = raw_input('Enter database username to use: ')
+dbpass = raw_input('Enter database password to use: ')
+db.create_all()
 
 print("================================================================================")
 adminuser = raw_input('Enter admin USERNAME (do not use "admin"!): ')
@@ -27,7 +38,7 @@ f.close()
 secretkey = str(uuid.uuid4())
 
 with open ("config.py.template", "r") as myfile:
-    data=myfile.read().replace('[appname]', appname).replace('[domain]',domain).replace('[secretkey]',secretkey)
+    data=myfile.read().replace('[appname]', appname).replace('[domain]',domain).replace('[secretkey]',secretkey).replace('[dbuser]',dbuser).replace('[dbpass]',dbpass).replace('[dbname]',dbname)
 f = open('config.py', 'w')
 f.write(data)
 f.close()
@@ -46,27 +57,6 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 else:
     print('Upload dir exists: ' + directory)
-
-# Update Apache
-# Make the default non-ssl, or figure out how to get everyone ssl (startssl?)
-# $ ln -s /etc/apache2/virtualhosts/[domain].conf /srv/[domain]/virtualhosts/[domain].conf
-# $ a2ensite [domain].conf
-# $ service apache2 reload
-
-# Setup database
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from app import db, models
-import os.path
-
-db.create_all()
-if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
-    api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
-    #api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
-else:
-    print('Database already exists!')
-    #api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
 # Pre-load first user
 u = models.User(adminuser,adminpw1,adminemail)
