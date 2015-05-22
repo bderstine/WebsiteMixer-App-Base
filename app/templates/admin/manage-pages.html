@@ -11,9 +11,9 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th width="33%">Title</th>
-          <th>Actions</th>
+          <th>Title</th>
           <th>Last Update</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -21,12 +21,12 @@
       {% for entry in pageData %}
       <tr>
          <td>{{ entry.page_title }}</td>
+         <td>{{ moment(entry.page_modified).format('MMMM Do YYYY, h:mm a') }}</td>
          <td>
            <a href="/admin/pages/edit/{{entry.id}}/"><button class="btn btn-success">Edit</button></a>
            <a href="/admin/pages/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a>
            <a href="{{entry.page_slug}}" target="_blank"><button class="btn btn-primary">View</button></a>
          </td>
-         <td>{{ moment(entry.page_modified).format('MMMM Do YYYY, h:mm a') }}</td>
       </tr>
       {% endfor %}
 
