@@ -166,7 +166,7 @@ def adminadduser():
         db.session.add(addUser)
         db.session.commit()
         return redirect("/admin/users/")
-    return render_template('admin/adduser.html',s=s)
+    return render_template('admin/users-add.html',s=s)
 
 @app.route('/admin/profile/',methods=['GET','POST'])
 @login_required
@@ -174,7 +174,7 @@ def adminprofile():
     s = getSettings()
     if request.method == 'GET':
         userData = User.query.filter_by(username=current_user.username).first()
-        return render_template('admin/edituser.html',userData=userData,s=s)
+        return render_template('admin/users-edit.html',userData=userData,s=s)
     else:
         update = User.query.filter_by(username=current_user.username).update(dict(email=request.form['email']))
         db.session.commit()
@@ -187,7 +187,7 @@ def adminprofileuser(user):
     userData = User.query.filter_by(username=user).first()
     if request.method == 'GET':
         tc = TeamCenter.query.order_by(TeamCenter.teamDisplayName).all()
-        return render_template('admin/edituser.html',userData=userData,s=s,tc=tc)
+        return render_template('admin/users-edit.html',userData=userData,s=s,tc=tc)
     else:
         tcemail = request.form['email']
         tcprofile = request.form['profile']
@@ -243,7 +243,7 @@ def editpage(id):
     s = getSettings()
     if request.method == 'GET':
         pageData = Pages.query.filter_by(id=id).first()
-        return render_template('admin/editpage.html',id=id,pageData=pageData,s=s)
+        return render_template('admin/pages-edit.html',id=id,pageData=pageData,s=s)
     else:
         form_title=request.form['title']
         form_slug=request.form['slug']
