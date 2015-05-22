@@ -1,14 +1,28 @@
-WebsiteMixer-App-Base
-========
+# A Python/Flask alternative to WordPress & Drupal
 
-> “the ones who are crazy enough to think that they can change the world, are the ones who do” - Steve Jobs
+## Quick Start
 
-WebsiteMixer is an early attempt to build a WordPress/Drupal like cms using Python and Flask.
+* git clone https://github.com/bderstine/WebsiteMixer-App-Base
+* ./setup.sh
+* ./run.sh
 
-### Quick Start
+## Installation
 
-`git clone https://github.com/bderstine/WebsiteMixer-App-Base`
+This project includes a setup.sh script that will setup the virtualenv environment for you. Just run and enjoy!
 
-`./setup.sh`
+Want to customize your environment? Read setup.sh and update accordingly!
 
-`./run.sh`
+## Why?
+
+I love WordPress and Drupal, but they can definitely be frustrating and have their own drawbacks. So I've been learning and working with Python more, stumbled upon Flask, and completely fell in love.
+
+## To do
+
+* Add multi-tenancy
+* Add plugin manager
+* Add template manager
+
+See the issues if you're interested in contributing or helping!
+
+Thanks for stopping by and visiting! -Brad
+
