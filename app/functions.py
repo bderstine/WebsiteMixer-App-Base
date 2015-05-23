@@ -171,5 +171,8 @@ def first_paragraph(content):
     #take content and return just the first <p></p> content, used in blog loop template
     soup = BeautifulSoup(content)
     thespan = soup.find('p')
-    return thespan.string
+    if thespan is None:
+        return ''
+    else:
+        return thespan.string
 
