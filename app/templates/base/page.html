@@ -1,5 +1,9 @@
 {% extends "base/base.html" %}
 
+{% block pagetitle %}
+  <title>{{pageData.page_title}} :: {{s.siteName}}</title>
+{% endblock %}
+
 {% block content %}
   <div class="col-md-8">
        <h1 class="page-header">
