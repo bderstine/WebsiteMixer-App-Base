@@ -39,14 +39,14 @@ def add_header(response):
 def home():
     s = getSettings()
     blogData = Posts.query.order_by(Posts.post_date.desc()).all()
-    return render_template('index.html',blogData=blogData,s=s)
+    return render_template('base/index.html',blogData=blogData,s=s)
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
     s = getSettings()
     error = None
     if request.method == 'GET':
-        return render_template('login.html',s=s)
+        return render_template('base/login.html',s=s)
     username = request.form['username']
     password = hashlib.md5(request.form['password']).hexdigest()
     registered_user = User.query.filter_by(username=username,password=password).first()
@@ -217,7 +217,7 @@ def postsedit(id):
     s = getSettings()
     if request.method == 'GET':
         postData = Posts.query.filter_by(id=id).first()
-        return render_template('admin/editpost.html',id=id,postData=postData,s=s)
+        return render_template('admin/posts-edit.html',id=id,postData=postData,s=s)
     else:
         update = Posts.query.filter_by(id=id).update(dict(post_title=request.form['title'],post_slug=request.form['slug'],post_content=request.form['content'],post_subheading=request.form['subheading'],post_image=request.form['featureimg'],post_modified=datetime.utcnow()))
         db.session.commit()
@@ -336,13 +336,13 @@ def content(path):
     # check if path=post_slug, if yes show
     postData = Posts.query.filter_by(post_slug=slug).first()
     if postData is not None:
-        return render_template('post.html',postData=postData,s=s)
+        return render_template('base/post.html',postData=postData,s=s)
     # check if path=page_slug, if yes show
     pageData = Pages.query.filter_by(page_slug=slug).first()
     if pageData is not None:
-        return render_template('page.html',pageData=pageData,s=s)
+        return render_template('base/page.html',pageData=pageData,s=s)
     # else show 404
-    return render_template('404.html',s=s), 404
+    return render_template('base/404.html',s=s), 404
 
 #######################################################################
 # Error handlers
@@ -350,11 +350,11 @@ def content(path):
 @app.errorhandler(404)
 def not_found_error(error):
     s = getSettings()
-    return render_template('404.html',s=s), 404
+    return render_template('base/404.html',s=s), 404
 
 @app.errorhandler(500)
 def internal_error(error):
     s = getSettings()
     db.session.rollback()
-    return render_template('500.html',s=s), 500
+    return render_template('base/500.html',s=s), 500
 

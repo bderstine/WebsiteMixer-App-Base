@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+   <!-- Blog Entries Column -->
+   <div class="col-md-8">
+       <h1 class="page-header">
+          {{s.siteName}}<br/>
+          <small>{{s.siteSubheading}}</small>
+       </h1>
+
+  {% for b in blogData %}
+    <h2><a href="{{b.post_slug}}">{{b.post_title}}</a></h2>
+    <p>by <a href="/author/{{b.post_author}}">{{b.post_author}}</a> <span class="glyphicon glyphicon-time"></span> Posted on {{ moment(b.post_date).format('MMMM Do YYYY, h:mm a') }}</p>
+    <img class="img-responsive" src="{{b.post_image}}" alt="">
+    <hr>
+    <p>{{first_paragraph(b.post_content|safe)}}</p>
+    <a class="btn btn-primary" href="{{b.post_slug}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+    <hr>
+  {% endfor %}
+
+    <!-- Pager -->
+    <ul class="pager">
+      <li class="previous"><a href="#">&larr; Older</a></li>
+      <li class="next"><a href="#">Newer &rarr;</a></li>
+    </ul>
+
+   </div>
+
+            <div class="col-md-4">
+                <div class="well">
+                    <h4>Recent Instagram</h4>
+                      <div style="text-align:center;">
+                        {% for i in instagram %}
+                          <a href="http://instagram.com/bderstine528" target="_blank"><img src="{{i.image}}" height="60" border="0" style="margin-bottom:5px;"></a>&nbsp;
+                        {% endfor %}
+		      </div>
+                    <div style="clear:both;"></div>
+                </div>
+
+                <div class="well">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- BradDerstine.com Sidebar -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-3090889986324028"
+		     data-ad-slot="1565722576"
+		     data-ad-format="auto"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+                </div>
+
+            </div>
+
+{% endblock %}
