@@ -1,18 +1,5 @@
 ### A Python/Flask alternative to WordPress & Drupal
 
-## Dependencies
-* flask
-* flask-moment
-* flask-sqlalchemy
-* sqlalchemy-migrate
-* flask-login
-* flask-mail
-* feedparser
-* beautifulsoup4
-* pymysql
-
-Some of these aren't necessary, I should clean up this list... -Brad
-
 ## Quick Start
 
 * apt-get update && apt-get install python-virtualenv
