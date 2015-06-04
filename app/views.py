@@ -121,7 +121,7 @@ def managefiles():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER,filename))
-            return redirect(url_for('manageFiles'))
+            return redirect(url_for('managefiles'))
     tree=make_tree(UPLOAD_FOLDER)
     newlist = sorted(tree['children'], key=lambda k: k['name'])
     data = {}
@@ -281,7 +281,7 @@ def filesdelete():
     filename = request.args.get('filename')
     if request.args.get('confirmed'):
         os.remove(os.path.join(UPLOAD_FOLDER,filename))
-        return redirect(url_for('manageFiles'))
+        return redirect(url_for('managefiles'))
         addLogEvent('File "' + filename + '" was deleted by ' + current_user.username)
     else:
         message = 'Are you sure you want to delete the file: ' + filename + '?<br/><br/>'
