@@ -17,7 +17,7 @@ adminpw1 = getpass.getpass()
 adminpw2 = getpass.getpass('Confirm Password: ')
 if adminpw1 != adminpw2:
     print 'Admin passwords do not match! Abort!'
-    sys.exit(0)
+    sys.exit(1)
 adminemail = raw_input('Enter admin EMAIL address: ')
 
 print("================================================================================")
