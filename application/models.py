@@ -1,5 +1,5 @@
 from datetime import datetime
-from app import db
+from application import db
 import hashlib
 
 #=======================================================

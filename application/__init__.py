@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 mail = Mail(app)
 moment = Moment(app)
 
-from app import views, models
+from application import views, models
 
 from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)

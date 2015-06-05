@@ -18,6 +18,6 @@ MAIL_USE_SSL = False
 #MAIL_USERNAME = 'you'
 #MAIL_PASSWORD = 'your-password'
 
-UPLOAD_FOLDER = '/srv/[domain]/app/static/upload/'
+UPLOAD_FOLDER = '/srv/[domain]/application/static/upload/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'])
 
