@@ -15,7 +15,7 @@ pip install pymysql
 ./venv/bin/python initial.py
 
 if [ $? -eq 0 ]; then
-  #Clean up files no longer required after setup runs
+  #Clean up files no longer required after initial.py successfully runs
   rm -rf .git
   rm api.wsgi.template
   rm config.py.template
