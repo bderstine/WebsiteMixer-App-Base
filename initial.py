@@ -13,12 +13,12 @@ dbname = raw_input('Enter MYSQL DATABASE NAME to use: ')
 
 print("================================================================================")
 adminuser = raw_input('Enter ADMIN USERNAME (do not use "admin"!): ')
-adminpw1 = getpass.getpass()
-adminpw2 = getpass.getpass('Confirm Password: ')
+adminpw1 = getpass.getpass('Enter ADMIN PASSWORD to use: ')
+adminpw2 = getpass.getpass('Confirm ADMIN PASSWORD to use: ')
 if adminpw1 != adminpw2:
     print 'Admin passwords do not match! Abort!'
     sys.exit(1)
-adminemail = raw_input('Enter admin EMAIL address: ')
+adminemail = raw_input('Enter ADMIN EMAIL address to use: ')
 
 print("================================================================================")
 #api.wsgi.template -> api.wsgi, update [domain]
