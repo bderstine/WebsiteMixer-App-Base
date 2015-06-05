@@ -53,7 +53,7 @@ f.write(data)
 f.close()
 
 # Create UPLOAD_FOLDER
-directory = 'app/static/upload/'
+directory = 'application/static/upload/'
 if not os.path.exists(directory):
     print('Creating upload dir: ' + directory)
     os.makedirs(directory)
