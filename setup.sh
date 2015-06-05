@@ -14,10 +14,12 @@ pip install pymysql
 
 ./venv/bin/python initial.py
 
-#Clean up files no longer required after setup runs
-rm -rf .git
-rm api.wsgi.template
-rm config.py.template
-rm virtualhosts/template.com.conf
-rm initial.py
-rm setup.sh
+if [ $? -eq 0 ]; then
+  #Clean up files no longer required after setup runs
+  rm -rf .git
+  rm api.wsgi.template
+  rm config.py.template
+  rm virtualhosts/template.com.conf
+  rm initial.py
+  rm setup.sh
+fi
