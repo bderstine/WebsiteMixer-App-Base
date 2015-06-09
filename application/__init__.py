@@ -15,4 +15,5 @@ from application import views, models
 from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)
 
-#from application.plugins import test
+from application.plugins.landingpage import landingpage
+
