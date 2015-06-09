@@ -1,6 +1,6 @@
 from application import app
 
-@app.route('/landing-test/')
-def landingtest():
+@app.route('/slack-invite/')
+def slackinvite():
     return 'It worked!'
 
