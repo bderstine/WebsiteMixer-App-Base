@@ -1,6 +1,9 @@
 #!/bin/bash
-virtualenv venv
-source venv/bin/activate
+#virtualenv venv
+#source venv/bin/activate
+
+pyvenv venv
+. venv/bin/activate
 
 pip install flask
 pip install flask-moment
@@ -12,7 +15,7 @@ pip install feedparser
 pip install beautifulsoup4
 pip install pymysql
 
-./venv/bin/python initial.py
+./venv/bin/python3 initial.py
 
 if [ $? -eq 0 ]; then
   #Clean up files no longer required after initial.py successfully runs
