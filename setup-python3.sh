@@ -1,7 +1,6 @@
 #!/bin/bash
 #virtualenv venv
 #source venv/bin/activate
-
 pyvenv venv
 . venv/bin/activate
 
