@@ -1,4 +1,4 @@
-#!venv/bin/python3
+#!venv/bin/python
 from application import app
 
 app.debug = True #disable if not dev!
