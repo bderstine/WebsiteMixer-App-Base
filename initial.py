@@ -4,12 +4,6 @@ import sys
 import os
 import uuid
 
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from application import db, models
-import os.path
-
 print("======================================================================")
 # This will need to ask for values and then update and deploy template files
 # with those values.
@@ -50,6 +44,11 @@ f = open('config.py', 'w')
 f.write(data)
 f.close()
 
+from migrate.versioning import api
+from config import SQLALCHEMY_DATABASE_URI
+from config import SQLALCHEMY_MIGRATE_REPO
+from application import db, models
+import os.path
 db.drop_all()
 db.create_all()
 
