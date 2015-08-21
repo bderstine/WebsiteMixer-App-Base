@@ -83,7 +83,7 @@ db.session.commit()
 
 # Pre-load initial post
 a = models.Posts(adminuser, 'Hello World!', '/hello-world/',
-                 'This is the first post! You can delete this post and add more vi /admin/!', '', '')
+                 'This is the first post! You can delete this post and add more vi /admin/!', '', '', '')
 db.session.add(a)
 db.session.commit()
 
