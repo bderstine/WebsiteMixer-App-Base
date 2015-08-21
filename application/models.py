@@ -18,8 +18,9 @@ class Posts(db.Model):
     comment_status = db.Column(db.Integer, default = 1)
     post_date = db.Column(db.DateTime, default = datetime.utcnow())
     post_modified = db.Column(db.DateTime, default = datetime.utcnow())
+    post_tags = db.Column(db.Text)
 
-    def __init__(self,author,title,slug,content,subheading,image):
+    def __init__(self,author,title,slug,content,subheading,image,tags):
         self.post_author = author
         self.post_title = title
         self.post_subheading = subheading
@@ -28,6 +29,7 @@ class Posts(db.Model):
         self.post_image = image
         self.post_date = datetime.utcnow()
         self.post_modified = datetime.utcnow()
+        self.post_tags = tags
 
 class Pages(db.Model):
     __tablename__ = 'site_pages'

@@ -194,7 +194,7 @@ def postsadd():
     if request.method == 'GET':
         return render_template('admin/posts-add.html',s=s)
     else:
-        addPost = Posts(current_user.username,request.form['title'],request.form['slug'],request.form['content'],request.form['subheading'],request.form['featureimg'])
+        addPost = Posts(current_user.username,request.form['title'],request.form['slug'],request.form['content'],request.form['subheading'],request.form['featureimg'],request.form['tags'])
         db.session.add(addPost)
         db.session.commit()
         return redirect("/admin/posts/")
@@ -237,7 +237,8 @@ def pagesedit(id):
         form_content=request.form['content']
         form_subheading=request.form['subheading']
         form_image=request.form['featureimg']
-        update = Pages.query.filter_by(id=id).update(dict(page_title=form_title,page_slug=form_slug,page_content=form_content,page_subheading=form_subheading,page_image=form_image,page_modified=datetime.utcnow()))
+        form_tags=request.form['tags']
+        update = Pages.query.filter_by(id=id).update(dict(page_title=form_title,page_slug=form_slug,page_content=form_content,page_subheading=form_subheading,page_image=form_image,page_modified=datetime.utcnow(),post_tags=form_tags))
         db.session.commit()
         addLogEvent('Page "' + form_title + '" was updated by ' + current_user.username)
         return redirect("/admin/pages/")
@@ -328,6 +329,30 @@ def logout():
 
 #######################################################################
 # Process content
+
+from urlparse import urljoin
+from flask import request
+from werkzeug.contrib.atom import AtomFeed
+
+def make_external(url):
+    return urljoin(request.url_root, url)
+
+@app.route('/feed/',defaults={'tag': None})
+@app.route('/feed/<tag>/')
+def recent_feed(tag):
+    feed = AtomFeed('Recent Articles', feed_url=request.url, url=request.url_root)
+    if tag:
+        articles = Posts.query.filter(Posts.post_tags.like('%'+tag+'%')).order_by(Posts.post_date.desc()).limit(15).all()
+    else:
+        articles = Posts.query.order_by(Posts.post_date.desc()).limit(15).all()
+    for article in articles:
+        feed.add(article.post_title, unicode(article.post_content),
+                 content_type='html',
+                 author=article.post_author,
+                 url=make_external(article.post_slug),
+                 updated=article.post_modified,
+                 published=article.post_date)
+    return feed.get_response()
 
 @app.route('/<path:path>')
 def content(path):

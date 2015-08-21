@@ -22,6 +22,13 @@
 
   <textarea id="content" name="content" rows="25" cols="60">{{postData.post_content}}</textarea>
 
+  <div style="width:500px;float:left;margin-bottom:7px;margin-top:10px;">
+    Tags<br>
+    <small>(comma separated, optional, TODO: show prev tags, maybe clickable to make it easier)</small><br/>
+    <input type="text" name="tags" value="{{postData.post_tags}}" size="70" placeholder="Optional">
+  </div>
+  <div style="clear:both;"></div>
+
   <div style="width:300px;float:left;margin-bottom:7px;margin-top:10px;">
     Subheading Text<br><small>(shown under title, optional)</small><br/><input type="text" name="subheading" value="{{postData.post_subheading}}" size="70" placeholder="Optional">
   </div>
