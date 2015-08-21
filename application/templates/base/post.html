@@ -16,6 +16,8 @@
 
        {{ postData.post_content|safe}}
 
+       <br/><small>Tags: {{process_tags(postData.post_tags)|safe}}</small><br/><br/>
+
        {{ s.commentCode|safe }}
 
   </div>
