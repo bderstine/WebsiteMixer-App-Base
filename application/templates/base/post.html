@@ -16,7 +16,9 @@
 
        {{ postData.post_content|safe}}
 
+       {% if postData.post_tags|length > 0 %}
        <br/><small>Tags: {{process_tags(postData.post_tags)|safe}}</small><br/><br/>
+       {% endif %}
 
        {{ s.commentCode|safe }}
 
