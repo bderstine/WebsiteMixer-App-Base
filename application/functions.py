@@ -169,10 +169,17 @@ def get_option_value(d,num):
 
 def first_paragraph(content):
     #take content and return just the first <p></p> content, used in blog loop template
-    soup = BeautifulSoup(content)
+    soup = BeautifulSoup(content, "html.parser")
     thespan = soup.find('p')
     if thespan is None:
         return ''
     else:
         return thespan.string
+
+def process_tags(tags):
+    rettags = ''
+    taglist = [x.strip() for x in tags.split(',')]
+    for t in taglist:
+        rettags = rettags + '<a href="/tag/'+t+'/">'+t+'</a> '
+    return rettags
 
