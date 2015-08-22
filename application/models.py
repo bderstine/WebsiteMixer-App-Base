@@ -60,6 +60,12 @@ class User(db.Model):
     profile = db.Column('profile',db.Integer,default=0)
     registered_on = db.Column('registered_on',db.DateTime)
     admin = db.Column('admin',db.Integer,default=0)
+    name = db.Column('name',db.String(255))
+    description = db.Column('description',db.Text)
+    image = db.Column('image',db.String(255))
+    facebook = db.Column('facebook',db.String(255))
+    twitter = db.Column('twitter',db.String(255))
+    google = db.Column('google',db.String(255))
 
     def __init__(self,username,password,email):
         self.username = username

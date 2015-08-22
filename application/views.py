@@ -173,18 +173,17 @@ def adminprofileuser(user):
     s = getSettings()
     userData = User.query.filter_by(username=user).first()
     if request.method == 'GET':
-        tc = TeamCenter.query.order_by(TeamCenter.teamDisplayName).all()
-        return render_template('admin/users-edit.html',userData=userData,s=s,tc=tc)
+        return render_template('admin/users-edit.html',userData=userData,s=s)
     else:
-        tcemail = request.form['email']
-        tcprofile = request.form['profile']
-        update = User.query.filter_by(username=user).update(dict(email=tcemail,profile=tcprofile))
+        email = request.form['email']
+        name = request.form['name']
+        description = request.form['description']
+        image = request.form['image']
+        fb = request.form['fb']
+        tw = request.form['tw']
+        gp = request.form['gp']
+        update = User.query.filter_by(username=user).update(dict(email=email,name=name,description=description,image=image,facebook=fb,twitter=tw,google=gp))
         db.session.commit()
-        
-        teamLink = '/user-center/' + str(userData.id) + '/'
-        u = TeamCenter.query.filter_by(id=tcprofile).update(dict(teamLink=teamLink))
-        db.session.commit()
-
         return redirect("/admin/users/")
 
 @app.route('/admin/posts/add/',methods=['GET','POST'])
