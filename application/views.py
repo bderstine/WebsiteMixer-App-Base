@@ -360,7 +360,8 @@ def content(path):
     # check if path=post_slug, if yes show
     postData = Posts.query.filter_by(post_slug=slug).first()
     if postData is not None:
-        return render_template('base/post.html',postData=postData,s=s)
+        authorData = get_author_data(postData.post_author)
+        return render_template('base/post.html',postData=postData,s=s,authorData=authorData)
     # check if path=page_slug, if yes show
     pageData = Pages.query.filter_by(page_slug=slug).first()
     if pageData is not None:

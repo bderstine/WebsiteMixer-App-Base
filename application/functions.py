@@ -183,3 +183,7 @@ def process_tags(tags):
         rettags = rettags + '<a href="/tag/'+t+'/">'+t+'</a> '
     return rettags
 
+def get_author_data(author):
+    get_user = User.query.filter_by(username=author).first()
+    return get_user
+
