@@ -51,7 +51,6 @@ from application import db, models
 process = Popen(["./venv/bin/python", "db_create.py"], stdout=PIPE)
 (output, err) = process.communicate()
 exit_code = process.wait()
-print exit_code
 
 # virtualhosts/template.com.conf -> [domain].com.conf, update [domain] and
 # [appname]
