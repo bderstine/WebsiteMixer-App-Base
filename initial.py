@@ -4,7 +4,6 @@ import sys
 import os
 import uuid
 from subprocess import Popen, PIPE
-from application import db, models
 
 print("======================================================================")
 # This will need to ask for values and then update and deploy template files
@@ -46,13 +45,8 @@ f = open('config.py', 'w')
 f.write(data)
 f.close()
 
-#from migrate.versioning import api
-#from config import SQLALCHEMY_DATABASE_URI
-#from config import SQLALCHEMY_MIGRATE_REPO
-#from application import db, models
-#import os.path
-#db.drop_all()
-#db.create_all()
+# This import has to be called after config.py is created otherwise errors.
+from application import db, models
 
 process = Popen(["./venv/bin/python", "db_create.py"], stdout=PIPE)
 (output, err) = process.communicate()
