@@ -3,6 +3,8 @@ import getpass
 import sys
 import os
 import uuid
+from subprocess import Popen, PIPE
+from application import db, models
 
 print("======================================================================")
 # This will need to ask for values and then update and deploy template files
@@ -44,13 +46,18 @@ f = open('config.py', 'w')
 f.write(data)
 f.close()
 
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from application import db, models
-import os.path
-db.drop_all()
-db.create_all()
+#from migrate.versioning import api
+#from config import SQLALCHEMY_DATABASE_URI
+#from config import SQLALCHEMY_MIGRATE_REPO
+#from application import db, models
+#import os.path
+#db.drop_all()
+#db.create_all()
+
+process = Popen(["./venv/bin/python", "db_create.py"], stdout=PIPE)
+(output, err) = process.communicate()
+exit_code = process.wait()
+print exit_code
 
 # virtualhosts/template.com.conf -> [domain].com.conf, update [domain] and
 # [appname]
@@ -75,7 +82,8 @@ db.session.add(u)
 
 # Pre-load initial settings
 settings = {'siteName': appname, 'siteUrl': 'http://' + domain, 'headerForeground':
-            'ffffff', 'headerBackground': 'cccccc', 'colorLinks': 'cccccc', 'colorHover': '666666'}
+            'ffffff', 'headerBackground': 'cccccc', 'colorLinks': 'cccccc', 'colorHover': '666666',
+            'theme': 'base'}
 for k, v in settings.iteritems():
     a = models.Settings(k, v)
     db.session.add(a)
