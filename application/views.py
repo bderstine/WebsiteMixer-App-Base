@@ -88,8 +88,25 @@ def clearlogs():
 @login_required
 def adminthemes():
     s = getSettings()
-    themeData = get_theme_info()
-    return render_template('admin/manage-themes.html',s=s,themeData=themeData)
+    activeTheme = get_theme_info(s['theme'])
+    themeData = get_all_theme_info()
+    return render_template('admin/manage-themes.html',s=s,themeData=themeData,activeTheme=activeTheme)
+
+#@app.route('/admin/themes/edit/<theme>/')
+
+@app.route('/admin/themes/activate/<theme>/')
+@login_required
+def adminthemesactivate(theme):
+    s = getSettings()
+    activeTheme = get_theme_info(s['theme'])
+    #move assets back to theme folder
+    newTheme = get_theme_info(theme)
+    #move newTheme assets to static folder
+    u = Settings.query.filter_by(setting_name='theme').update(dict(setting_value=theme))
+    db.session.commit()
+    return redirect("/admin/themes/")
+
+#@app.route('/admin/themes/delete/<theme>/')
 
 #@app.route('/admin/plugins/')
 #@login_required

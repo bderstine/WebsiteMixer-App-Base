@@ -187,7 +187,13 @@ def get_author_data(author):
     get_user = User.query.filter_by(username=author).first()
     return get_user
 
-def get_theme_info():
+def get_theme_info(theme):
+    conf = basedir+'/application/templates/'+theme+'/config.json'
+    with open(conf) as data_file:
+        data = json.load(data_file)
+    return data
+
+def get_all_theme_info():
     themeData = []
     dirs = os.walk(basedir+'/application/templates/')
     for x in dirs:
@@ -195,8 +201,5 @@ def get_theme_info():
             with open(x[0]+'/config.json') as data_file:    
                 data = json.load(data_file)
             themeData.append(data)
-    print themeData
     return themeData
-
-
 
