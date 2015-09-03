@@ -28,7 +28,7 @@
          <td><a href="/static/upload/{{item.name}}" target="_blank">{{item.name}}</a></td>
          <td>{{ item.size|filesizeformat(item.size) }}</td>
          <td>{{ moment(item.mtime).format('MMMM Do YYYY, h:mm a') }}</td>
-         <td><a href="/admin/delete-file/?filename={{item.name}}">Delete</a></td>
+         <td><a href="/admin/files/delete/?filename={{item.name}}">Delete</a></td>
       </tr>
       {% endfor %}
 
