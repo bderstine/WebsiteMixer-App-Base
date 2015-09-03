@@ -191,7 +191,7 @@ def get_theme_info(theme):
     conf = basedir+'/application/templates/'+theme+'/config.json'
     with open(conf) as data_file:
         data = json.load(data_file)
-    return data
+    return dict(data)
 
 def get_all_theme_info():
     themeData = []

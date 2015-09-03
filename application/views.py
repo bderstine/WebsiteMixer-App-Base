@@ -1,4 +1,4 @@
-import os, time, re, urllib2, hashlib
+import os, time, re, urllib2, hashlib, shutil
 from flask import Flask, Response, session, request, url_for, redirect, render_template, abort, g, send_from_directory
 from flask.ext.moment import Moment
 from flask.ext.login import login_user , logout_user , current_user , login_required
@@ -92,21 +92,54 @@ def adminthemes():
     themeData = get_all_theme_info()
     return render_template('admin/manage-themes.html',s=s,themeData=themeData,activeTheme=activeTheme)
 
+#@app.route('/admin/themes/add/')
+
 #@app.route('/admin/themes/edit/<theme>/')
 
 @app.route('/admin/themes/activate/<theme>/')
 @login_required
 def adminthemesactivate(theme):
     s = getSettings()
+    #move activeTheme assets back to theme folder
     activeTheme = get_theme_info(s['theme'])
-    #move assets back to theme folder
-    newTheme = get_theme_info(theme)
+    if 'assets' in activeTheme.keys():
+        for d in activeTheme['assets'].values():
+            src = basedir+'/application/static/'+d
+            dst = basedir+'/application/templates/'+activeTheme['basics']['name'].lower()+'/'
+            try:
+                shutil.move(src,dst)
+            except Exception as e:
+                print e
+                continue
     #move newTheme assets to static folder
+    newTheme = get_theme_info(theme)
+    if 'assets' in newTheme.keys():
+        for d in newTheme['assets'].values():
+            src = basedir+'/application/templates/'+newTheme['basics']['name'].lower()+'/'+d
+            dst = basedir+'/application/static/'
+            try:
+                shutil.move(src,dst)
+            except Exception as e:
+                print e
+                continue
+    #update setting in db for newtheme
     u = Settings.query.filter_by(setting_name='theme').update(dict(setting_value=theme))
     db.session.commit()
     return redirect("/admin/themes/")
 
-#@app.route('/admin/themes/delete/<theme>/')
+@app.route('/admin/themes/delete/<theme>/')
+@login_required
+def adminthemesdelete(theme):
+    s = getSettings()
+    if request.args.get('confirmed'):
+        shutil.rmtree(basedir+'/application/templates/'+theme)
+        addLogEvent('Theme "' + theme + '" was deleted by ' + current_user.username)
+        return redirect("/admin/themes/")
+    else:
+        message = 'Are you sure you want to delete theme: ' + theme + '?<br/><br/>'
+        message+= '<a href="/admin/themes/delete/' + theme + '/?confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/themes/">No take me back!</a>'
+        return message
 
 #@app.route('/admin/plugins/')
 #@login_required
