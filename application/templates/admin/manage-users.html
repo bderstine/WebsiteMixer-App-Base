@@ -23,11 +23,11 @@
       <tr>
          <td>{{ entry.username }}</td>
 	 <td><a href="mailto:{{ entry.email }}">{{ entry.email }}</a></td>
+         <td>{{ moment(entry.registered_on).format('MMMM Do YYYY, h:mm a') }}</td>
          <td>
-		<a href="/admin/users/profile/{{entry.username}}/"><button class="btn btn-primary">Edit</button></a>
-		<a href="/admin/users/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a>
+                <a href="/admin/users/profile/{{entry.username}}/"><button class="btn btn-primary">Edit</button></a>
+                <a href="/admin/users/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a>
          </td>
-         <td>{{ entry.registered_on }}</td>
       </tr>
       {% endfor %}
 
