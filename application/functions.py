@@ -188,7 +188,15 @@ def get_author_data(author):
     return get_user
 
 def get_theme_info():
+    themeData = []
     dirs = os.walk(basedir+'/application/templates/')
     for x in dirs:
-        print x[0]
-    return dirs
+        if os.path.isfile(x[0]+'/config.json'):
+            with open(x[0]+'/config.json') as data_file:    
+                data = json.load(data_file)
+            themeData.append(data)
+    print themeData
+    return themeData
+
+
+
