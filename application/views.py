@@ -275,7 +275,7 @@ def usersdelete(id):
         message+= '<a href="/admin/users/">No take me back!</a>'
         return message
 
-@app.route('/admin/profile/',methods=['GET','POST'])
+@app.route('/admin/users/profile/',methods=['GET','POST'])
 @login_required
 def profile():
     s = getSettings()
@@ -287,7 +287,7 @@ def profile():
         db.session.commit()
         return redirect("/admin/users/")
 
-@app.route('/admin/profile/<user>/',methods=['GET','POST'])
+@app.route('/admin/users/profile/<user>/',methods=['GET','POST'])
 @login_required
 def adminprofileuser(user):
     s = getSettings()
