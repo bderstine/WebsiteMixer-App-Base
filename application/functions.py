@@ -187,3 +187,8 @@ def get_author_data(author):
     get_user = User.query.filter_by(username=author).first()
     return get_user
 
+def get_theme_info():
+    dirs = os.walk(basedir+'/application/templates/')
+    for x in dirs:
+        print x[0]
+    return dirs

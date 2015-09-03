@@ -62,7 +62,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li {% if request.path == "/admin/" %}class="active"{% endif %}><a href="/admin/">Overview</a></li>
-            <li {% if "/admin/templates/" in request.path %}class="active"{% endif %}><a href="/admin/templates/">Templates</a></li>
+            <li {% if "/admin/themes/" in request.path %}class="active"{% endif %}><a href="/admin/themes/">Themes</a></li>
             <li {% if "/admin/plugins/" in request.path %}class="active"{% endif %}><a href="/admin/plugins/">Plugins</a></li>
             <li {% if "/admin/menus/" in request.path %}class="active"{% endif %}><a href="/admin/menus/">Menus</a></li>
             <li {% if "/admin/posts/" in request.path %}class="active"{% endif %}><a href="/admin/posts/">Posts</a></li>

@@ -84,6 +84,25 @@ def clearlogs():
         message+= '<a href="/admin/">No take me back!</a>'
         return message
 
+@app.route('/admin/themes/')
+@login_required
+def adminthemes():
+    s = getSettings()
+    themeData = get_theme_info()
+    return render_template('admin/manage-themes.html',s=s,themeData=themeData)
+
+#@app.route('/admin/plugins/')
+#@login_required
+#def adminplugins():
+#    s = getSettings()
+#    return render_template('admin/manage-plugins.html',s=s)
+
+#@app.route('/admin/menus/')
+#@login_required
+#def adminmenus():
+#    s = getSettings()
+#    return render_template('admin/manage-menus.html',s=s)
+
 @app.route('/admin/posts/')
 @login_required
 def manageposts():
