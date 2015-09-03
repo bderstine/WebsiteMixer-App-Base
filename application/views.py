@@ -9,11 +9,6 @@ from models import *
 from config import *
 from functions import *
 
-#import feedparser
-#from feedparser import _parse_date as parse_date
-
-from bs4 import BeautifulSoup
-
 #######################################################################
 # The following section was added very early oni
 # may not be needed and should be tested
