@@ -4,6 +4,9 @@ from flask.ext.moment import Moment
 from flask.ext.login import login_user , logout_user , current_user , login_required
 from werkzeug.routing import BaseConverter
 from werkzeug import secure_filename
+from werkzeug.contrib.atom import AtomFeed
+from urlparse import urljoin
+
 from application import app
 from models import *
 from config import *
