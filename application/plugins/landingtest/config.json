@@ -1,0 +1,20 @@
+{
+  "basics": {
+    "name": "Landing Test",
+    "summary": "Test plugin to see if env loads plugin correctly.",
+    "version": "1.0",
+    "website": "http://websitemixer.com",
+    "email": "brad@bizzartech.com",
+    "image": "http://websitemixer.com/static/upload/screenshot-base.jpg",
+    "profiles": [{
+      "network": "Twitter",
+      "url": "https://twitter.com/bradderstine"
+    },{
+      "network": "Facebook",
+      "url": "https://facebook.com/bizzartech"
+    }]
+  },
+  "settings": {
+    "landing-test": "It worked!"
+  }
+}
