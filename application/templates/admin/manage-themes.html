@@ -31,10 +31,10 @@
           <img src="{{t.basics.image}}" width="325">
         </td>
         <td>
-          Name: {{t.basics.name}} (Version: {{t.basics.version}})<br/>
-          Description: {{t.basics.summary}}<br/>
-          Website: <a href="{{t.basics.website}}" target="_blank">{{t.basics.website}}</a><br/>
-          Email: <a href="mailto:{{t.basics.email}}">{{t.basics.email}}<br/>
+          {{t.basics.name}} {{t.basics.version}}<br/>
+          {{t.basics.summary}}<br/>
+          <a href="{{t.basics.website}}" target="_blank">{{t.basics.website}}</a><br/>
+          <a href="mailto:{{t.basics.email}}">{{t.basics.email}}<br/>
           <br/>
           <a href="/admin/themes/edit/{{t.basics.name|lower}}/"><button class="btn btn-primary">Edit</button></a>
           <a href="/admin/themes/activate/{{t.basics.name|lower}}/"><button class="btn btn-success">Activate</button></a>
