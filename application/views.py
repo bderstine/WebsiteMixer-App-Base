@@ -168,11 +168,11 @@ def adminpluginsrestart():
     os.kill(os.getpid(), signal.SIGINT)
     return redirect("/admin/plugins/")
 
-#@app.route('/admin/menus/')
-#@login_required
-#def adminmenus():
-#    s = getSettings()
-#    return render_template('admin/manage-menus.html',s=s)
+@app.route('/admin/menus/')
+@login_required
+def adminmenus():
+    s = getSettings()
+    return render_template('admin/manage-menus.html',s=s)
 
 @app.route('/admin/posts/')
 @login_required
