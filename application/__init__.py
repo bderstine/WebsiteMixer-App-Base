@@ -16,5 +16,5 @@ from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)
 app.jinja_env.globals.update(process_tags=process_tags)
 
-from application.plugins.landingpage import landingpage
+from application.plugins.landingtest import landingtest
 

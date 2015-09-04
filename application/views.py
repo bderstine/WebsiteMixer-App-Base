@@ -141,11 +141,12 @@ def adminthemesdelete(theme):
         message+= '<a href="/admin/themes/">No take me back!</a>'
         return message
 
-#@app.route('/admin/plugins/')
-#@login_required
-#def adminplugins():
-#    s = getSettings()
-#    return render_template('admin/manage-plugins.html',s=s)
+@app.route('/admin/plugins/')
+@login_required
+def adminplugins():
+    s = getSettings()
+    pluginData = get_all_plugin_info()
+    return render_template('admin/manage-plugins.html',s=s,pluginData=pluginData)
 
 #@app.route('/admin/menus/')
 #@login_required

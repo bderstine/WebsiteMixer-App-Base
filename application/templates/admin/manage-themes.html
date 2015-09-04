@@ -11,8 +11,8 @@
     <table class="table table-striped">
       <tbody>
       <tr>
-        <td width="400">
-          <img src="{{activeTheme.basics.image}}" width="400">
+        <td width="325">
+          <img src="{{activeTheme.basics.image}}" width="325">
 	</td>
         <td>
 	  Name: {{activeTheme.basics.name}} (Version: {{activeTheme.basics.version}}) - <strong>Active</strong><br/>
@@ -27,8 +27,8 @@
       {% for t in themeData %}
       {% if t.basics.name|lower != s.theme %}
       <tr>
-        <td width="400">
-          <img src="{{t.basics.image}}" width="400">
+        <td width="325">
+          <img src="{{t.basics.image}}" width="325">
         </td>
         <td>
           Name: {{t.basics.name}} (Version: {{t.basics.version}})<br/>

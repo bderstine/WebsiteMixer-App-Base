@@ -203,3 +203,13 @@ def get_all_theme_info():
             themeData.append(data)
     return themeData
 
+def get_all_plugin_info():
+    pluginData = []
+    dirs = os.walk(basedir+'/application/plugins/')
+    for x in dirs:
+        if os.path.isfile(x[0]+'/config.json'):
+            with open(x[0]+'/config.json') as data_file:
+                data = json.load(data_file)
+            pluginData.append(data)
+    return pluginData
+
