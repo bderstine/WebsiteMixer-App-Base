@@ -3,6 +3,7 @@
     "name": "Landing Test",
     "summary": "Test plugin to see if env loads plugin correctly.<br/>Visit <a href='/landing-test/'>/landing-test/</a> to test!",
     "version": "1.0",
+    "directory": "landingtest",
     "website": "http://websitemixer.com",
     "email": "brad@bizzartech.com",
     "image": "http://websitemixer.com/static/upload/screenshot-base.jpg",

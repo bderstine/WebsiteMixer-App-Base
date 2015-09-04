@@ -1,4 +1,4 @@
-import os, time, re, urllib2, hashlib, shutil
+import signal, os, time, re, urllib2, hashlib, shutil
 from flask import Flask, Response, session, request, url_for, redirect, render_template, abort, g, send_from_directory
 from flask.ext.moment import Moment
 from flask.ext.login import login_user , logout_user , current_user , login_required
@@ -147,6 +147,21 @@ def adminplugins():
     s = getSettings()
     pluginData = get_all_plugin_info()
     return render_template('admin/manage-plugins.html',s=s,pluginData=pluginData)
+
+@app.route('/admin/plugins/delete/<plugin>/')
+@login_required
+def adminpluginsdelete(plugin):
+    s = getSettings()
+    if request.args.get('confirmed'):
+        shutil.rmtree(basedir+'/application/plugins/'+plugin)
+        addLogEvent('Plugin "' + plugin + '" was deleted by ' + current_user.username)
+        os.kill(os.getpid(), signal.SIGINT)
+        return redirect("/admin/plugins/")
+    else:
+        message = 'Are you sure you want to delete plugin: ' + plugin + '?<br/><br/>'
+        message+= '<a href="/admin/plugins/delete/' + plugin + '/?confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/plugins/">No take me back!</a>'
+        return message
 
 #@app.route('/admin/menus/')
 #@login_required
