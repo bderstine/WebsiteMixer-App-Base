@@ -76,7 +76,7 @@ db.session.add(u)
 # Pre-load initial settings
 settings = {'siteName': appname, 'siteUrl': 'http://' + domain, 'headerForeground':
             'ffffff', 'headerBackground': 'cccccc', 'colorLinks': 'cccccc', 'colorHover': '666666',
-            'theme': 'base'}
+            'theme': 'base', 'landing-test': 'It worked!!!'}
 for k, v in settings.iteritems():
     a = models.Settings(k, v)
     db.session.add(a)
