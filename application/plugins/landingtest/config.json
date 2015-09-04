@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Landing Test",
-    "summary": "Test plugin to see if env loads plugin correctly.",
+    "summary": "Test plugin to see if env loads plugin correctly.<br/>Visit <a href='/landing-test/'>/landing-test/</a> to test!",
     "version": "1.0",
     "website": "http://websitemixer.com",
     "email": "brad@bizzartech.com",
