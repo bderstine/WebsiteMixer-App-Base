@@ -17,10 +17,10 @@
           <img src="{{p.basics.image}}" width="325">
         </td>
         <td>
-          Name: {{p.basics.name}} (Version: {{p.basics.version}})<br/>
-          Description: {{p.basics.summary|safe}}<br/>
-          Website: <a href="{{p.basics.website}}" target="_blank">{{p.basics.website}}</a><br/>
-          Email: <a href="mailto:{{p.basics.email}}">{{p.basics.email}}<br/>
+          {{p.basics.name}} {{p.basics.version}}<br/>
+          {{p.basics.summary|safe}}<br/>
+          <a href="{{p.basics.website}}" target="_blank">{{p.basics.website}}</a><br/>
+          <a href="mailto:{{p.basics.email}}">{{p.basics.email}}<br/>
           <br/>
           <a href="/admin/plugins/edit/{{p.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
           <a href="/admin/plugins/delete/{{p.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>

@@ -15,10 +15,10 @@
           <img src="{{activeTheme.basics.image}}" width="325">
 	</td>
         <td>
-	  Name: {{activeTheme.basics.name}} (Version: {{activeTheme.basics.version}}) - <strong>Active</strong><br/>
-	  Description: {{activeTheme.basics.summary}}<br/>
-          Website: <a href="{{activeTheme.basics.website}}" target="_blank">{{activeTheme.basics.website}}</a><br/>
-          Email: <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}<br/>
+	  {{activeTheme.basics.name}} {{activeTheme.basics.version}}<br/>
+	  {{activeTheme.basics.summary}}<br/>
+          <a href="{{activeTheme.basics.website}}" target="_blank">{{activeTheme.basics.website}}</a><br/>
+          <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}<br/>
           <br/>
           <a href="/admin/themes/edit/{{activeTheme.basics.name|lower}}/"><button class="btn btn-primary">Edit</button></a>
 	</td>
