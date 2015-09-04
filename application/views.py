@@ -155,13 +155,18 @@ def adminpluginsdelete(plugin):
     if request.args.get('confirmed'):
         shutil.rmtree(basedir+'/application/plugins/'+plugin)
         addLogEvent('Plugin "' + plugin + '" was deleted by ' + current_user.username)
-        os.kill(os.getpid(), signal.SIGINT)
         return redirect("/admin/plugins/")
     else:
         message = 'Are you sure you want to delete plugin: ' + plugin + '?<br/><br/>'
         message+= '<a href="/admin/plugins/delete/' + plugin + '/?confirmed=yes">Click here to delete!</a> | '
         message+= '<a href="/admin/plugins/">No take me back!</a>'
         return message
+
+@app.route('/admin/plugins/restart/')
+@login_required
+def adminpluginsrestart():
+    os.kill(os.getpid(), signal.SIGINT)
+    return redirect("/admin/plugins/")
 
 #@app.route('/admin/menus/')
 #@login_required
