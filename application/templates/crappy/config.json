@@ -1,0 +1,18 @@
+{
+  "basics": {
+    "name": "Crappy",
+    "directory": "crappy",
+    "summary": "This is a junk theme, I needed at least 2 to test with.",
+    "version": "1.0",
+    "website": "http://websitemixer.com",
+    "email": "brad@bizzartech.com",
+    "image": "http://websitemixer.com/static/upload/screenshot-crappy.jpg",
+    "profiles": [{
+      "network": "Twitter",
+      "url": "https://twitter.com/bradderstine"
+    },{
+      "network": "Facebook",
+      "url": "https://facebook.com/bizzartech"
+    }]
+  }
+}

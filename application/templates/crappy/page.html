@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% block pagetitle %}
+  <title>{{pageData.page_title}} :: {{s.siteName}}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="col-md-8">
+       <h1 class="page-header">
+          {{pageData.page_title}}
+       </h1>
+
+    <article>
+        {{ pageData.page_content|safe }}
+    </article>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="well">
+    {{ s.siteAds|safe }}
+    </div>
+
+  </div>
+
+{% endblock %}

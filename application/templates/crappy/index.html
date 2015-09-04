@@ -1,0 +1,38 @@
+{% extends "crappy/base.html" %}
+
+{% block content %}
+
+  <!-- Blog Entries Column -->
+  <div class="col-md-8">
+    <h1 class="page-header">
+      {{s.siteName}}<br/>
+      <small>{{s.siteSubheading}}</small>
+    </h1>
+
+    {% for b in blogData %}
+    <h2><a href="{{b.post_slug}}">{{b.post_title}}</a></h2>
+    <p>by <a href="/author/{{b.post_author}}">{{b.post_author}}</a> <span class="glyphicon glyphicon-time"></span> Posted on {{ moment(b.post_date).format('MMMM Do YYYY, h:mm a') }}</p>
+    <img class="img-responsive" src="{{b.post_image}}" alt="">
+    <hr>
+    <p>{{first_paragraph(b.post_content|safe)}}</p>
+    <a class="btn btn-primary" href="{{b.post_slug}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+    <hr>
+    {% endfor %}
+
+    <!-- Pager -->
+    <ul class="pager">
+      <li class="previous"><a href="#">&larr; Older</a></li>
+      <li class="next"><a href="#">Newer &rarr;</a></li>
+    </ul>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="well">
+    {{ s.siteAds|safe }}
+    </div>
+
+  </div>
+
+{% endblock %}

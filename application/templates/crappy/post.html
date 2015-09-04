@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+
+{% block pagetitle %}
+  <title>{{postData.post_title}} :: {{s.siteName}}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="col-md-8">
+       <h1 class="page-header">
+          {{postData.post_title}}
+       </h1>
+
+       <p>by <a href="#">{{postData.post_author}}</a> <span class="glyphicon glyphicon-time"></span> Posted on {{moment(postData.post_date).format('MMMM Do YYYY, h:mm a') }}</p>
+       <img class="img-responsive" src="{{postData.post_image}}" alt="">
+       <hr>
+
+       {{ postData.post_content|safe}}
+
+       {{ s.commentCode|safe }}
+
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="well">
+    {{ s.siteAds|safe }}
+    </div>
+
+  </div>
+
+{% endblock %}
