@@ -16,5 +16,8 @@
   },
   "settings": {
     "landing-test": "It worked!"
+  },
+  "import": {
+    "landingtest": "landingtest"
   }
 }

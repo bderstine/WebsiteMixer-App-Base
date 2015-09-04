@@ -16,5 +16,10 @@ from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)
 app.jinja_env.globals.update(process_tags=process_tags)
 
-from application.plugins.landingtest import landingtest
+pluginData = get_all_plugin_info()
+for p in pluginData:
+    for k,v in p['import'].iteritems():
+        plugin = "application.plugins."+k
+        name = str(v)
+        imported = getattr(__import__(plugin, fromlist=[name]), name)
 
