@@ -134,3 +134,4 @@ class RoleMembership(db.Model):
     def __init__(self,roleid,userid):
         self.role_id = roleid
         self.user_id = userid
+

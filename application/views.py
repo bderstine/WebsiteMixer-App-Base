@@ -168,25 +168,6 @@ def adminpluginsrestart():
     os.kill(os.getpid(), signal.SIGINT)
     return redirect("/admin/plugins/")
 
-@app.route('/admin/menus/')
-@login_required
-def adminmenus():
-    s = getSettings()
-    menuData = get_all_menu_info()
-    return render_template('admin/manage-menus.html',s=s,menuData=menuData)
-
-@app.route('/admin/menus/add/',methods=['GET','POST'])
-@login_required
-def adminmenusadd():
-    s = getSettings()
-    if request.method == 'GET':
-        return render_template('admin/menus-add.html',s=s)
-    else:
-        addMenu = Menus(request.form['name'],'')
-        db.session.add(addMenu)
-        db.session.commit()
-        return redirect("/admin/menus/")
-
 @app.route('/admin/posts/')
 @login_required
 def manageposts():
