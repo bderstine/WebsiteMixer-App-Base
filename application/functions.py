@@ -213,3 +213,9 @@ def get_all_plugin_info():
             pluginData.append(data)
     return pluginData
 
+def get_all_menu_info():
+    menuData = []
+    menus = Menus.query.all()
+    for m in menus:
+        menuData.append(m)
+    return menuData
