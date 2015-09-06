@@ -105,7 +105,7 @@ def adminthemesactivate(theme):
     if 'assets' in activeTheme.keys():
         for d in activeTheme['assets'].values():
             src = basedir+'/application/static/'+d
-            dst = basedir+'/application/templates/'+activeTheme['basics']['name'].lower()+'/'
+            dst = basedir+'/application/templates/'+activeTheme['basics']['directory']+'/'
             try:
                 shutil.move(src,dst)
             except Exception as e:
@@ -115,7 +115,7 @@ def adminthemesactivate(theme):
     newTheme = get_theme_info(theme)
     if 'assets' in newTheme.keys():
         for d in newTheme['assets'].values():
-            src = basedir+'/application/templates/'+newTheme['basics']['name'].lower()+'/'+d
+            src = basedir+'/application/templates/'+newTheme['basics']['directory']+'/'+d
             dst = basedir+'/application/static/'
             try:
                 shutil.move(src,dst)

@@ -20,12 +20,12 @@
           <a href="{{activeTheme.basics.website}}" target="_blank">{{activeTheme.basics.website}}</a><br/>
           <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}<br/>
           <br/>
-          <a href="/admin/themes/edit/{{activeTheme.basics.name|lower}}/"><button class="btn btn-primary">Edit</button></a>
+          <a href="/admin/themes/edit/{{activeTheme.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
 	</td>
       </tr>
 
       {% for t in themeData %}
-      {% if t.basics.name|lower != s.theme %}
+      {% if t.basics.directory != s.theme %}
       <tr>
         <td width="325">
           <img src="{{t.basics.image}}" width="325">
@@ -36,9 +36,9 @@
           <a href="{{t.basics.website}}" target="_blank">{{t.basics.website}}</a><br/>
           <a href="mailto:{{t.basics.email}}">{{t.basics.email}}<br/>
           <br/>
-          <a href="/admin/themes/edit/{{t.basics.name|lower}}/"><button class="btn btn-primary">Edit</button></a>
-          <a href="/admin/themes/activate/{{t.basics.name|lower}}/"><button class="btn btn-success">Activate</button></a>
-          <a href="/admin/themes/delete/{{t.basics.name|lower}}/"><button class="btn btn-danger">Delete</button></a>
+          <a href="/admin/themes/edit/{{t.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+          <a href="/admin/themes/activate/{{t.basics.directory}}/"><button class="btn btn-success">Activate</button></a>
+          <a href="/admin/themes/delete/{{t.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>
         </td>
       </tr>
       {% endif %}
