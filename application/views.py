@@ -313,7 +313,7 @@ def filesdelete():
         addLogEvent('File "' + filename + '" was deleted by ' + current_user.username)
     else:
         message = 'Are you sure you want to delete the file: ' + filename + '?<br/><br/>'
-        message+= '<a href="/admin/delete-file/?filename=' + filename + '&confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/files/delete/?filename=' + filename + '&confirmed=yes">Click here to delete!</a> | '
         message+= '<a href="/admin/manage-uploads/">No take me back!</a>'
         return message
 
