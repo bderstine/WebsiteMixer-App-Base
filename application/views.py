@@ -157,7 +157,6 @@ def adminthemesactivate(theme):
             try:
                 shutil.move(src,dst)
             except Exception as e:
-                print e
                 continue
     #move newTheme assets to static folder
     newTheme = get_theme_info(theme)
@@ -168,7 +167,6 @@ def adminthemesactivate(theme):
             try:
                 shutil.move(src,dst)
             except Exception as e:
-                print e
                 continue
     #update setting in db for newtheme
     u = Settings.query.filter_by(setting_name='theme').update(dict(setting_value=theme))
@@ -197,6 +195,66 @@ def adminplugins():
     s = getSettings()
     pluginData = get_all_plugin_info()
     return render_template('admin/manage-plugins.html',s=s,pluginData=pluginData)
+
+@app.route('/admin/plugins/add/')
+@login_required
+def adminpluginsadd():
+    s = getSettings()
+    pluginData = []
+    pluginNames = {}
+
+    current_plugins = get_all_plugin_info()
+    for c in current_plugins:
+        pluginNames.update([(c['basics']['directory'], c['basics']['name'])])
+
+    url = "http://websitemixer.com/api/plugins/"
+    response = urllib.urlopen(url)
+    apiPluginData = json.loads(response.read())
+    for a in apiPluginData['json_list']:
+        if a['plugin_name'] not in pluginNames.values():
+            pluginData.append(a)
+
+    return render_template('admin/plugins-add.html',s=s,pluginData=pluginData)
+
+@app.route('/admin/plugins/install/<plugin>/')
+@login_required
+def adminpluginsinstall(plugin):
+    s = getSettings()
+    url = "http://websitemixer.com/api/plugins/"+plugin+"/"
+    response = urllib.urlopen(url)
+    pluginData = json.loads(response.read())
+    pluginFile = urllib2.urlopen(pluginData['json_list'][0]['plugin_repo']+'/archive/master.zip')
+    saveDir = basedir+'/application/plugins/'+pluginData['json_list'][0]['plugin_directory']
+    os.makedirs(saveDir)
+    output = open(saveDir+'/master.zip','wb')
+    output.write(pluginFile.read())
+    output.close()
+
+    my_dir = saveDir
+    my_zip = saveDir+'/master.zip'
+    with zipfile.ZipFile(my_zip) as zip_file:
+        for member in zip_file.namelist():
+            filename = os.path.basename(member)
+            dirName = member.split('/')
+            dirName.pop(0)
+            # skip directories
+            if not filename:
+                continue
+
+            #print dirName
+            if len(dirName)>1:
+                if not os.path.isdir(saveDir+'/'+dirName[0]):
+                    os.makedirs(saveDir+'/'+dirName[0])
+
+            # copy file (taken from zipfile's extract)
+            source = zip_file.open(member)
+            targetFile = os.path.join(my_dir, "/".join(dirName))
+            target = file(targetFile, "wb")
+            with source, target:
+                shutil.copyfileobj(source, target)
+
+    os.remove(saveDir+'/master.zip')
+    return redirect('/admin/plugins/')
 
 @app.route('/admin/plugins/delete/<plugin>/')
 @login_required
