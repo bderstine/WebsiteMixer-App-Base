@@ -92,7 +92,21 @@ def adminthemes():
     themeData = get_all_theme_info()
     return render_template('admin/manage-themes.html',s=s,themeData=themeData,activeTheme=activeTheme)
 
-#@app.route('/admin/themes/add/')
+@app.route('/admin/themes/add/')
+@login_required
+def adminthemesadd():
+    s = getSettings()
+    themeData = []
+
+    current_themes = get_all_theme_info()
+    print current_themes
+
+    url = "http://websitemixer.com/api/themes/"
+    response = urllib.urlopen(url)
+    apiThemeData = json.loads(response.read())
+    print apiThemeData
+
+    return render_template('admin/themes-add.html',s=s,themeData=themeData)
 
 #@app.route('/admin/themes/edit/<theme>/')
 
