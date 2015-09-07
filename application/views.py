@@ -1,4 +1,4 @@
-import signal, os, time, re, urllib2, hashlib, shutil
+import signal, os, time, re, urllib, urllib2, hashlib, shutil, zipfile
 from flask import Flask, Response, session, request, url_for, redirect, render_template, abort, g, send_from_directory
 from flask.ext.moment import Moment
 from flask.ext.login import login_user , logout_user , current_user , login_required
@@ -97,18 +97,52 @@ def adminthemes():
 def adminthemesadd():
     s = getSettings()
     themeData = []
+    themeNames = {}
 
     current_themes = get_all_theme_info()
-    print current_themes
+    for c in current_themes:
+        themeNames.update([(c['basics']['directory'], c['basics']['name'])])
 
     url = "http://websitemixer.com/api/themes/"
     response = urllib.urlopen(url)
     apiThemeData = json.loads(response.read())
-    print apiThemeData
-
+    for a in apiThemeData['json_list']:
+        if a['theme_name'] not in themeNames.values():
+            themeData.append(a)
+    
     return render_template('admin/themes-add.html',s=s,themeData=themeData)
 
-#@app.route('/admin/themes/edit/<theme>/')
+@app.route('/admin/themes/install/<theme>/')
+@login_required
+def adminthemeinstall(theme):
+    s = getSettings()
+    url = "http://websitemixer.com/api/themes/"+theme+"/"
+    response = urllib.urlopen(url)
+    themeData = json.loads(response.read())
+    themeFile = urllib2.urlopen(themeData['json_list'][0]['theme_repo']+'/archive/master.zip')
+    saveDir = basedir+'/application/templates/'+themeData['json_list'][0]['theme_directory']
+    os.makedirs(saveDir)
+    output = open(saveDir+'/master.zip','wb')
+    output.write(themeFile.read())
+    output.close()
+
+    my_dir = saveDir
+    my_zip = saveDir+'/master.zip'
+    with zipfile.ZipFile(my_zip) as zip_file:
+        for member in zip_file.namelist():
+            filename = os.path.basename(member)
+            # skip directories
+            if not filename:
+                continue
+
+            # copy file (taken from zipfile's extract)
+            source = zip_file.open(member)
+            target = file(os.path.join(my_dir, filename), "wb")
+            with source, target:
+                shutil.copyfileobj(source, target)
+
+    os.remove(saveDir+'/master.zip')
+    return redirect('/admin/themes/')
 
 @app.route('/admin/themes/activate/<theme>/')
 @login_required
@@ -140,6 +174,8 @@ def adminthemesactivate(theme):
     u = Settings.query.filter_by(setting_name='theme').update(dict(setting_value=theme))
     db.session.commit()
     return redirect("/admin/themes/")
+
+#@app.route('/admin/themes/edit/<theme>/')
 
 @app.route('/admin/themes/delete/<theme>/')
 @login_required
