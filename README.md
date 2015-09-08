@@ -1,12 +1,13 @@
 ### A Python/Flask alternative to WordPress & Drupal
 
 ## Quick Start
-
-* apt-get update && apt-get install python-virtualenv
+I usually start with a fresh Ubuntu 14.04 server and use the follow commands:
+* apt-get update && apt-get upgrade
+* apt-get install git python-virtualenv
 * git clone https://github.com/bderstine/WebsiteMixer-App-Base sometargetfolder/
 * cd sometargetfolder/
 * ./setup.sh
-* ./run.sh (launches build in python web server! listens on 0.0.0.0:5000)
+* ./run.sh (launches built-in python web server! listens on 0.0.0.0:5000)
 
 ## Installation
 
@@ -19,10 +20,6 @@ Want to customize your environment? Read setup.sh and update accordingly!
 I love WordPress and Drupal, but they can definitely be frustrating and have their own drawbacks. So I've been learning and working with Python more, stumbled upon Flask, and completely fell in love.
 
 ## To do
-
-* Add multi-tenancy
-* Add plugin manager
-* Add template manager
 
 See the [issues page](https://github.com/bderstine/WebsiteMixer-App-Base/issues) if you're interested in contributing or helping!
 
