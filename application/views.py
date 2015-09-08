@@ -356,8 +356,7 @@ def pagesedit(id):
         form_content=request.form['content']
         form_subheading=request.form['subheading']
         form_image=request.form['featureimg']
-        form_tags=request.form['tags']
-        update = Pages.query.filter_by(id=id).update(dict(page_title=form_title,page_slug=form_slug,page_content=form_content,page_subheading=form_subheading,page_image=form_image,page_modified=datetime.utcnow(),post_tags=form_tags))
+        update = Pages.query.filter_by(id=id).update(dict(page_title=form_title,page_slug=form_slug,page_content=form_content,page_subheading=form_subheading,page_image=form_image,page_modified=datetime.utcnow()))
         db.session.commit()
         addLogEvent('Page "' + form_title + '" was updated by ' + current_user.username)
         return redirect("/admin/pages/")
