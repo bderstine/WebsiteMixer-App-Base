@@ -497,6 +497,79 @@ def adminprofileuser(user):
         db.session.commit()
         return redirect("/admin/users/")
 
+@app.route('/admin/users/roles/')
+@login_required
+def adminusersroles():
+    s = getSettings()
+    roles = Roles.query.order_by(Roles.rolename).all()
+    return render_template('admin/manage-roles.html',roles=roles,s=s)
+
+@app.route('/admin/users/roles/add/',methods=['GET','POST'])
+@login_required
+def adminaddrole():
+    s = getSettings()
+    u = User.query.all()
+    if request.method == 'POST':
+        rolename = request.form['name']
+        roledesc = request.form['description']
+        atr = request.form.getlist('atr')
+
+        addRole = Roles(rolename,roledesc)
+        db.session.add(addRole)
+        db.session.commit()
+
+        roleId = Roles.query.filter_by(rolename=rolename).first()
+
+        for u in atr:
+            addRoleMember = RoleMembership(roleId.id,u)
+            db.session.add(addRoleMember)
+            db.session.commit()
+
+        return redirect("/admin/users/roles/")
+    return render_template('admin/roles-add.html',s=s,u=u)
+
+@app.route('/admin/users/roles/edit/<roleid>/',methods=['GET','POST'])
+@login_required
+def admineditrole(roleid):
+    s = getSettings()
+    u = User.query.all()
+    if request.method == 'POST':
+        clearRoles = RoleMembership.query.filter_by(role_id=roleid).delete()
+        db.session.commit()
+
+        rolename = request.form['name']
+        roledesc = request.form['description']
+        atr = request.form.getlist('atr')
+
+        u = Roles.query.filter_by(id=roleid).update(dict(rolename=rolename,roledesc=roledesc))
+        db.session.commit()
+
+        for u in atr:
+            addRoleMember = RoleMembership(roleid,u)
+            db.session.add(addRoleMember)
+            db.session.commit()
+        return redirect("/admin/users/roles/")
+
+    else:
+        role = Roles.query.filter_by(id=roleid).first()
+        roleMembers = RoleMembership.query.filter_by(role_id=roleid).all()
+        return render_template('admin/roles-edit.html',role=role,roleMembers=roleMembers,s=s,u=u)
+
+@app.route('/admin/users/roles/delete/<roleid>/',methods=['GET','POST'])
+@login_required
+def admindeleterole(roleid):
+    s = getSettings()
+    if request.args.get('confirmed'):
+        delEntry = Roles.query.filter_by(id=roleid).first()
+        db.session.delete(delEntry)
+        db.session.commit()
+        return redirect('/admin/users/roles/')
+    else:
+        message = 'Are you sure you want to delete ID: ' + roleid + '?<br/><br/>'
+        message+= '<a href="/admin/users/roles/delete/' + roleid + '/?confirmed=yes">Click here to delete!</a> | '
+        message+= '<a href="/admin/users/roles/">No take me back!</a>'
+        return message
+
 @app.route('/admin/changepassword/',methods=['POST'])
 @login_required
 def changePW():

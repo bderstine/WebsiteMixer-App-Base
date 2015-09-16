@@ -15,6 +15,9 @@ from application import views, models
 from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)
 app.jinja_env.globals.update(process_tags=process_tags)
+app.jinja_env.globals.update(get_role_num=get_role_num)
+app.jinja_env.globals.update(get_rolename=get_rolename)
+app.jinja_env.globals.update(get_displayname=get_displayname)
 
 pluginData = get_all_plugin_info()
 for p in pluginData:

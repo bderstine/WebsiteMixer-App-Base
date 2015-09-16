@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1>Edit Role</h1>
+  <form class="myElements" method="post" action="">
+  Name<br/><input id="name" type="text" name="name" value="{{role.rolename}}" size="40" max="255" required><br/>
+  Description<br/><input id="description" class="" type="text" name="description" value="{{role.roledesc}}" size="40" max="255" required><br/><br/>
+
+  Edit User(s)<br/>
+  {% for u in u %}
+    <input class="" type="checkbox" value="{{u.id}}" name="atr" {% for r in roleMembers %}{% if u.id == r.user_id %}checked="checked"{% endif %}{% endfor %}> {{get_displayname(u.id)}}<br/>
+  {% endfor %}
+  <br/>
+
+  <button type="submit" class="btn btn-success">Save</button>
+
+</form>
+</div>
+
+{% endblock %}

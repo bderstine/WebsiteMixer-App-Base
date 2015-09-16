@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">Manage Roles</h1>
+   <ul id="submenu">
+     <li><a href="/admin/users/roles/add/"><button class="btn btn-success">Add New</button></a></li>
+   </ul>
+
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Description</th>
+          <th>Members</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {% for r in roles %}
+      <tr>
+         <td>{{r.rolename}}</td>
+	 <td>{{r.roledesc}}</td>
+         <td>{{ get_role_num(r.id) }}</td>
+         <td><a href="/admin/users/roles/edit/{{r.id}}/"><button class="btn btn-primary">Edit</button></a> {% if r.rolename != "SuperAdmin" %} <a href="/admin/users/roles/delete/{{r.id}}/"><button class="btn btn-danger">Delete</button></a></td>{% endif %}
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

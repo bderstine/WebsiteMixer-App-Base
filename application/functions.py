@@ -43,6 +43,13 @@ def get_role_num(roleid):
     r = RoleMembership.query.filter_by(role_id=roleid).all()
     return len(r)
 
+def get_rolename(rid):
+    r = Roles.query.filter_by(id=rid).first()
+    if r is None:
+        return "Unknown Role"
+    else:
+        return r.rolename
+
 def get_page_name(pageid):
     page = Pages.query.filter_by(id=pageid).first()
     return page.page_title
@@ -96,11 +103,10 @@ def get_displayname(sid):
     u = User.query.filter_by(id=sid).first()
     if u is None:
         return "Unknown User"
-    if u.profile == 0:
+    if u.name is None:
         return u.username
     else:
-        d = TeamCenter.query.filter_by(id=u.profile).first()
-        return d.teamDisplayName
+        return u.name
 
 def getScheduleDates(wso):
     oneday = timedelta(days=1)
