@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import json
+import json, collections, ast
 from application import app
 from models import *
 from config import *
@@ -225,3 +225,22 @@ def get_all_menu_info():
     for m in menus:
         menuData.append(m)
     return menuData
+
+def get_adminnav():
+    am = get_all_plugin_info()
+    an = {}
+    for a in am:
+        if a['adminnav']:
+            an.update(a['adminnav'])
+    adminnav = collections.OrderedDict(sorted(an.items()))
+    return adminnav.iteritems()
+
+def convert(data):
+    if isinstance(data, basestring):
+        return str(data)
+    elif isinstance(data, collections.Mapping):
+        return dict(map(convert, data.iteritems()))
+    elif isinstance(data, collections.Iterable):
+        return type(data)(map(convert, data))
+    else:
+        return data

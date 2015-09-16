@@ -18,6 +18,8 @@ app.jinja_env.globals.update(process_tags=process_tags)
 app.jinja_env.globals.update(get_role_num=get_role_num)
 app.jinja_env.globals.update(get_rolename=get_rolename)
 app.jinja_env.globals.update(get_displayname=get_displayname)
+app.jinja_env.globals.update(convert=convert)
+app.jinja_env.globals.update(get_adminnav=get_adminnav)
 
 pluginData = get_all_plugin_info()
 for p in pluginData:
