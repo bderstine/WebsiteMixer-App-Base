@@ -61,7 +61,7 @@ class User(db.Model):
     registered_on = db.Column('registered_on',db.DateTime)
     admin = db.Column('admin',db.Integer,default=0)
     name = db.Column('name',db.String(255))
-    description = db.Column('description',db.Text)
+    notes = db.Column('notes',db.Text)
     image = db.Column('image',db.String(255))
     facebook = db.Column('facebook',db.String(255))
     twitter = db.Column('twitter',db.String(255))

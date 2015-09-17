@@ -488,7 +488,7 @@ def adminprofileuser(user):
     else:
         email = request.form['email']
         name = request.form['name']
-        description = request.form['description']
+        notes = request.form['notes']
         image = request.form['image']
         fb = request.form['fb']
         tw = request.form['tw']
