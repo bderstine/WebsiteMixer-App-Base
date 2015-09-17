@@ -241,7 +241,6 @@ def adminpluginsinstall(plugin):
             if not filename:
                 continue
 
-            #print dirName
             if len(dirName)>1:
                 if not os.path.isdir(saveDir+'/'+dirName[0]):
                     os.makedirs(saveDir+'/'+dirName[0])
@@ -493,7 +492,7 @@ def adminprofileuser(user):
         fb = request.form['fb']
         tw = request.form['tw']
         gp = request.form['gp']
-        update = User.query.filter_by(username=user).update(dict(email=email,name=name,description=description,image=image,facebook=fb,twitter=tw,google=gp))
+        update = User.query.filter_by(username=user).update(dict(email=email,name=name,notes=notes,image=image,facebook=fb,twitter=tw,google=gp))
         db.session.commit()
         return redirect("/admin/users/")
 
