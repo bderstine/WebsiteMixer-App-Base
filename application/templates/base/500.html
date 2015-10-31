@@ -1,2 +1,12 @@
-<h2>500!</h2>
-Internal Server Error
+{% extends s.theme+"/base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <center>
+      <h2>Internal Server Error!</h2>
+      Error: {{error}}
+    </center>
+  </div>
+</div>
+{% endblock %}

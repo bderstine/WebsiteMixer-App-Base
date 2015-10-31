@@ -646,5 +646,5 @@ def not_found_error(error):
 def internal_error(error):
     s = getSettings()
     db.session.rollback()
-    return render_template(s['theme']+'/500.html',s=s), 500
-
+    #print "Error:"+str(error)
+    return render_template(s['theme']+'/500.html',s=s,error=error), 500
