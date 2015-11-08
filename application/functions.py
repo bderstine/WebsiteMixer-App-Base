@@ -168,3 +168,23 @@ def convert(data):
         return type(data)(map(convert, data))
     else:
         return data
+
+#This is the required_roles decorator
+def required_roles(*roles):
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            k = any(x in get_user_roles() for x in roles)
+            if k is False:
+                return 'You do not have access to this page!'
+            return f(*args, **kwargs)
+        return wrapped
+    return wrapper
+
+#This is used in the required_roles decorator
+def get_current_user_role():
+    user = User.query.filter_by(username=current_user.username).first()
+    if user.is_admin():
+        return 'admin'
+    else:
+        return 'user'
