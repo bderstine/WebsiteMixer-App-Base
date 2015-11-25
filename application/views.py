@@ -443,8 +443,7 @@ def usersadd():
         if password1 != password2:
             return "Passwords do not match! Click back and try again!"
         email = request.form['email']
-        password = hashlib.md5(request.form['password1']).hexdigest()
-        addUser = User(username,password,email)
+        addUser = User(username,password1,email)
         db.session.add(addUser)
         db.session.commit()
         return redirect("/admin/users/")
