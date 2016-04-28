@@ -18,13 +18,11 @@ $ ./run.py
 
 ## Installation
 
-This project includes a setup.sh script that will setup the virtualenv environment for you. Just run and enjoy!
-
-Want to customize your environment? Read setup.sh and update accordingly!
+NEW!! - This project now uses a web based installer/setup similar to WordPress! 
 
 ## Why?
 
-I love WordPress and Drupal, but they can definitely be frustrating and have their own drawbacks. So I've been learning and working with Python more, stumbled upon Flask, and completely fell in love.
+I love WordPress and Drupal, but they can definitely be frustrating and have their own drawbacks. I used Django and it was a great toolset, but seemed like overkill for just building a basic website and made cloning websites and code bases a bit more difficult. So as I've been learning and working with Python more, I stumbled upon Flask, and completely fell in love.
 
 ## To do
 
