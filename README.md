@@ -5,6 +5,7 @@ See the [Changelog](http://websitemixer.com/changelog/) for more details.
 
 ## Quick Start
 I usually start with a fresh Ubuntu 14.04 server and use the follow commands:
+
 $ git clone https://github.com/bderstine/WebsiteMixer-App-Base
 
 $ cd WebsiteMixer-App-Base
