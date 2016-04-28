@@ -1,0 +1,24 @@
+{% extends "Install/base.html" %}
+
+{% block content %}
+<h1>Database Info</h1>
+ <form role="form">
+  <div class="form-group">
+    <label for="dbname">Database Name:</label>
+    <input type="text" class="form-control" name="dbname" id="dbname">
+  </div>
+  <div class="form-group">
+    <label>Database Username:</label>
+    <input type="text" class="form-control" name="dbname">
+  </div>
+  <div class="form-group">
+    <label>Database Password:</label>
+    <input type="password" class="form-control" name="dbpass">
+  </div>
+  <div class="form-group">
+    <label>Database Host:</label>
+    <input type="text" class="form-control" name="dbhost" value="localhost">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}

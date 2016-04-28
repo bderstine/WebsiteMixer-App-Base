@@ -1,0 +1,47 @@
+{% extends "Admin/base.html" %}
+
+{% block pagewrapper %}
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Manage Plugins</h1>
+                <p>
+                  <a href="/admin/plugins/add/"><button class="btn btn-success">Add New</button></a> 
+                  <a href="/admin/plugins/restart/"><button class="btn btn-danger">Restart</button></a>
+                </p>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <tbody>
+      {% for p in pluginData %}
+      <tr>
+        <td width="325">
+          <img src="{{p.basics.image}}" width="325">
+        </td>
+        <td>
+          {{p.basics.name}} {{p.basics.version}}<br/>
+          {{p.basics.summary|safe}}<br/>
+          <a href="{{p.basics.website}}" target="_blank">{{p.basics.website}}</a><br/>
+          <a href="mailto:{{p.basics.email}}">{{p.basics.email}}<br/>
+          <br/>
+          <a href="/admin/plugins/edit/{{p.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+          <a href="/admin/plugins/delete/{{p.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "Admin/base.html" %}
+
+{% block pagewrapper %}
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Manage Files</h1>
+
+<h2>Upload New File</h2>
+<form action="" method=post enctype=multipart/form-data>
+    <span class="btn btn-default btn-file"><input type="file" name="file"></span>
+    <button type="submit" class="btn btn-success">Upload</button>
+</form>
+<hr>
+   <h2>File Manager</h2>
+   <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Modified Time</th>
+          <th>Delete?</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      {%- for item in tree.children recursive %}
+      <tr>
+         <td><a href="/static/upload/{{item.name}}" target="_blank">{{item.name}}</a></td>
+         <td>{{ item.size|filesizeformat(item.size) }}</td>
+         <td>{{ moment(item.mtime).format('MMMM Do YYYY, h:mm a') }}</td>
+         <td><a href="/admin/files/delete/?filename={{item.name}}">Delete</a></td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "Admin/base.html" %}
+
+{% block pagewrapper %}
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Manage Themes</h1>
+                <p><a href="/admin/themes/add/"><button class="btn btn-success">Add New</button></a></p>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <tbody>
+      <tr>
+        <td width="325">
+          <img src="{{activeTheme.basics.image}}" width="325">
+	</td>
+        <td>
+	  {{activeTheme.basics.name}} {{activeTheme.basics.version}}<br/>
+	  {{activeTheme.basics.summary}}<br/>
+          <a href="{{activeTheme.basics.website}}" target="_blank">{{activeTheme.basics.website}}</a><br/>
+          <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}<br/>
+          <br/>
+          <a href="/admin/themes/edit/{{activeTheme.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+	</td>
+      </tr>
+
+      {% for t in themeData %}
+      {% if t.basics.directory != s.theme %}
+      <tr>
+        <td width="325">
+          <img src="{{t.basics.image}}" width="325">
+        </td>
+        <td>
+          {{t.basics.name}} {{t.basics.version}}<br/>
+          {{t.basics.summary}}<br/>
+          <a href="{{t.basics.website}}" target="_blank">{{t.basics.website}}</a><br/>
+          <a href="mailto:{{t.basics.email}}">{{t.basics.email}}<br/>
+          <br/>
+          <a href="/admin/themes/edit/{{t.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+          <a href="/admin/themes/activate/{{t.basics.directory}}/"><button class="btn btn-success">Activate</button></a>
+          <a href="/admin/themes/delete/{{t.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "basics": {
+    "name": "WebsiteMixer CMS Installer",
+    "summary": "Provides the installer for a website",
+    "version": "1.0",
+    "directory": "Install",
+    "website": "http://websitemixer.com",
+    "email": "brad@bizzartech.com",
+    "image": "http://websitemixer.com/static/upload/screenshot-blank.jpg"
+  },
+  "import": [
+    "Setup"
+  ]
+}
