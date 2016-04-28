@@ -5,12 +5,15 @@ See the [Changelog](http://websitemixer.com/changelog/) for more details.
 
 ## Quick Start
 I usually start with a fresh Ubuntu 14.04 server and use the follow commands:
-* apt-get update && apt-get upgrade
-* apt-get install git python-virtualenv
-* git clone https://github.com/bderstine/WebsiteMixer-App-Base sometargetfolder/
-* cd sometargetfolder/
-* ./setup.sh
-* ./run.sh (launches built-in python web server! listens on 0.0.0.0:5000)
+$ git clone https://github.com/bderstine/WebsiteMixer-App-Base
+
+$ cd WebsiteMixer-App-Base
+
+$ pip install -r requirements.txt
+
+$ ./run.py
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
 
 ## Installation
 
