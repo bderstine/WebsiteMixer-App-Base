@@ -47,7 +47,9 @@ def setup3():
 
     a = models.User(admuser, admpwd1, admemail)
     db.session.add(a)
-
+    
+    update = Setting.query.filter_by(username=admuser).update(dict(is_admin=1))
+    
     a = models.Setting('siteName',sitename)
     db.session.add(a)
     a = models.Setting('siteSubheading',sitedesc)
