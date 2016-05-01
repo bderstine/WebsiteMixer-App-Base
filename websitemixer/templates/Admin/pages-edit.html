@@ -1,9 +1,5 @@
 {% extends "Admin/base.html" %}
 
-{% block headjs %}
-<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
-{% endblock %}
-
 {% block pagewrapper %}
 <!-- Page Content -->
 <div id="page-wrapper">
@@ -58,4 +54,8 @@ CKEDITOR.replace('content',{
 });
 </script>
 
+{% endblock %}
+
+{% block footerjs %}
+<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
 {% endblock %}

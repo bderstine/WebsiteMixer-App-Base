@@ -1,9 +1,5 @@
 {% extends "Admin/base.html" %}
 
-{% block headjs %}
-<script src="{{ url_for('static', filename='ckeditor/ckeditor.js')}}"></script>
-{% endblock %}
-
 {% block pagewrapper %}
 <!-- Page Content -->
 <div id="page-wrapper">
@@ -23,46 +19,46 @@
         <div class="row">
           <div class="form-group col-md-4">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email">
+            <input type="text" class="form-control" id="email" name="email" value="{{userData.email}}">
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
             <label for="fullname">Name</label>
-            <input type="text" class="form-control" id="fullname" name="fullname">
+            <input type="text" class="form-control" id="fullname" name="fullname" value="{{userData.name}}">
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
             <label for="image">Image</label>
-            <input type="text" class="form-control" id="image" name="image">
+            <input type="text" class="form-control" id="image" name="image" value="{{userData.image}}">
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
             <label for="facebook">Facebook</label>
-            <input type="text" class="form-control" id="facebook" name="facebook">
+            <input type="text" class="form-control" id="facebook" name="facebook" value="{{userData.facebook}}">
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
             <label for="twitter">Twitter</label>
-            <input type="text" class="form-control" id="twitter" name="twitter">
+            <input type="text" class="form-control" id="twitter" name="twitter" value="{{userData.twitter}}">
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
             <label for="google">Google+</label>
-            <input type="text" class="form-control" id="google" name="google">
+            <input type="text" class="form-control" id="google" name="google" value="{{userData.google}}">
           </div>
         </div>
 
-  	<button type="submit" class="btn btn-success">Save</button>
+  	<button type="submit" class="btn btn-success">Save User</button>
 	</form>
 
         <form method="post" action="/admin/changepassword/">
@@ -93,13 +89,4 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-
-<script>
-CKEDITOR.replace('content',{
-    width: '100%',
-    height: '400px',
-    uiColor: '#9AB8F3'
-});
-</script>
-
 {% endblock %}
