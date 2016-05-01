@@ -45,6 +45,9 @@ def setup3():
     admpwd2 = request.form['admpwd2']
     admemail = request.form['admemail']
 
+    if admpwd1 != admpwd2:
+        return 'Admin passwords do not match! Click back and try again!'
+
     a = models.User(admuser, admpwd1, admemail)
     db.session.add(a)
     
