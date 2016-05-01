@@ -12,17 +12,43 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Add New User</h1>
 
-  <form class="myElements" method="post" action="">
-  Username<br/><input id="username" type="text" name="username" value="" size="40" required><br/><br/>
+        <form method="post" action="">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+        </div>
 
-  Password<br/><input id="password1" type="password" name="password1" value="" size="40" required><br/>
-  Confirm Password<br/><input id="password2" type="password" name="password2" value="" size="40" required><br/><br/>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="password1">Password</label>
+            <input type="text" class="form-control" id="password1" name="password1">
+          </div>
+        </div>
 
-  Email<br/><input id="email" type="text" name="email" value="" size="55" required><br/><br/>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="password2">Confirm Password</label>
+            <input type="text" class="form-control" id="password2" name="password2">
+          </div>
+        </div>
 
-  <button type="submit" class="btn btn-success">Add</button>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email">
+          </div>
+        </div>
 
-</form>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-success">Add User</button>
+          </div>
+        </div>
+
+	</form>
+
             </div>
             <!-- /.col-lg-12 -->
         </div>
