@@ -29,6 +29,7 @@ def setup2():
             file.write("SQLALCHEMY_DATABASE_URI = 'postgresql://"+dbuser+":"+dbpwd+"@"+dbsrv+":5432/"+dbname+"'\n")
         else:
             file.write("SQLALCHEMY_DATABASE_URI = 'sqlite:///'+os.path.join(basedir,'"+appname+".db')\n")
+        file.write("SQLALCHEMY_TRACK_MODIFICATIONS = True")
         file.close()
 
     return render_template("Install/step2.html")
