@@ -1,4 +1,4 @@
-import os, shutil, signal, urllib, urllib2
+import os, shutil, signal, urllib, urllib2, zipfile
 from flask import render_template, redirect, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required, LoginManager
 from urlparse import urljoin
@@ -361,7 +361,7 @@ def adminthemesactivate(theme):
             except Exception as e:
                 continue
     #update setting in db for newtheme
-    u = Settings.query.filter_by(name='theme').update(dict(value=theme))
+    u = Setting.query.filter_by(name='theme').update(dict(value=theme))
     db.session.commit()
     return redirect("/admin/themes/")
 
