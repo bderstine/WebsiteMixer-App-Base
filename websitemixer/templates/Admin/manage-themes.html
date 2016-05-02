@@ -17,12 +17,11 @@
           <img src="{{activeTheme.basics.image}}" width="325">
 	</td>
         <td>
-	  {{activeTheme.basics.name}} {{activeTheme.basics.version}}<br/>
+	  <strong>{{activeTheme.basics.name}} {{activeTheme.basics.version}}</strong> 
+          <button class="btn btn-primary btn-xs" type="button">Active Theme!</button><br/>
 	  {{activeTheme.basics.summary}}<br/>
           <a href="{{activeTheme.basics.website}}" target="_blank">{{activeTheme.basics.website}}</a><br/>
-          <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}<br/>
-          <br/>
-          <a href="/admin/themes/edit/{{activeTheme.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+          <a href="mailto:{{activeTheme.basics.email}}">{{activeTheme.basics.email}}</a><br/>
 	</td>
       </tr>
 
@@ -30,15 +29,14 @@
       {% if t.basics.directory != s.theme %}
       <tr>
         <td width="325">
-          <img src="{{t.basics.image}}" width="325">
+          <img src="{{t.basics.image}}" width="325">{{ t.basics.directory }} {{ s.theme }}
         </td>
         <td>
-          {{t.basics.name}} {{t.basics.version}}<br/>
+          <strong>{{t.basics.name}} {{t.basics.version}}</strong><br/>
           {{t.basics.summary}}<br/>
           <a href="{{t.basics.website}}" target="_blank">{{t.basics.website}}</a><br/>
-          <a href="mailto:{{t.basics.email}}">{{t.basics.email}}<br/>
+          <a href="mailto:{{t.basics.email}}">{{t.basics.email}}</a><br/>
           <br/>
-          <a href="/admin/themes/edit/{{t.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
           <a href="/admin/themes/activate/{{t.basics.directory}}/"><button class="btn btn-success">Activate</button></a>
           <a href="/admin/themes/delete/{{t.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>
         </td>
