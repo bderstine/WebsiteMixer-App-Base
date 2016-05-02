@@ -186,7 +186,7 @@ def editpost(id):
         postData = Post.query.filter_by(id=id).first()
         return render_template('Admin/posts-edit.html',id=id,postData=postData,s=s)
     else:
-        update = Post.query.filter_by(id=id).update(dict(post_title=request.form['title'],post_slug=request.form['slug'],post_content=request.form['content'],post_subheading=request.form['subheading'],post_image=request.form['featureimg'],post_modified=datetime.utcnow(),post_tags=request.form['tags']))
+        update = Post.query.filter_by(id=id).update(dict(title=request.form['title'],slug=request.form['slug'],content=request.form['content'],subheading=request.form['subheading'],image=request.form['featureimg'],modified=datetime.utcnow(),tags=request.form['tags']))
         db.session.commit()
         return redirect("/admin/posts/")
 
@@ -203,7 +203,7 @@ def editpage(id):
         form_content=request.form['content']
         form_subheading=request.form['subheading']
         form_image=request.form['featureimg']
-        update = Page.query.filter_by(id=id).update(dict(page_title=form_title,page_slug=form_slug,page_content=form_content,page_subheading=form_subheading,page_image=form_image,page_modified=datetime.utcnow()))
+        update = Page.query.filter_by(id=id).update(dict(title=form_title,slug=form_slug,content=form_content,subheading=form_subheading,image=form_image,modified=datetime.utcnow()))
         db.session.commit()
         return redirect("/admin/pages/")
 
