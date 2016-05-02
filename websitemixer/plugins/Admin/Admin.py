@@ -76,12 +76,12 @@ def manageSettings():
     s = getSettings()
     if request.method == 'POST':
         for key, value in request.form.iteritems():
-            check = Settings.query.filter_by(setting_name=key).first()
+            check = Setting.query.filter_by(name=key).first()
             if check is None:
-                a = Settings(key,value)
+                a = Setting(key,value)
                 db.session.add(a)
             else:
-                update = Settings.query.filter_by(setting_name=key).update(dict(setting_value=value))
+                update = Setting.query.filter_by(name=key).update(dict(value=value))
             db.session.commit()
         return redirect('/admin/settings/')
     return render_template('Admin/manage-settings.html',s=s)
@@ -129,31 +129,25 @@ def adminadduser():
         return redirect("/admin/users/")
     return render_template('Admin/users-add.html',s=s)
 
-@app.route('/admin/users/profile/',methods=['GET','POST'])
-@login_required
-def adminprofile():
-    s = getSettings()
-    if request.method == 'GET':
-        userData = User.query.filter_by(username=current_user.username).first()
-        return render_template('Admin/users-edit.html',userData=userData,s=s)
-    else:
-        update = User.query.filter_by(username=current_user.username).update(dict(email=request.form['email']))
-        db.session.commit()
-        return redirect("/admin/users/")
-
-@app.route('/admin/users/profile/<user>/',methods=['GET','POST'])
+@app.route('/admin/users/profile/', defaults={'user':None}, methods=['GET','POST'])
+@app.route('/admin/users/profile/<user>/', methods=['GET','POST'])
 @login_required
 def adminprofileuser(user):
     s = getSettings()
+    if user is None:
+        user = current_user.username
     userData = User.query.filter_by(username=user).first()
     if request.method == 'GET':
         return render_template('Admin/users-edit.html',userData=userData,s=s)
     else:
-        tcemail = request.form['email']
-        tcprofile = request.form['profile']
-        update = User.query.filter_by(username=user).update(dict(email=tcemail,profile=tcprofile))
+        email = request.form['email']
+        fullname = request.form['fullname']
+        image = request.form['image']
+        facebook = request.form['facebook']
+        twitter = request.form['twitter']
+        google = request.form['google']
+        update = User.query.filter_by(username=user).update(dict(email=email,name=fullname,image=image,facebook=facebook,twitter=twitter,google=google))
         db.session.commit()
-        teamLink = '/user-center/' + str(userData.id) + '/'
         return redirect("/admin/users/")
 
 @app.route('/admin/posts/add/',methods=['GET','POST'])
@@ -276,7 +270,9 @@ def changePW():
     password2 = request.form['password2']
     if password1 != password2:
         return "Passwords do not match! Click back and try again!"
-    update = User.query.filter_by(username=username).update(dict(password=password1))
+    user = User.query.filter_by(username=username).first()
+    encpass = user.set_password(password1)
+    update = User.query.filter_by(username=username).update(dict(password=encpass))
     db.session.commit()
     return redirect('/admin/users/')
 
