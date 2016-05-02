@@ -11,32 +11,32 @@
   <form class="myElements" method="post" action="">
   <div style="margin-bottom:25px;">
     <div style="float:left;margin-right:10px;">
-      Post Title<br/><input id="title" type="text" name="title" value="{{postData.post_title}}" size="70">
+      Post Title<br/><input id="title" type="text" name="title" value="{{postData.title}}" size="70">
     </div>
 
     <div style="float:left;">
-      Post URL<br/><input id="slug" type="text" name="slug" value="{{postData.post_slug}}" size="40">
+      Post URL<br/><input id="slug" type="text" name="slug" value="{{postData.slug}}" size="40">
     </div>
 
     <div style="clear:both;"></div>
   </div>
 
-  <textarea id="content" name="content" rows="25" cols="60">{{postData.post_content}}</textarea>
+  <textarea id="content" name="content" rows="25" cols="60">{{postData.content}}</textarea>
 
   <div style="width:500px;float:left;margin-bottom:7px;margin-top:10px;">
     Tags<br>
     <small>(comma separated, optional, TODO: show prev tags, maybe clickable to make it easier)</small><br/>
-    <input type="text" name="tags" value="{{postData.post_tags}}" size="70" placeholder="Optional">
+    <input type="text" name="tags" value="{{postData.tags}}" size="70" placeholder="Optional">
   </div>
   <div style="clear:both;"></div>
 
   <div style="width:300px;float:left;margin-bottom:7px;margin-top:10px;">
-    Subheading Text<br><small>(shown under title, optional)</small><br/><input type="text" name="subheading" value="{{postData.post_subheading}}" size="70" placeholder="Optional">
+    Subheading Text<br><small>(shown under title, optional)</small><br/><input type="text" name="subheading" value="{{postData.subheading}}" size="70" placeholder="Optional">
   </div>
   <div style="clear:both;"></div>
 
   <div style="width:300px;float:left;margin-bottom:7px;margin-top:10px;">
-    Featured IMG URL<br/><input type="text" name="featureimg" value="{{postData.post_image}}" size="70" placeholder="Optional">
+    Featured IMG URL<br/><input type="text" name="featureimg" value="{{postData.image}}" size="70" placeholder="Optional">
   </div>
   <div style="clear:both;"></div>
 
