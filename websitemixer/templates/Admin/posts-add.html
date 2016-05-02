@@ -51,7 +51,10 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
+{% endblock %}
 
+{% block footerjs %}
+<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
 <script>
 CKEDITOR.replace('content',{
     width: '100%',
@@ -59,10 +62,6 @@ CKEDITOR.replace('content',{
     uiColor: '#9AB8F3'
 });
 </script>
-{% endblock %}
-
-{% block footerjs %}
-<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
 
 <script>
 $(document).ready(function () {
