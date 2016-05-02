@@ -1,4 +1,4 @@
-{% extends "Install/base.html" %}
+{% extends "Base/base.html" %}
 
 {% block content %}
 <div style="width:600px;text-align:left;margin-left:auto;margin-right:auto;">
@@ -42,7 +42,9 @@
   <button type="submit" class="btn btn-success">Next</button>
 </form>
 </div>
+{% endblock %}
 
+{% block footerjs %}
 <script type="text/javascript">
 $(function() {
   $('.dtype').change(function() {
