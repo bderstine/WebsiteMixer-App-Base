@@ -1,4 +1,4 @@
-import os, shutil, signal, urllib
+import os, shutil, signal, urllib, urllib2
 from flask import render_template, redirect, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required, LoginManager
 from urlparse import urljoin
@@ -75,12 +75,14 @@ def adminpages():
 def manageSettings():
     s = getSettings()
     if request.method == 'POST':
-        update = Setting.query.filter_by(name='siteName').update(dict(value=request.form['siteName']))
-        update = Setting.query.filter_by(name='siteUrl').update(dict(value=request.form['siteUrl']))
-        update = Setting.query.filter_by(name='headerBackground').update(dict(value=request.form['headerBackground']))
-        update = Setting.query.filter_by(name='headerForeground').update(dict(value=request.form['headerForeground']))
-        update = Setting.query.filter_by(name='colorLinks').update(dict(value=request.form['colorLinks']))
-        db.session.commit()
+        for key, value in request.form.iteritems():
+            check = Settings.query.filter_by(setting_name=key).first()
+            if check is None:
+                a = Settings(key,value)
+                db.session.add(a)
+            else:
+                update = Settings.query.filter_by(setting_name=key).update(dict(setting_value=value))
+            db.session.commit()
         return redirect('/admin/settings/')
     return render_template('Admin/manage-settings.html',s=s)
 
