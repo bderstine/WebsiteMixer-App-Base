@@ -4,7 +4,11 @@
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
 ## Quick Start
-I usually start with a fresh Ubuntu 14.04 server and use the follow commands:
+I usually start with a new Ubuntu 14.04 or 16.04 server:
+
+$ apt-get update && apt-get install git python-pip python-dev
+
+$ cd /srv
 
 $ git clone https://github.com/bderstine/WebsiteMixer-App-Base
 
