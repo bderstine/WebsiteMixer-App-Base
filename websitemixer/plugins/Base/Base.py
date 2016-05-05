@@ -11,7 +11,7 @@ from websitemixer.functions import *
 @app.route('/', defaults={'tag': None})
 @app.route('/tag/<tag>/')
 def home(tag):
-    if os.stat(basedir+"/config.py").st_size == 0:
+    if os.stat(basedir+'/config.py').st_size == 0:
         return redirect('/setup/step1/')
     else:
         s = getSettings()
@@ -89,4 +89,4 @@ def not_found_error(error):
 def internal_error(error):
     s = getSettings()
     db.session.rollback()
-    return render_template(s['theme']+'/500.html',s=s), 500
+    return render_template(s['theme']+'/500.html',s=s,error=error), 500
