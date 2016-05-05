@@ -11,15 +11,19 @@ from websitemixer.functions import *
 @app.route('/', defaults={'tag': None})
 @app.route('/tag/<tag>/')
 def home(tag):
-    if os.stat(basedir+'/config.py').st_size == 0:
-        return redirect('/setup/step1/')
+    try:
+        if os.stat(basedir+'/config.py').st_size == 0:
+            return redirect('/setup/step1/')
+    except:
+        if os.stat('config.py').st_size == 0:
+            return redirect('/setup/step1/')
+
+    s = getSettings()
+    if tag:
+        blogData = Post.query.filter(Post.tags.like('%'+tag+'%')).order_by(Post.date.desc()).all()
     else:
-        s = getSettings()
-        if tag:
-            blogData = Post.query.filter(Post.tags.like('%'+tag+'%')).order_by(Post.date.desc()).all()
-        else:
-            blogData = Post.query.order_by(Post.date.desc()).limit(5)
-        return render_template(s['theme']+'/index.html',blogData=blogData,s=s)
+        blogData = Post.query.order_by(Post.date.desc()).limit(5)
+    return render_template(s['theme']+'/index.html',blogData=blogData,s=s)
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
