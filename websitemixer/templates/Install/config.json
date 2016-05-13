@@ -1,9 +1,9 @@
 {
   "basics": {
-    "name": "Base",
-    "summary": "This is the default theme for WebsiteMixer.",
+    "name": "Install",
+    "summary": "It is safe to delete this unless you need to reinstall.",
     "version": "1.0",
-    "directory" : "Base",
+    "directory" : "Install",
     "website": "http://websitemixer.com",
     "email": "brad@bizzartech.com",
     "image": "http://websitemixer.com/static/upload/screenshot-base.jpg",
