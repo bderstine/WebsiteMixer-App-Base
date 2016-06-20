@@ -1,6 +1,6 @@
 import os
 from flask import render_template, redirect, request, url_for, session
-from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user, login_required
 from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
