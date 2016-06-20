@@ -1,9 +1,14 @@
 import os
 import json
+from flask import session
 from datetime import date, datetime, timedelta
 from bs4 import BeautifulSoup
 from websitemixer import models
 from config import *
+
+def is_admin():
+    check = models.User.query.filter_by(id=session['user_id']).first()
+    return check.is_admin()
 
 def getSettings():
     d = {}
