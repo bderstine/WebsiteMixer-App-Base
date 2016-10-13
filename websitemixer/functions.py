@@ -6,9 +6,11 @@ from bs4 import BeautifulSoup
 from websitemixer import models
 from config import *
 
+
 def is_admin():
     check = models.User.query.filter_by(id=session['user_id']).first()
     return check.is_admin()
+
 
 def getSettings():
     d = {}
@@ -16,12 +18,14 @@ def getSettings():
         d[u.name] = u.value
     return d
 
+
 def make_tree(path):
     tree = dict(name=os.path.basename(path), children=[])
-    try: lst = os.listdir(path)
+    try:
+        lst = os.listdir(path)
     except OSError as e:
         print e
-        pass #ignore errors
+        pass  # ignore errors
     else:
         for name in lst:
             fn = os.path.join(path, name)
@@ -30,17 +34,22 @@ def make_tree(path):
             else:
                 size = os.path.getsize(fn)
                 mtime = datetime.utcfromtimestamp(os.path.getmtime(fn))
-                tree['children'].append(dict(name=name,size=size,mtime=mtime))
+                tree['children'].append(dict(name=name,
+                                             size=size,
+                                             mtime=mtime))
     return tree
 
+
 def first_paragraph(content):
-    #take content and return just the first <p></p> content, used in blog loop template
+    # take content and return just the first <p></p> content,
+    # used in blog loop template
     soup = BeautifulSoup(content, "html.parser")
     thespan = soup.find('p')
     if thespan is None:
         return ''
     else:
         return thespan.string
+
 
 def process_tags(tags):
     rettags = ''
@@ -49,11 +58,13 @@ def process_tags(tags):
         rettags = rettags + '<a href="/tag/'+t+'/">'+t+'</a> '
     return rettags
 
+
 def get_theme_info(theme):
     conf = basedir+'/websitemixer/templates/'+theme+'/config.json'
     with open(conf) as data_file:
         data = json.load(data_file)
     return dict(data)
+
 
 def get_all_theme_info():
     themeData = []
@@ -65,6 +76,7 @@ def get_all_theme_info():
             themeData.append(data)
     return themeData
 
+
 def get_all_plugin_info():
     pluginData = []
     dirs = os.walk(basedir+'/websitemixer/plugins/')
@@ -74,4 +86,3 @@ def get_all_plugin_info():
                 data = json.load(data_file)
             pluginData.append(data)
     return pluginData
-
