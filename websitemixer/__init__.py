@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import json
 
+from functions import *
+
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
@@ -13,6 +15,7 @@ mail = Mail(app)
 moment = Moment(app)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 def get_all_plugin_info():
     pluginData = []
@@ -32,8 +35,6 @@ for p in pluginData:
         name = str(mod)
         imported = getattr(__import__(plugin, fromlist=[name]), name)
 
-from functions import *
 app.jinja_env.globals.update(first_paragraph=first_paragraph)
 app.jinja_env.globals.update(process_tags=process_tags)
 app.jinja_env.globals.update(is_admin=is_admin)
-
