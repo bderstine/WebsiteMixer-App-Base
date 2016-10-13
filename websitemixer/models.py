@@ -4,53 +4,139 @@ from websitemixer import db
 import hashlib
 import passlib.hash
 
-user_roles = db.Table('user_roles',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id', ondelete='cascade')),
-    db.Column('role_id', db.Integer, db.ForeignKey('role.id', ondelete='cascade'))
+user_roles = db.Table(
+    'user_roles',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'user_id',
+        db.Integer,
+        db.ForeignKey('user.id', ondelete='cascade')),
+    db.Column(
+        'role_id',
+        db.Integer,
+        db.ForeignKey('role.id', ondelete='cascade'))
 )
 
-user_posts = db.Table('user_posts',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
+user_posts = db.Table(
+    'user_posts',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'user_id',
+        db.Integer,
+        db.ForeignKey('user.id')),
+    db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id'))
 )
 
-user_comments = db.Table('user_comments',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('comment_id', db.Integer, db.ForeignKey('comment.id'))
+user_comments = db.Table(
+    'user_comments',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'user_id',
+        db.Integer,
+        db.ForeignKey('user.id')),
+    db.Column(
+        'comment_id',
+        db.Integer,
+        db.ForeignKey('comment.id'))
 )
 
-user_preferences = db.Table('user_preferences',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id', ondelete='cascade')),
-    db.Column('preference_id', db.Integer, db.ForeignKey('preference.id', ondelete='cascade'))
+user_preferences = db.Table(
+    'user_preferences',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'user_id',
+        db.Integer,
+        db.ForeignKey('user.id', ondelete='cascade')),
+    db.Column(
+        'preference_id',
+        db.Integer,
+        db.ForeignKey('preference.id', ondelete='cascade'))
 )
 
-post_categories = db.Table('post_categories',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('post_id', db.Integer, db.ForeignKey('post.id', ondelete='cascade')),
-    db.Column('category_id', db.Integer, db.ForeignKey('category.id', ondelete='cascade'))
+post_categories = db.Table(
+    'post_categories',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade')),
+    db.Column(
+        'category_id',
+        db.Integer,
+        db.ForeignKey('category.id', ondelete='cascade'))
 )
 
-post_comments = db.Table('post_comments',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('post_id', db.Integer, db.ForeignKey('post.id', ondelete='cascade')),
-    db.Column('comment_id', db.Integer, db.ForeignKey('comment.id', ondelete='cascade'))
+post_comments = db.Table(
+    'post_comments',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade')),
+    db.Column(
+        'comment_id',
+        db.Integer,
+        db.ForeignKey('comment.id', ondelete='cascade'))
 )
 
-page_posts = db.Table('page_posts',
-    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-    db.Column('page_id', db.Integer, db.ForeignKey('page.id', ondelete='cascade')),
-    db.Column('post_id', db.Integer, db.ForeignKey('post.id', ondelete='cascade'))
+page_posts = db.Table(
+    'page_posts',
+    db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True),
+    db.Column(
+        'page_id',
+        db.Integer,
+        db.ForeignKey('page.id', ondelete='cascade')),
+    db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade'))
 )
 
 
 class User(db.Model):
     __tablename__ = 'user'
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
-    username = db.Column('username', db.String(255), unique=True, nullable=False, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True, index=True)
+    username = db.Column(
+        'username',
+        db.String(255),
+        unique=True,
+        nullable=False,
+        index=True)
     password = db.Column('password', db.String(255), nullable=False)
     email = db.Column('email', db.String(50), nullable=False)
     registered_on = db.Column('registered_on', db.DateTime)
@@ -98,7 +184,8 @@ class User(db.Model):
 
         :param email: User's email address.
         :type email: str
-        :returns: User() object of the corresponding user, if found, otherwise None.
+        :returns: User() object of the corresponding
+        :user if found, otherwise None.
         :rtype: instance or None
         """
         return kls.query.filter(kls.username == username.lower()).first()
@@ -145,7 +232,8 @@ class User(db.Model):
 
         :param password: User's password.
         :type password: str
-        :returns: True if supplied password matches instance password, False if not.
+        :returns: True if supplied password matches instance
+        :password, False if not.
         :rtype: bool
         """
         return passlib.hash.sha512_crypt.verify(password, self.password)
@@ -175,7 +263,12 @@ class User(db.Model):
 class Post(db.Model):
     __tablename__ = 'post'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     author = db.Column('author', db.String(255))
     title = db.Column('title', db.String(255), index=True)
     subheading = db.Column('subheading', db.String(255))
@@ -183,8 +276,16 @@ class Post(db.Model):
     content = db.Column('content', db.Text)
     image = db.Column('image', db.Text)
     status = db.Column('status', db.Integer, default=1)
-    date = db.Column('date', db.DateTime, default=datetime.utcnow(), index=True)
-    modified = db.Column('modified', db.DateTime, default=datetime.utcnow(), index=True)
+    date = db.Column(
+        'date',
+        db.DateTime,
+        default=datetime.utcnow(),
+        index=True)
+    modified = db.Column(
+        'modified',
+        db.DateTime,
+        default=datetime.utcnow(),
+        index=True)
     tags = db.Column('tags', db.Text)
 
     comments = db.relationship(
@@ -219,7 +320,8 @@ class Post(db.Model):
 
         :param id: Post ID.
         :type id: str or int
-        :returns: Page() object of the corresponding ID, if found, otherwise None.
+        :returns: Page() object of the corresponding
+        :ID if found, otherwise None.
         :rtype: instance or None
         """
         return kls.query.filter(kls.id == id.lower()).first()
@@ -228,9 +330,17 @@ class Post(db.Model):
 class Category(db.Model):
     __tablename__ = 'category'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     name = db.Column('name', db.String(255))
-    post_id = db.Column('post_id', db.Integer, db.ForeignKey('post.id'), index=True)
+    post_id = db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id'), index=True)
 
     def __init__(self, name, post_id):
         self.name = name
@@ -243,15 +353,34 @@ class Category(db.Model):
 class Comment(db.Model):
     __tablename__ = 'comment'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     author = db.Column('author', db.String(255))
     title = db.Column('title', db.String(255), index=True)
     content = db.Column('content', db.Text)
     status = db.Column('status', db.Integer, default=1)
-    date = db.Column('date', db.DateTime, default=datetime.utcnow(), index=True)
-    modified = db.Column('modified', db.DateTime, default=datetime.utcnow(), index=True)
-    post_id = db.Column('post_id', db.Integer, db.ForeignKey('post.id'), nullable=True, index=True)
-    page_id = db.Column('page_id', db.Integer, db.ForeignKey('page.id'), nullable=True, index=True)
+    date = db.Column(
+        'date',
+        db.DateTime,
+        default=datetime.utcnow(),
+        index=True)
+    modified = db.Column(
+        'modified',
+        db.DateTime,
+        default=datetime.utcnow(),
+        index=True)
+    post_id = db.Column(
+        'post_id',
+        db.Integer,
+        db.ForeignKey('post.id'), nullable=True, index=True)
+    page_id = db.Column(
+        'page_id',
+        db.Integer,
+        db.ForeignKey('page.id'), nullable=True, index=True)
 
     def __init__(self, author, title, content, post_id):
         self.author = author
@@ -262,7 +391,8 @@ class Comment(db.Model):
         self.post_id = post_id
 
     def __repr__(self):
-        return "<Comment post_id={0}, author={1}, title={2}>".format(self.post_id, self.author, self.title)
+        return "<Comment post_id={0}, author={1}, title={2}>".format(
+            self.post_id, self.author, self.title)
 
     @classmethod
     def get(kls, id):
@@ -270,7 +400,8 @@ class Comment(db.Model):
 
         :param id: Comment ID.
         :type id: str or int
-        :returns: Comment() object of the corresponding ID, if found, otherwise None.
+        :returns: Comment() object of the corresponding
+        :ID if found, otherwise None.
         :rtype: instance or None
         """
         return kls.query.filter(kls.id == id.lower()).first()
@@ -279,14 +410,23 @@ class Comment(db.Model):
 class Page(db.Model):
     __tablename__ = 'page'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     title = db.Column('title', db.String(255), index=True)
     subheading = db.Column('subheading', db.String(255))
     slug = db.Column('slug', db.String(255))
     content = db.Column('content', db.Text)
     image = db.Column('image', db.Text)
     status = db.Column('status', db.Integer, default=1)
-    modified = db.Column('modified', db.DateTime, default=datetime.utcnow(), index=True)
+    modified = db.Column(
+        'modified',
+        db.DateTime,
+        default=datetime.utcnow(),
+        index=True)
     parent = db.Column('parent', db.Integer, default=0, index=True)
 
     posts = db.relationship(
@@ -311,7 +451,8 @@ class Page(db.Model):
 
         :param id: Page ID.
         :type id: str or int
-        :returns: Page() object of the corresponding ID, if found, otherwise None.
+        :returns: Page() object of the corresponding
+        :ID if found, otherwise None.
         :rtype: instance or None
         """
         return kls.query.filter(kls.id == id.lower()).first()
@@ -332,7 +473,12 @@ class Logs(db.Model):
 class Setting(db.Model):
     __tablename__ = 'setting'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     name = db.Column('name', db.String(255))
     value = db.Column('value', db.Text)
 
@@ -347,9 +493,13 @@ class Setting(db.Model):
 class Role(db.Model):
     __tablename__ = 'role'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     name = db.Column('rolename', db.String(255), index=True)
-    # user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'), index=True)
 
     def __init__(self, name):
         self.name = name
@@ -361,7 +511,12 @@ class Role(db.Model):
 class Preference(db.Model):
     __tablename__ = 'preference'
 
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
+    id = db.Column(
+        'id',
+        db.Integer,
+        primary_key=True,
+        autoincrement=True,
+        index=True)
     option = db.Column('option', db.String(256))
     value = db.Column('value', db.String(256))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -372,7 +527,8 @@ class Preference(db.Model):
         self.value = value
 
     def __repr__(self):
-        return "<Preference user_id={0}, option={1}, value={2}>".format(self.user_id, self.option, self.value)
+        return "<Preference user_id={0}, option={1}, value={2}>".format(
+            self.user_id, self.option, self.value)
 
 
 def get_pw_hash(password):
@@ -381,4 +537,3 @@ def get_pw_hash(password):
     data = "{0}{1}".format(pw_salt, password)
     hash_str = hashlib.sha384(data).hexdigest()
     return hash_str
-
