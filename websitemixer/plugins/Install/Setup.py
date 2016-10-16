@@ -2,11 +2,13 @@ import os
 from flask import render_template, request, redirect
 from websitemixer import app, db, models
 
+
 @app.route('/setup/step1/')
 def setup1():
     return render_template("Install/step1.html")
 
-@app.route('/setup/step2/',methods=['POST'])
+
+@app.route('/setup/step2/', methods=['POST'])
 def setup2():
     secretkey = os.urandom(24).encode('hex')
     appname = request.form['appname']
@@ -22,19 +24,30 @@ def setup2():
         file.write("basedir = os.path.abspath(os.path.dirname(__file__))\n\n")
         file.write("SECRET_KEY = '"+secretkey+"'\n")
         file.write("UPLOAD_FOLDER = basedir+'/websitemixer/static/upload/'\n")
-        file.write("ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'])\n\n")
+
+        extensions = "set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'," +\
+                     " 'zip'])\n\n"
+        file.write("ALLOWED_EXTENSIONS = " + extensions)
+
         if request.form['dbmeth'] == 'mysql':
-            file.write("SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://"+dbuser+":"+dbpwd+"@"+dbsrv+":3306/"+dbname+"'\n")
+            file.write("SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://" +
+                       dbuser + ":" + dbpwd + "@" + dbsrv + ":3306/" +
+                       dbname + "'\n")
         elif request.form['dbmeth'] == 'postgres':
-            file.write("SQLALCHEMY_DATABASE_URI = 'postgresql://"+dbuser+":"+dbpwd+"@"+dbsrv+":5432/"+dbname+"'\n")
+            sqlUrl = "SQLALCHEMY_DATABASE_URI = 'postgresql://" + dbuser
+            file.write(sqlUrl + ":" + dbpwd + "@" + dbsrv + ":5432/" +
+                       dbname + "'\n")
         else:
-            file.write("SQLALCHEMY_DATABASE_URI = 'sqlite:///'+os.path.join(basedir,'"+appname+".db')\n")
+            sqlUrl = "SQLALCHEMY_DATABASE_URI = 'sqlite:///'"
+            base = "+os.path.join(basedir,'" + appname + ".db')\n"
+            file.write(sqlUrl + base)
         file.write("SQLALCHEMY_TRACK_MODIFICATIONS = True")
         file.close()
 
     return render_template("Install/step2.html")
 
-@app.route('/setup/step3/',methods=['POST'])
+
+@app.route('/setup/step3/', methods=['POST'])
 def setup3():
     db.drop_all()
     db.create_all()
@@ -51,23 +64,26 @@ def setup3():
 
     a = models.User(admuser, admpwd1, admemail)
     db.session.add(a)
-    
-    update = models.User.query.filter_by(username=admuser).update(dict(admin=1))
-    
-    a = models.Setting('siteName',sitename)
+
+    update = models.User.query.filter_by(username=admuser).update({'admin'=1})
+
+    a = models.Setting('siteName', sitename)
     db.session.add(a)
-    a = models.Setting('siteSubheading',sitedesc)
+    a = models.Setting('siteSubheading', sitedesc)
     db.session.add(a)
-    a = models.Setting('theme','Base')
+    a = models.Setting('theme', 'Base')
     db.session.add(a)
 
-    a = models.Post(admuser, 'Hello World!', '/hello-world/', '<p>This is your first post! You can delete this and start posting!</p>', '', '', 'Hello World, Welcome')
+    post_text = '<p>This is your first post!'
+    post_text += ' You can delete this and start posting!</p>'
+    a = models.Post(admuser, 'Hello World!', '/hello-world/', post_text,
+                    '', '', 'Hello World, Welcome')
     db.session.add(a)
     a = models.Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
     db.session.add(a)
-    a = models.Page('Contact', '/contact/', '<p>It\'s a contact page!</p>', '', '')
+    a = models.Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
+                    '', '')
     db.session.add(a)
 
     db.session.commit()
     return redirect('/')
-
