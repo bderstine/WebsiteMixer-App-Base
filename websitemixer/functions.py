@@ -18,7 +18,7 @@ def getSettings():
         for u in models.Setting.query.all():
             d[u.name] = u.value
     except:
-        pass # ignore errors
+        pass  # ignore errors
     return d
 
 
