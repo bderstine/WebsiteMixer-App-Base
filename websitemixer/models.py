@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from shared import db
+from database import db
 import hashlib
 import passlib.hash
 

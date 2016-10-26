@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_moment import Moment
 from flask_mail import Mail
-from shared import db
+from database import db
 
 import os
 import json

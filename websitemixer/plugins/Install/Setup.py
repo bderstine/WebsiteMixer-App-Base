@@ -1,7 +1,7 @@
 import os
 from flask import render_template, request, redirect
 from websitemixer import app, models
-from websitemixer.shared import db
+from websitemixer.database import db
 
 
 @app.route('/setup/step1/')
