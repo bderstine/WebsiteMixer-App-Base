@@ -14,8 +14,11 @@ def is_admin():
 
 def getSettings():
     d = {}
-    for u in models.Setting.query.all():
-        d[u.name] = u.value
+    try:
+        for u in models.Setting.query.all():
+            d[u.name] = u.value
+    except:
+        pass # ignore errors
     return d
 
 
