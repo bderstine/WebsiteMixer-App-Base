@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_moment import Moment
 from flask_mail import Mail
-from flask_sqlalchemy import SQLAlchemy
+from shared import db
 
 import os
 import json
@@ -10,7 +10,7 @@ from functions import *
 
 app = Flask(__name__)
 app.config.from_object('config')
-db = SQLAlchemy(app)
+db.init_app(app)
 mail = Mail(app)
 moment = Moment(app)
 
