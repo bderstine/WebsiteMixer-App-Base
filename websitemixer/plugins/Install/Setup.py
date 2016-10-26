@@ -66,7 +66,7 @@ def setup3():
     a = models.User(admuser, admpwd1, admemail)
     db.session.add(a)
 
-    update = models.User.query.filter_by(username=admuser).update({'admin':1})
+    update = models.User.query.filter_by(username=admuser).update({'admin': 1})
 
     a = models.Setting('siteName', sitename)
     db.session.add(a)
