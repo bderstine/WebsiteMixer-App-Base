@@ -290,7 +290,7 @@ def deletepage(id):
         return redirect("/admin/pages/")
     else:
         message = 'Are you sure you want to delete ID: ' + id + '?<br/><br/>'
-        message += '<a href="/admin/pages/delete/' + id +
+        message += '<a href="/admin/pages/delete/' + id
         message += '/?confirmed=yes">Click here to delete!</a> | '
         message += '<a href="/admin/">No take me back!</a>'
         return message
