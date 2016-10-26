@@ -12,12 +12,8 @@ from websitemixer.functions import *
 @app.route('/', defaults={'tag': None})
 @app.route('/tag/<tag>/')
 def home(tag):
-    try:
-        if os.stat(basedir+'/config.py').st_size == 0:
-            return redirect('/setup/step1/')
-    except:
-        if os.stat('config.py').st_size == 0:
-            return redirect('/setup/step1/')
+    if 'SECRET_KEY' not in globals():
+        return redirect('/setup/step1/')
 
     s = getSettings()
     if tag:
