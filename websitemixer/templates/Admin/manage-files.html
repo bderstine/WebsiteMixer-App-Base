@@ -15,6 +15,7 @@
 </form>
 <hr>
    <h2>File Manager</h2>
+   Current path: {{config.UPLOAD_FOLDER}}{% if request.args.get('path') %}{{ request.args.get('path') }}{% endif %}
    <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -29,10 +30,23 @@
 
       {%- for item in tree.children recursive %}
       <tr>
-         <td><a href="/static/upload/{{item.name}}" target="_blank">{{item.name}}</a></td>
+         {% if item.size %}
+         <td><i class="fa fa-file fa-fw"></i> <a href="/static/upload/{{item.name}}" target="_blank">{{item.name}}</a></td>
          <td>{{ item.size|filesizeformat(item.size) }}</td>
          <td>{{ moment(item.mtime).format('MMMM Do YYYY, h:mm a') }}</td>
-         <td><a href="/admin/files/delete/?filename={{item.name}}"><button class="btn btn-danger">Delete</button></a></td>
+           {% if request.args.get('path') %}
+           <td><a href="/admin/files/delete/?path={{ request.args.get('path') }}&filename={{item.name}}">
+             <button class="btn btn-danger">Delete</button></a>
+           </td>
+           {% else %}
+           <td><a href="/admin/files/delete/?filename={{item.name}}"><button class="btn btn-danger">Delete</button></a></td>
+           {% endif %}
+         {% else %}
+         <td><i class="fa fa-folder fa-fw"></i> <a href="/admin/files?path={{item.name}}/">{{item.name}}</a></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         {% endif %}
 
       </tr>
       {% endfor %}

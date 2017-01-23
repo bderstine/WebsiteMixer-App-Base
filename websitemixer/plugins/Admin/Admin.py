@@ -108,14 +108,22 @@ def manageSettings():
 @login_required
 def manageFiles():
     s = getSettings()
+    path = request.args.get('path')
+    if path is not None:
+        UPLOAD_PATH = UPLOAD_FOLDER+'/'+path
+    else:
+        UPLOAD_PATH = UPLOAD_FOLDER
     if request.method == 'POST':
         file = request.files['file']
         # if file and allowed_file(file.filename):
         if file:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
-            return redirect('/admin/files/')
-    tree = make_tree(UPLOAD_FOLDER)
+            file.save(os.path.join(UPLOAD_PATH, filename))
+            if path is not None:
+                return redirect('/admin/files/?path='+path)
+            else:
+                return redirect('/admin/files/')
+    tree = make_tree(UPLOAD_PATH)
     newlist = sorted(tree['children'], key=lambda k: k['name'])
     data = {}
     data['children'] = newlist
@@ -301,14 +309,21 @@ def deletepage(id):
 def deleteFile():
     s = getSettings()
     filename = request.args.get('filename')
+    path = request.args.get('path')
     if request.args.get('confirmed'):
-        os.remove(os.path.join(UPLOAD_FOLDER, filename))
-        return redirect('/admin/files/')
+        if path:
+            os.remove(os.path.join(UPLOAD_FOLDER+path, filename))
+            return redirect('/admin/files/?path='+path)
+        else:
+            os.remove(os.path.join(UPLOAD_FOLDER, filename))
+            return redirect('/admin/files/')
     else:
         message = 'Are you sure you want to delete the file: '
         message += filename + '?<br/><br/>'
-        message += '<a href="/admin/files-delete/?filename=' + filename
-        message += '&confirmed=yes">Click here to delete!</a> | '
+        message += '<a href="/admin/files/delete/?confirmed=yes&filename='+filename
+        if path:
+            message += '&path='+path
+        message += '">Click here to delete!</a> | '
         message += '<a href="/admin/manage-uploads/">No take me back!</a>'
         return message
 
