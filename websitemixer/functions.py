@@ -2,6 +2,7 @@ import os
 import json
 from flask import session
 from datetime import date, datetime, timedelta
+from database import db
 from bs4 import BeautifulSoup
 from websitemixer import models
 from config import *
@@ -89,3 +90,11 @@ def get_all_plugin_info():
                 data = json.load(data_file)
             pluginData.append(data)
     return pluginData
+
+def check_new_settings(k,v):
+    check = models.Setting.query.filter_by(name=k).first()
+    if check is None:
+        a = models.Setting(k, v)
+        db.session.add(a)
+    return True
+
