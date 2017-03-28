@@ -412,18 +412,40 @@ def adminthemeinstall(theme):
     output.write(themeFile.read())
     output.close()
 
+    #my_dir = saveDir
+    #my_zip = saveDir+'/master.zip'
+    #with zipfile.ZipFile(my_zip) as zip_file:
+    #    for member in zip_file.namelist():
+    #        filename = os.path.basename(member)
+    #        # skip directories
+    #        if not filename:
+    #            continue
+    #
+    #        # copy file (taken from zipfile's extract)
+    #        source = zip_file.open(member)
+    #        target = file(os.path.join(my_dir, filename), "wb")
+    #        with source, target:
+    #            shutil.copyfileobj(source, target)
+
     my_dir = saveDir
     my_zip = saveDir+'/master.zip'
     with zipfile.ZipFile(my_zip) as zip_file:
         for member in zip_file.namelist():
             filename = os.path.basename(member)
+            dirName = member.split('/')
+            dirName.pop(0)
             # skip directories
             if not filename:
                 continue
 
+            if len(dirName) > 1:
+                if not os.path.isdir(saveDir+'/'+dirName[0]):
+                    os.makedirs(saveDir+'/'+dirName[0])
+
             # copy file (taken from zipfile's extract)
             source = zip_file.open(member)
-            target = file(os.path.join(my_dir, filename), "wb")
+            targetFile = os.path.join(my_dir, "/".join(dirName))
+            target = file(targetFile, "wb")
             with source, target:
                 shutil.copyfileobj(source, target)
 
@@ -450,6 +472,7 @@ def adminthemesactivate(theme):
     newTheme = get_theme_info(theme)
     if 'assets' in newTheme.keys():
         for d in newTheme['assets'].values():
+            print d
             theme_dir = newTheme['basics']['directory']
             src = basedir + '/websitemixer/templates/' + theme_dir + '/' + d
             dst = basedir + '/websitemixer/static/'
