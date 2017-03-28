@@ -457,7 +457,6 @@ def adminthemesactivate(theme):
     newTheme = get_theme_info(theme)
     if 'assets' in newTheme.keys():
         for d in newTheme['assets'].values():
-            print d
             theme_dir = newTheme['basics']['directory']
             src = basedir + '/websitemixer/templates/' + theme_dir + '/' + d
             dst = basedir + '/websitemixer/static/'
