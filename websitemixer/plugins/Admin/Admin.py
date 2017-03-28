@@ -412,21 +412,6 @@ def adminthemeinstall(theme):
     output.write(themeFile.read())
     output.close()
 
-    #my_dir = saveDir
-    #my_zip = saveDir+'/master.zip'
-    #with zipfile.ZipFile(my_zip) as zip_file:
-    #    for member in zip_file.namelist():
-    #        filename = os.path.basename(member)
-    #        # skip directories
-    #        if not filename:
-    #            continue
-    #
-    #        # copy file (taken from zipfile's extract)
-    #        source = zip_file.open(member)
-    #        target = file(os.path.join(my_dir, filename), "wb")
-    #        with source, target:
-    #            shutil.copyfileobj(source, target)
-
     my_dir = saveDir
     my_zip = saveDir+'/master.zip'
     with zipfile.ZipFile(my_zip) as zip_file:
