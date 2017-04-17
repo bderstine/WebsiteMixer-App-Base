@@ -466,8 +466,8 @@ def adminthemesactivate(theme):
                 continue
     # add or update settings in db for newtheme
     if 'settings' in newTheme.keys():
-        for k, v in newTheme['settings'].items():
-            check_new_settings(k, v)
+        for a in newTheme['settings']:
+            check_new_settings(a['name'], a['default'])
     # update setting in db for newtheme
     u = Setting.query.filter_by(name='theme').update(dict(value=theme))
     db.session.commit()
