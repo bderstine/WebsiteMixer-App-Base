@@ -562,6 +562,18 @@ def adminpluginsinstall(plugin):
                 shutil.copyfileobj(source, target)
 
     os.remove(saveDir+'/master.zip')
+
+    pluginInfo = get_plugin_info(pluginDir)
+    if pluginInfo['assets']['templates']:
+        for k, v in pluginInfo['assets'].items():
+            if k == 'templates':
+                src = basedir + '/websitemixer/plugins/' + pluginDir + '/' + v
+                dst = basedir + '/websitemixer/templates/' + v + '/'
+                try:
+                    shutil.move(src, dst)
+                except Exception as e:
+                    continue
+
     return redirect('/admin/plugins/')
 
 
@@ -570,6 +582,11 @@ def adminpluginsinstall(plugin):
 def adminpluginsdelete(plugin):
     s = getSettings()
     if request.args.get('confirmed'):
+        pluginInfo = get_plugin_info(plugin)
+        if pluginInfo['assets']['templates']:
+            for k, v in pluginInfo['assets'].items():
+                if k == 'templates':
+                    shutil.rmtree(basedir+'/websitemixer/templates/'+v)
         shutil.rmtree(basedir+'/websitemixer/plugins/'+plugin)
         return redirect("/admin/plugins/")
     else:

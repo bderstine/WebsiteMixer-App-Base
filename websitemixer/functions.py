@@ -63,6 +63,12 @@ def process_tags(tags):
     return rettags
 
 
+def get_plugin_info(plugin):
+    conf = basedir+'/websitemixer/plugins/'+plugin+'/config.json'
+    with open(conf) as data_file:
+        data = json.load(data_file)
+    return dict(data)
+
 def get_theme_info(theme):
     conf = basedir+'/websitemixer/templates/'+theme+'/config.json'
     with open(conf) as data_file:
