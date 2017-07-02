@@ -27,7 +27,9 @@
           <a href="mailto:{{p.basics.email}}">{{p.basics.email}}<br/>
           <br/>
           <a href="/admin/plugins/edit/{{p.basics.directory}}/"><button class="btn btn-primary">Edit</button></a>
+          {% if p.basics.name != 'WebsiteMixer CMS Admin' %}
           <a href="/admin/plugins/delete/{{p.basics.directory}}/"><button class="btn btn-danger">Delete</button></a>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
