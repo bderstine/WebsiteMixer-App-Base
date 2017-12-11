@@ -1,12 +1,17 @@
 #WebsiteMixer-App-Base
 ### A Python/Flask alternative to WordPress & Drupal
+## Tested on: Ubuntu 16.04/Python 3
 
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
 ## Quick Start
-I usually start with a new Ubuntu 14.04 or 16.04 server:
+Tested on: Ubuntu 16.04.3 LTS, Python  3.5.2
 
-$ apt-get update && apt-get install git python-pip python-dev
+$ apt-get update && apt-get upgrade
+
+$ apt-get install python3-pip
+
+$ pip3 install --upgrade pip
 
 $ cd /srv
 
@@ -14,11 +19,13 @@ $ git clone https://github.com/bderstine/WebsiteMixer-App-Base
 
 $ cd WebsiteMixer-App-Base
 
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 
 $ ./run.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: xxx-xxx-xxx
 
 ## Installation
 
