@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.6
 from websitemixer import app
 
 app.debug = True  # disable if not dev!
