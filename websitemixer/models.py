@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from database import db
+from websitemixer.database import db
 import hashlib
 import passlib.hash
 
