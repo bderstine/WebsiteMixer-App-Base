@@ -38,6 +38,35 @@ $ ./run.py
  * Debugger is active!
  * Debugger PIN: xxx-xxx-xxx
 
+## Quick Start (RHEL 7.4)
+Tested on: RHEL 7.4, Python 3.6.3
+
+$ sudo yum update
+
+$ sudo yum install git wget
+
+$ sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+$ sudo yum install https://centos7.iuscommunity.org/ius-release.rpm
+
+$ sudo yum install python36u python36u-pip
+
+$ cd /srv
+
+$ sudo git clone https://github.com/bderstine/WebsiteMixer-App-Base
+
+$ sudo chown ec2-user:ec2-user WebsiteMixer-App-Base -R
+
+$ cd WebsiteMixer-App-Base/
+
+$ sudo pip-3.6 install -r requirements.txt
+
+$ ./run.py
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: xxx-xxx-xxx
+
 ## Quick Start (Linux AMI)
 Tested on: Linux AMI 2017.09.1, Python 3.6.2
 
