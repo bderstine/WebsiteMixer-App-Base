@@ -1,7 +1,6 @@
 import os
 from flask import render_template, redirect, request, url_for, session
 from flask_login import login_user, logout_user, current_user, login_required
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 from websitemixer import app
@@ -45,10 +44,6 @@ def logout():
     session.clear()
     logout_user()
     return redirect('/')
-
-
-def make_external(url):
-    return urljoin(request.url_root, url)
 
 
 @app.route('/feed/', defaults={'tag': None})
