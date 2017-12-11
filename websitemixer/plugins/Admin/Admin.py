@@ -2,12 +2,11 @@ import os
 import shutil
 import signal
 import urllib
-import urllib2
+from urllib.request import urlopen
 import zipfile
 from flask import render_template, redirect, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_login import LoginManager
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug import secure_filename
 
@@ -384,7 +383,7 @@ def adminthemesadd():
         themeNames.update([(c['basics']['directory'], c['basics']['name'])])
 
     url = "http://websitemixer.com/api/themes/"
-    response = urllib.urlopen(url)
+    response = urlopen(url)
     apiThemeData = json.loads(response.read())
     for a in apiThemeData['json_list']:
         if a['theme_name'] not in themeNames.values():
@@ -398,11 +397,11 @@ def adminthemesadd():
 def adminthemeinstall(theme):
     s = getSettings()
     url = "http://websitemixer.com/api/themes/"+theme+"/"
-    response = urllib.urlopen(url)
+    response = urlopen(url)
     themeData = json.loads(response.read())
 
     theme_url = themeData['json_list'][0]['theme_repo'] + '/archive/master.zip'
-    themeFile = urllib2.urlopen(theme_url)
+    themeFile = urlopen(theme_url)
 
     theme_dir = themeData['json_list'][0]['theme_directory']
     saveDir = basedir + '/websitemixer/templates/' + theme_dir
@@ -530,7 +529,7 @@ def adminpluginsinstall(plugin):
     pluginData = json.loads(response.read())
 
     pluginUrl = pluginData['json_list'][0]['plugin_repo']
-    pluginFile = urllib2.urlopen(pluginUrl + '/archive/master.zip')
+    pluginFile = urlopen(pluginUrl + '/archive/master.zip')
 
     pluginDir = pluginData['json_list'][0]['plugin_directory']
     saveDir = basedir + '/websitemixer/plugins/' + pluginDir

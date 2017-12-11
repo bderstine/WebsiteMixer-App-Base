@@ -1,12 +1,12 @@
 from flask import Flask, g
 from flask_moment import Moment
 from flask_mail import Mail
-from database import db
+from websitemixer.database import db
 
 import os
 import json
 
-from functions import *
+from websitemixer.functions import *
 
 app = Flask(__name__)
 app.config.from_object('config')

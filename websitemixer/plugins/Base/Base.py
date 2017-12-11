@@ -1,7 +1,6 @@
 import os
 from flask import render_template, redirect, request, url_for, session
 from flask_login import login_user, logout_user, current_user, login_required
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 from websitemixer import app
@@ -47,10 +46,6 @@ def logout():
     return redirect('/')
 
 
-def make_external(url):
-    return urljoin(request.url_root, url)
-
-
 @app.route('/feed/', defaults={'tag': None})
 @app.route('/feed/<tag>/')
 def recent_feed(tag):
@@ -62,7 +57,7 @@ def recent_feed(tag):
     else:
         articles = Post.query.order_by(Post.date.desc()).limit(15).all()
     for article in articles:
-        feed.add(article.title, unicode(article.content),
+        feed.add(article.title, str(article.content),
                  content_type='html',
                  author=article.author,
                  url=make_external(article.slug),

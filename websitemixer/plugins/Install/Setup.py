@@ -1,4 +1,5 @@
 import os
+import binascii
 from flask import render_template, request, redirect
 from websitemixer import app, models
 from websitemixer.database import db
@@ -11,7 +12,7 @@ def setup1():
 
 @app.route('/setup/step2/', methods=['POST'])
 def setup2():
-    secretkey = os.urandom(24).encode('hex')
+    secretkey = binascii.hexlify(os.urandom(24)).decode("utf-8")
     appname = request.form['appname']
     dbname = request.form['dbname']
     dbuser = request.form['dbuser']

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from database import db
+from websitemixer.database import db
 import hashlib
 import passlib.hash
 
@@ -248,7 +248,7 @@ class User(db.Model):
         return False
 
     def get_id(self):
-        return unicode(self.id)
+        return str(self.id)
 
     def is_admin(self):
         if self.admin == 1:

@@ -2,7 +2,7 @@ import os
 import json
 from flask import session
 from datetime import date, datetime, timedelta
-from database import db
+from websitemixer.database import db
 from bs4 import BeautifulSoup
 from websitemixer import models
 from config import *
@@ -28,7 +28,7 @@ def make_tree(path):
     try:
         lst = os.listdir(path)
     except OSError as e:
-        print e
+        print(e)
         pass  # ignore errors
     else:
         for name in lst:
