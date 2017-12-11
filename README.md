@@ -21,7 +21,6 @@ $ sudo apt-get install python3.6
 $ curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
 
 #### Coming with Ubuntu 18.04, Python 3.6 will be the default!
-#### Continue with steps to finish installing WebsiteMixer
 
 $ cd /srv
 
