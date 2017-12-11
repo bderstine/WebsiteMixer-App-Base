@@ -12,7 +12,7 @@ def setup1():
 
 @app.route('/setup/step2/', methods=['POST'])
 def setup2():
-    secretkey = str(binascii.hexlify(os.urandom(24))).decode("utf-8")
+    secretkey = binascii.hexlify(os.urandom(24)).decode("utf-8")
     appname = request.form['appname']
     dbname = request.form['dbname']
     dbuser = request.form['dbuser']
