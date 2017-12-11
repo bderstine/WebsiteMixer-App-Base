@@ -1,6 +1,5 @@
 # WebsiteMixer-App-Base
 ### A Python/Flask alternative to WordPress & Drupal
-#### Tested on: Ubuntu 16.04/Python 3
 
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
