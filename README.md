@@ -4,7 +4,7 @@
 
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
-## Quick Start
+## Quick Start (Ubuntu)
 Tested on: Ubuntu 16.04.3 LTS, Python  3.5.2
 
 $ apt-get update && apt-get upgrade
@@ -20,6 +20,29 @@ $ git clone https://github.com/bderstine/WebsiteMixer-App-Base
 $ cd WebsiteMixer-App-Base
 
 $ pip3 install -r requirements.txt
+
+$ ./run.py
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: xxx-xxx-xxx
+
+## Quick Start (Linux AMI)
+Tested on: Linux AMI 2017.09.1, Python 3.6
+
+$ sudo yum update
+
+$ sudo yum install python36 python36-pip git
+
+$ cd /srv
+
+$ sudo git clone https://github.com/bderstine/WebsiteMixer-App-Base
+
+$ sudo chown ec2-user:ec2-user WebsiteMixer-App-Base/ -R
+
+$ cd WebsiteMixer-App-Base
+
+$ sudo pip-3.6 install -r requirements.txt
 
 $ ./run.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
