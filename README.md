@@ -41,7 +41,7 @@ $ ./run.py
  * Debugger PIN: xxx-xxx-xxx
 
 ## Quick Start (Linux AMI)
-Tested on: Linux AMI 2017.09.1, Python 3.6
+Tested on: Linux AMI 2017.09.1, Python 3.6.2
 
 $ sudo yum update
 
