@@ -7,7 +7,6 @@ import zipfile
 from flask import render_template, redirect, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_login import LoginManager
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug import secure_filename
 
