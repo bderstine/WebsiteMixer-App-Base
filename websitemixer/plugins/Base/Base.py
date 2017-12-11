@@ -57,7 +57,7 @@ def recent_feed(tag):
     else:
         articles = Post.query.order_by(Post.date.desc()).limit(15).all()
     for article in articles:
-        feed.add(article.title, unicode(article.content),
+        feed.add(article.title, str(article.content),
                  content_type='html',
                  author=article.author,
                  url=make_external(article.slug),
