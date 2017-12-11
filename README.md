@@ -5,21 +5,33 @@
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
 ## Quick Start (Ubuntu)
-Tested on: Ubuntu 16.04.3 LTS, Python  3.5.2
+Tested on: Ubuntu 16.04.3 LTS, Python  3.6.3
 
-$ apt-get update && apt-get upgrade
+$ sudo apt-get update && sudo apt-get upgrade
 
-$ apt-get install python3-pip
+#### For Ubuntu 16.04, need to add PPA for Python 3.6
 
-$ pip3 install --upgrade pip
+$ sudo add-apt-repository ppa:jonathonf/python-3.6
 
-$ cd /srv
+$ sudo apt-get update
 
-$ git clone https://github.com/bderstine/WebsiteMixer-App-Base
+$ sudo apt-get install python3.6
+
+#### Pip for Python 3.6 has to be installed manually, no package...
+
+$ curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+
+#### Coming with Ubuntu 18.04, Python 3.6 will be the default!
+
+cd /srv
+
+$ sudo git clone https://github.com/bderstine/WebsiteMixer-App-Base
+
+$ sudo chown ubuntu:ubuntu WebsiteMixer-App-Base -R
 
 $ cd WebsiteMixer-App-Base
 
-$ pip3 install -r requirements.txt
+$ sudo pip3.6 install -r requirements.txt
 
 $ ./run.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
