@@ -1,12 +1,7 @@
-{% extends "Admin/base.html" %}
+{% extends "Admin/index.html" %}
 
-{% block pagewrapper %}
-<!-- Page Content -->
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Manage Plugins</h1>
+{% block content %}
+                <h1>Manage Plugins</h1>
                 <p>
                   <a href="/admin/plugins/add/"><button class="btn btn-success">Add New</button></a> 
                   <a href="/admin/plugins/restart/"><button class="btn btn-danger">Restart</button></a>
