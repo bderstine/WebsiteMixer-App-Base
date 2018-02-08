@@ -5,11 +5,8 @@
 {% endblock %}
 
 {% block content %}
-  <div class="col-md-8">
-       <h1 class="page-header">
-          {{postData.title}}
-       </h1>
-
+  <main role="main" class="container">
+       <h1 class="page-header">{{postData.title}}</h1>
        <p>by <a href="#">{{postData.author}}</a> <span class="glyphicon glyphicon-time"></span> Posted on {{moment(postData.date).format('MMMM Do YYYY, h:mm a') }}</p>
        <img class="img-responsive" src="{{postData.image}}" alt="">
        <hr>
@@ -21,15 +18,5 @@
        {% endif %}
 
        {{ s.commentCode|safe }}
-
-  </div>
-
-  <div class="col-md-4">
-
-    <div class="well">
-    {{ s.siteAds|safe }}
-    </div>
-
-  </div>
-
+  </main>
 {% endblock %}
