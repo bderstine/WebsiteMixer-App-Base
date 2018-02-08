@@ -1,16 +1,11 @@
-{% extends "Admin/base.html" %}
+{% extends "Admin/index.html" %}
 
-{% block headjs %}
+{% block footerjs %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js" type="text/javascript"></script>
 {% endblock %}
 
-{% block pagewrapper %}
-<!-- Page Content -->
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Manage Settings</h1>
+{% block content %}
+  <h1 class="page-header">Manage Settings</h1>
 
 	<form method="post" action="">
         <div class="row">
@@ -55,13 +50,4 @@
           </div>
 
 	</form>
-
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /#page-wrapper -->
 {% endblock %}
