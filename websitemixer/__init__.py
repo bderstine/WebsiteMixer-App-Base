@@ -1,4 +1,5 @@
 from flask import Flask, g
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_moment import Moment
 from flask_mail import Mail
 from websitemixer.database import db
@@ -10,6 +11,9 @@ from websitemixer.functions import *
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.debug = app.config['DEBUG']
+toolbar = DebugToolbarExtension(app)
+
 db.init_app(app)
 mail = Mail(app)
 moment = Moment(app)

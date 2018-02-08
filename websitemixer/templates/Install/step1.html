@@ -11,6 +11,36 @@
     <p class="help-block">Should be short, all one word, no special chars!</p>
   </div>
 
+  <h2>Debug</h2>
+  <div class="form-group">
+    <label class="radio-inline"><input type="radio" name="debug" value="True" class="debug">True</label> 
+    <label class="radio-inline"><input type="radio" name="debug" value="False" class="debug" checked="checked">False</label>
+    <p class="help-block">Flask Debug Toolbar (FDT), can be updated later in config.py</p>
+  </div>
+
+  <div id="form-debug" style="display:none;">
+    <h4>Enable Profiler</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugprofile" value="True" checked="checked">True</label>
+      <label class="radio-inline"><input type="radio" name="debugprofile" value="False">False</label>
+      <p class="help-block">If debug enabled, shows everything.<br/>All debug settings can be updated in config.py.</p>
+    </div>
+
+    <h4>Template Editor</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugedit" value="True">True</label>
+      <label class="radio-inline"><input type="radio" name="debugedit" value="False" checked="checked">False</label>
+      <p class="help-block">Templates can be editted through FDT without authentication.<br/>Recommend disabling unless you really want this.</p>
+    </div>
+
+    <h4>Intercept Redirects</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugredirect" value="True">True</label>
+      <label class="radio-inline"><input type="radio" name="debugredirect" value="False" checked="checked">False</label>
+      <p class="help-block">This blocks redirects and makes you click a link to continue.<br/>Great for debugging, rough for just testing.</p>
+    </div>
+  </div>
+
   <h2>Database Method</h2>
   <div class="form-group">
     <label class="radio-inline"><input type="radio" name="dbmeth" value="sqlite" class="dtype" checked="checked">SQlite</label>
@@ -49,12 +79,19 @@
 <script type="text/javascript">
 $(function() {
   $('.dtype').change(function() {
-    //$('#form-db').slideToggle('500');
     if ($(this).val() == 'sqlite') {
       $('#form-db').slideUp('500');
     }
     else {
       $('#form-db').slideDown('500');
+    }
+  });
+  $('.debug').change(function() {
+    if ($(this).val() == 'False') {
+      $('#form-debug').slideUp('500');
+    }
+    else {
+      $('#form-debug').slideDown('500');
     }
   });
 });
