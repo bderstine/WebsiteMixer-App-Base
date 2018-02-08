@@ -11,6 +11,13 @@
     <p class="help-block">Should be short, all one word, no special chars!</p>
   </div>
 
+  <h2>Debug</h2>
+  <div class="form-group">
+    <label class="radio-inline"><input type="radio" name="debug" value="true" checked="checked">True</label> 
+    <label class="radio-inline"><input type="radio" name="debug" value="false">False</label>
+    <p class="help-block">Flask Debug Toolbar (FDT), can be updated later in config.py</p>
+  </div>
+
   <h2>Database Method</h2>
   <div class="form-group">
     <label class="radio-inline"><input type="radio" name="dbmeth" value="sqlite" class="dtype" checked="checked">SQlite</label>
@@ -49,7 +56,6 @@
 <script type="text/javascript">
 $(function() {
   $('.dtype').change(function() {
-    //$('#form-db').slideToggle('500');
     if ($(this).val() == 'sqlite') {
       $('#form-db').slideUp('500');
     }

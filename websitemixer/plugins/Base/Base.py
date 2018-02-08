@@ -11,7 +11,7 @@ from websitemixer.functions import *
 @app.route('/', defaults={'tag': None})
 @app.route('/tag/<tag>/')
 def home(tag):
-    if 'SECRET_KEY' not in globals():
+    if 'UPLOAD_FOLDER' not in globals():
         return redirect('/setup/step1/')
 
     s = getSettings()

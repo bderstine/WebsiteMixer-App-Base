@@ -18,12 +18,17 @@ def setup2():
     dbuser = request.form['dbuser']
     dbpwd = request.form['dbpwd']
     dbsrv = request.form['dbsrv']
+    debug = request.form['debug']
 
     with open('config.py', 'w') as file:
         file.seek(0)
         file.truncate()
         file.write("import os\n")
         file.write("basedir = os.path.abspath(os.path.dirname(__file__))\n\n")
+        file.write("DEBUG = "+debug+"\n")
+        file.write("DEBUG_TB_INTERCEPT_REDIRECTS = False\n")
+        file.write("DEBUG_TB_PROFILER_ENABLED = True\n")
+        file.write("DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True\n")
         file.write("SECRET_KEY = '"+secretkey+"'\n")
         file.write("UPLOAD_FOLDER = basedir+'/websitemixer/static/upload/'\n")
 
