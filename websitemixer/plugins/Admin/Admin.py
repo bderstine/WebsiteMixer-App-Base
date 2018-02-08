@@ -90,7 +90,7 @@ def adminpages():
 def manageSettings():
     s = getSettings()
     if request.method == 'POST':
-        for key, value in request.form.iteritems():
+        for key, value in request.form.items():
             check = Setting.query.filter_by(name=key).first()
             if check is None:
                 a = Setting(key, value)
