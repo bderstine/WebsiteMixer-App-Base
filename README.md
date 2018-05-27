@@ -3,7 +3,35 @@
 
 See the [Changelog](http://websitemixer.com/changelog/) for more details.   
 
-## Quick Start (Ubuntu)
+## Quick Start (Ubuntu 18.04)
+Tested on: Ubuntu 18.04, Python 3.6.5
+
+$ sudo apt-get update && sudo apt-get upgrade
+
+$ sudo apt-get install python3-pip
+
+$ cd /srv
+
+$ sudo git clone https://github.com/bderstine/WebsiteMixer-App-Base
+
+$ sudo chown ubuntu:ubuntu WebsiteMixer-App-Base -R
+
+$ cd WebsiteMixer-App-Base
+
+$ sudo pip3 install -r requirements.txt
+
+$ ./run.py
+ * Serving Flask app "websitemixer" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: xxx-xxx-xxx
+
+## Quick Start (Ubuntu 16.04)
 Tested on: Ubuntu 16.04.3 LTS, Python  3.6.3
 
 $ sudo apt-get update && sudo apt-get upgrade
