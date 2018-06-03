@@ -1,4 +1,7 @@
 *.db
+api.wsgi
+virtualhost/
+config.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
