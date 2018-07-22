@@ -1,3 +1,4 @@
+instance/
 .pytest_cache/
 *.db
 api.wsgi
