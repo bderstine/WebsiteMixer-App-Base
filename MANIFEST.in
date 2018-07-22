@@ -1,0 +1,6 @@
+include LICENSE
+include websitemixer/schema.sql
+graft websitemixer/static
+graft websitemixer/templates
+graft tests
+global-exclude *.pyc

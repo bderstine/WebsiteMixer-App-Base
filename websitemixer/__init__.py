@@ -1,44 +1,48 @@
-from flask import Flask, g
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_moment import Moment
-from flask_mail import Mail
-from websitemixer.database import db
-
 import os
-import json
 
-from websitemixer.functions import *
-
-app = Flask(__name__)
-app.config.from_object('config')
-app.debug = app.config['DEBUG']
-toolbar = DebugToolbarExtension(app)
-
-db.init_app(app)
-mail = Mail(app)
-moment = Moment(app)
-
-basedir = os.path.abspath(os.path.dirname(__file__))
+from flask import Flask
 
 
-def get_all_plugin_info():
-    pluginData = []
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    dirs = os.walk(basedir+'/plugins/')
-    for x in dirs:
-        if os.path.isfile(x[0]+'/config.json'):
-            with open(x[0]+'/config.json') as data_file:
-                data = json.load(data_file)
-            pluginData.append(data)
-    return pluginData
+def create_app(test_config=None):
+    """Create and configure an instance of the Flask application."""
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        # a default secret that should be overridden by instance config
+        SECRET_KEY='dev',
+        # store the database in the instance folder
+        DATABASE=os.path.join(app.instance_path, 'websitemixer.sqlite'),
+    )
 
-pluginData = get_all_plugin_info()
-for p in pluginData:
-    for mod in p['import']:
-        plugin = "websitemixer.plugins."+p['basics']['directory']
-        name = str(mod)
-        imported = getattr(__import__(plugin, fromlist=[name]), name)
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.update(test_config)
 
-app.jinja_env.globals.update(first_paragraph=first_paragraph)
-app.jinja_env.globals.update(process_tags=process_tags)
-app.jinja_env.globals.update(is_admin=is_admin)
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    @app.route('/hello')
+    def hello():
+        return 'Hello, World!'
+
+    # register the database commands
+    from websitemixer import db
+    db.init_app(app)
+
+    # apply the blueprints to the app
+    from websitemixer import auth, blog
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(blog.bp)
+
+    # make url_for('index') == url_for('blog.index')
+    # in another app, you might define a separate main index here with
+    # app.route, while giving the blog blueprint a url_prefix, but for
+    # the tutorial the blog will be the main index
+    app.add_url_rule('/', endpoint='index')
+
+    return app
