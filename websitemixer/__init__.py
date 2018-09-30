@@ -20,24 +20,23 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.update(test_config)
 
+    app.debug = app.config['DEBUG']
+
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
 
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
     # register the database commands
-    from websitemixer import db
-    db.init_app(app)
+    from websitemixer.database import init_db
+    init_db()
 
     # apply the blueprints to the app
-    from websitemixer import auth, blog
+    #from websitemixer import auth, blog
+    from websitemixer import auth
     app.register_blueprint(auth.bp)
-    app.register_blueprint(blog.bp)
+    #app.register_blueprint(blog.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
