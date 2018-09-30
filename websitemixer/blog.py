@@ -4,6 +4,8 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from websitemixer.auth import login_required
+from websitemixer.database import db_session
+from websitemixer.models import User, Post
 
 bp = Blueprint('blog', __name__)
 
@@ -12,5 +14,5 @@ bp = Blueprint('blog', __name__)
 def index():
     """Show all the posts, most recent first."""
     postData = Post.query.filter_by(slug=slug).first()
-    return render_template('blog/index.html', posts=posts)
+    return render_template('blog/index.html', posts=postdata)
 

@@ -33,10 +33,9 @@ def create_app(test_config=None):
     init_db()
 
     # apply the blueprints to the app
-    #from websitemixer import auth, blog
-    from websitemixer import auth
+    from websitemixer import auth, blog
     app.register_blueprint(auth.bp)
-    #app.register_blueprint(blog.bp)
+    app.register_blueprint(blog.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
