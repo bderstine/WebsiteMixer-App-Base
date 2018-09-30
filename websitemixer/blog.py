@@ -13,6 +13,7 @@ bp = Blueprint('blog', __name__)
 @bp.route('/')
 def index():
     """Show all the posts, most recent first."""
-    postData = Post.query.filter_by(slug=slug).first()
-    return render_template('blog/index.html', posts=postdata)
+    #postData = Post.query.filter_by(slug=slug).first()
+    postData = Post.query.all()
+    return render_template('blog/index.html', posts=postData)
 

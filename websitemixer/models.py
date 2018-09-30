@@ -3,175 +3,182 @@ from datetime import datetime
 import hashlib
 import passlib.hash
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Table, ForeignKey, DateTime, Text
 from websitemixer.database import Base
 
-user_roles = db.Table(
+user_roles = Table(
     'user_roles',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'user_id',
-        db.Integer,
-        db.ForeignKey('user.id', ondelete='cascade')),
-    db.Column(
+        Integer,
+        ForeignKey('user.id', ondelete='cascade')),
+    Column(
         'role_id',
-        db.Integer,
-        db.ForeignKey('role.id', ondelete='cascade'))
+        Integer,
+        ForeignKey('role.id', ondelete='cascade'))
 )
 
-user_posts = db.Table(
+user_posts = Table(
     'user_posts',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'user_id',
-        db.Integer,
-        db.ForeignKey('user.id')),
-    db.Column(
+        Integer,
+        ForeignKey('user.id')),
+    Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id'))
+        Integer,
+        ForeignKey('post.id'))
 )
 
-user_comments = db.Table(
+user_comments = Table(
     'user_comments',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'user_id',
-        db.Integer,
-        db.ForeignKey('user.id')),
-    db.Column(
+        Integer,
+        ForeignKey('user.id')),
+    Column(
         'comment_id',
-        db.Integer,
-        db.ForeignKey('comment.id'))
+        Integer,
+        ForeignKey('comment.id'))
 )
 
-user_preferences = db.Table(
+user_preferences = Table(
     'user_preferences',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'user_id',
-        db.Integer,
-        db.ForeignKey('user.id', ondelete='cascade')),
-    db.Column(
+        Integer,
+        ForeignKey('user.id', ondelete='cascade')),
+    Column(
         'preference_id',
-        db.Integer,
-        db.ForeignKey('preference.id', ondelete='cascade'))
+        Integer,
+        ForeignKey('preference.id', ondelete='cascade'))
 )
 
-post_categories = db.Table(
+post_categories = Table(
     'post_categories',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id', ondelete='cascade')),
-    db.Column(
+        Integer,
+        ForeignKey('post.id', ondelete='cascade')),
+    Column(
         'category_id',
-        db.Integer,
-        db.ForeignKey('category.id', ondelete='cascade'))
+        Integer,
+        ForeignKey('category.id', ondelete='cascade'))
 )
 
-post_comments = db.Table(
+post_comments = Table(
     'post_comments',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id', ondelete='cascade')),
-    db.Column(
+        Integer,
+        ForeignKey('post.id', ondelete='cascade')),
+    Column(
         'comment_id',
-        db.Integer,
-        db.ForeignKey('comment.id', ondelete='cascade'))
+        Integer,
+        ForeignKey('comment.id', ondelete='cascade'))
 )
 
-page_posts = db.Table(
+page_posts = Table(
     'page_posts',
-    db.Column(
+    Base.metadata,
+    Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True),
-    db.Column(
+    Column(
         'page_id',
-        db.Integer,
-        db.ForeignKey('page.id', ondelete='cascade')),
-    db.Column(
+        Integer,
+        ForeignKey('page.id', ondelete='cascade')),
+    Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id', ondelete='cascade'))
+        Integer,
+        ForeignKey('post.id', ondelete='cascade'))
 )
 
 
 class User(Base):
     __tablename__ = 'user'
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True, index=True)
-    username = db.Column(
+    username = Column(
         'username',
-        db.String(255),
+        String(255),
         unique=True,
         nullable=False,
         index=True)
-    password = db.Column('password', db.String(255), nullable=False)
-    email = db.Column('email', db.String(50), nullable=False)
-    registered_on = db.Column('registered_on', db.DateTime)
-    admin = db.Column('admin', db.Integer, default=0)
-    name = db.Column('name', db.String(255))
-    image = db.Column('image', db.String(255))
-    facebook = db.Column('facebook', db.String(255))
-    twitter = db.Column('twitter', db.String(255))
-    google = db.Column('google', db.String(255))
+    password = Column('password', String(255), nullable=False)
+    email = Column('email', String(50), nullable=False)
+    registered_on = Column('registered_on', DateTime)
+    admin = Column('admin', Integer, default=0)
+    name = Column('name', String(255))
+    image = Column('image', String(255))
+    facebook = Column('facebook', String(255))
+    twitter = Column('twitter', String(255))
+    google = Column('google', String(255))
 
-    roles = db.relationship(
-        'Role',
-        secondary=user_roles,
-        backref=db.backref('user', lazy='dynamic'),
-    )
+    #roles = relationship(
+    #    'Role',
+    #    secondary=user_roles,
+    #    backref=backref('user', lazy='dynamic'),
+    #)
 
-    posts = db.relationship(
-        'Post',
-        secondary=user_posts,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #posts = relationship(
+    #    'Post',
+    #    secondary=user_posts,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
-    comments = db.relationship(
-        'Comment',
-        secondary=user_comments,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #comments = relationship(
+    #    'Comment',
+    #    secondary=user_comments,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
-    preferences = db.relationship(
-        'Preference',
-        secondary=user_preferences,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #preferences = relationship(
+    #    'Preference',
+    #    secondary=user_preferences,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
     def __init__(self, username, password, email):
         self.username = username
@@ -265,42 +272,42 @@ class User(Base):
 class Post(Base):
     __tablename__ = 'post'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    author = db.Column('author', db.String(255))
-    title = db.Column('title', db.String(255), index=True)
-    subheading = db.Column('subheading', db.String(255))
-    slug = db.Column('slug', db.String(255))
-    content = db.Column('content', db.Text)
-    image = db.Column('image', db.Text)
-    status = db.Column('status', db.Integer, default=1)
-    date = db.Column(
+    author = Column('author', String(255))
+    title = Column('title', String(255), index=True)
+    subheading = Column('subheading', String(255))
+    slug = Column('slug', String(255))
+    content = Column('content', Text)
+    image = Column('image', Text)
+    status = Column('status', Integer, default=1)
+    date = Column(
         'date',
-        db.DateTime,
+        DateTime,
         default=datetime.utcnow(),
         index=True)
-    modified = db.Column(
+    modified = Column(
         'modified',
-        db.DateTime,
+        DateTime,
         default=datetime.utcnow(),
         index=True)
-    tags = db.Column('tags', db.Text)
+    tags = Column('tags', Text)
 
-    comments = db.relationship(
-        'Comment',
-        secondary=post_comments,
-        backref=db.backref('post', lazy='dynamic')
-    )
+    #comments = relationship(
+    #    'Comment',
+    #    secondary=post_comments,
+    #    backref=backref('post', lazy='dynamic')
+    #)
 
-    categories = db.relationship(
-        'Category',
-        secondary=post_categories,
-        backref=db.backref('post', lazy='dynamic')
-    )
+    #categories = relationship(
+    #    'Category',
+    #    secondary=post_categories,
+    #    backref=backref('post', lazy='dynamic')
+    #)
 
     def __init__(self, author, title, slug, content, subheading, image, tags):
         self.author = author
@@ -332,17 +339,17 @@ class Post(Base):
 class Category(Base):
     __tablename__ = 'category'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = db.Column('name', db.String(255))
-    post_id = db.Column(
+    name = Column('name', String(255))
+    post_id = Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id'), index=True)
+        Integer,
+        ForeignKey('post.id'), index=True)
 
     def __init__(self, name, post_id):
         self.name = name
@@ -355,34 +362,34 @@ class Category(Base):
 class Comment(Base):
     __tablename__ = 'comment'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    author = db.Column('author', db.String(255))
-    title = db.Column('title', db.String(255), index=True)
-    content = db.Column('content', db.Text)
-    status = db.Column('status', db.Integer, default=1)
-    date = db.Column(
+    author = Column('author', String(255))
+    title = Column('title', String(255), index=True)
+    content = Column('content', Text)
+    status = Column('status', Integer, default=1)
+    date = Column(
         'date',
-        db.DateTime,
+        DateTime,
         default=datetime.utcnow(),
         index=True)
-    modified = db.Column(
+    modified = Column(
         'modified',
-        db.DateTime,
+        DateTime,
         default=datetime.utcnow(),
         index=True)
-    post_id = db.Column(
+    post_id = Column(
         'post_id',
-        db.Integer,
-        db.ForeignKey('post.id'), nullable=True, index=True)
-    page_id = db.Column(
+        Integer,
+        ForeignKey('post.id'), nullable=True, index=True)
+    page_id = Column(
         'page_id',
-        db.Integer,
-        db.ForeignKey('page.id'), nullable=True, index=True)
+        Integer,
+        ForeignKey('page.id'), nullable=True, index=True)
 
     def __init__(self, author, title, content, post_id):
         self.author = author
@@ -412,30 +419,30 @@ class Comment(Base):
 class Page(Base):
     __tablename__ = 'page'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    title = db.Column('title', db.String(255), index=True)
-    subheading = db.Column('subheading', db.String(255))
-    slug = db.Column('slug', db.String(255))
-    content = db.Column('content', db.Text)
-    image = db.Column('image', db.Text)
-    status = db.Column('status', db.Integer, default=1)
-    modified = db.Column(
+    title = Column('title', String(255), index=True)
+    subheading = Column('subheading', String(255))
+    slug = Column('slug', String(255))
+    content = Column('content', Text)
+    image = Column('image', Text)
+    status = Column('status', Integer, default=1)
+    modified = Column(
         'modified',
-        db.DateTime,
+        DateTime,
         default=datetime.utcnow(),
         index=True)
-    parent = db.Column('parent', db.Integer, default=0, index=True)
+    parent = Column('parent', Integer, default=0, index=True)
 
-    posts = db.relationship(
-        'Post',
-        secondary=page_posts,
-        backref=db.backref('page', lazy='dynamic')
-    )
+    #posts = relationship(
+    #    'Post',
+    #    secondary=page_posts,
+    #    backref=backref('page', lazy='dynamic')
+    #)
 
     def __init__(self, title, slug, content, subheading, image):
         self.title = title
@@ -463,9 +470,9 @@ class Page(Base):
 class Logs(Base):
     __tablename__ = 'site_logs'
 
-    id = db.Column('id', db.Integer, primary_key=True)
-    log_message = db.Column('log_message', db.Text)
-    log_date = db.Column('log_date', db.DateTime)
+    id = Column('id', Integer, primary_key=True)
+    log_message = Column('log_message', Text)
+    log_date = Column('log_date', DateTime)
 
     def __init__(self, content):
         self.log_message = content
@@ -475,14 +482,14 @@ class Logs(Base):
 class Setting(Base):
     __tablename__ = 'setting'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = db.Column('name', db.String(255))
-    value = db.Column('value', db.Text)
+    name = Column('name', String(255))
+    value = Column('value', Text)
 
     def __init__(self, name, value):
         self.name = name
@@ -495,13 +502,13 @@ class Setting(Base):
 class Role(Base):
     __tablename__ = 'role'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = db.Column('rolename', db.String(255), index=True)
+    name = Column('rolename', String(255), index=True)
 
     def __init__(self, name):
         self.name = name
@@ -513,15 +520,15 @@ class Role(Base):
 class Preference(Base):
     __tablename__ = 'preference'
 
-    id = db.Column(
+    id = Column(
         'id',
-        db.Integer,
+        Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    option = db.Column('option', db.String(256))
-    value = db.Column('value', db.String(256))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    option = Column('option', String(256))
+    value = Column('value', String(256))
+    user_id = Column(Integer, ForeignKey('user.id'))
 
     def __init__(self, user_id, option, value):
         self.user_id = user_id
