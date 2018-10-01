@@ -1,4 +1,6 @@
 instance/websitemixer.sqlite
+instance/config.py
+
 .pytest_cache/
 *.db
 api.wsgi

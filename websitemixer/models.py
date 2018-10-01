@@ -539,10 +539,3 @@ class Preference(Base):
         return "<Preference user_id={0}, option={1}, value={2}>".format(
             self.user_id, self.option, self.value)
 
-
-def get_pw_hash(password):
-    """Hash the password with a unique salt, then return the hex result."""
-    pw_salt = "#N@?-+Xb"
-    data = "{0}{1}".format(pw_salt, password)
-    hash_str = hashlib.sha384(data).hexdigest()
-    return hash_str
