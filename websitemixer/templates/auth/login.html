@@ -110,6 +110,12 @@ body {
         <h1 class="h3 mb-3 font-weight-normal">WebsiteMixer Login</h1>
       </div>
 
+      {% for message in get_flashed_messages() %}
+      <div class="form-label-group">
+        <div class="flash">{{ message }}</div>
+      </div>
+      {% endfor %}
+
       <div class="form-label-group">
         <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputUsername">Username</label>

@@ -32,10 +32,8 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
-
+        g.user = User.query.filter(User.id == user_id).first()
+        
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
@@ -53,19 +51,16 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
+        elif User.query.filter(User.username == username).first() is not None:
             error = 'User {0} is already registered.'.format(username)
 
         if error is None:
             # the name is available, store it in the database and go to
             # the login page
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
+            u = User(username, password, 'admin@localhost')
+            db_session.add(u)
+            db_session.commit()
+
             return redirect(url_for('auth.login'))
 
         flash(error)
@@ -80,19 +75,18 @@ def login():
         username = request.form['username']
         password = request.form['password']
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+
+        user = User.query.filter(User.username == username).first()
 
         if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = 'Incorrect username or password.'
+        elif not User.validate(username, password):
+            error = 'Incorrect username or password.'
 
         if error is None:
             # store the user id in a new session and return to the index
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user.id
             return redirect(url_for('index'))
 
         flash(error)
