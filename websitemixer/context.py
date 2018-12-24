@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 
+
 def first_paragraph(content=""):
     # take content and return just the first <p></p> content,
     # used in blog loop template

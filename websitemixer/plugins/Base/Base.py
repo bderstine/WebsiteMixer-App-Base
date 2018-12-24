@@ -3,9 +3,9 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-#from websitemixer import db
 from websitemixer.functions import *
 from websitemixer.models import User, Setting, Post, Page
+
 
 bp = Blueprint('Base', __name__)
 
@@ -16,6 +16,7 @@ def home(tag):
         return redirect('/setup/step1/')
 
     s = getSettings()
+    print(s)
     if tag:
         blogData = Post.query.filter(Post.tags.like('%'+tag+'%')).\
                        order_by(Post.date.desc()).all()

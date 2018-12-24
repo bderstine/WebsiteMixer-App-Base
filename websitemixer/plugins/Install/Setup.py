@@ -1,19 +1,16 @@
+import os
+import binascii
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
 
-bp = Blueprint('Setup', __name__)
-
-
-import os
-import binascii
-#from flask import render_template, request, redirect
-#from websitemixer import app, models
-#from websitemixer.database import db
-
 from websitemixer import db
 from websitemixer.models import User, Setting, Post, Page
+
+
+bp = Blueprint('Setup', __name__)
 
 @bp.route('/setup/step1/')
 def setup1():

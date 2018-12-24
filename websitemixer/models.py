@@ -4,6 +4,12 @@ import hashlib
 import passlib.hash
 
 from websitemixer import db
+from websitemixer import login_manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_by_id(user_id)
 
 user_roles = db.Table(
     'user_roles',
@@ -190,6 +196,10 @@ class User(db.Model):
         :rtype: instance or None
         """
         return kls.query.filter(kls.username == username.lower()).first()
+    
+    @classmethod
+    def get_by_id(kls, id):
+        return kls.query.filter(kls.id == id).first()
 
     def delete_by_email(kls, email):
         """Delete artifacts of a user account then the user account itself.

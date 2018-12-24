@@ -15,12 +15,9 @@ from werkzeug.contrib.atom import AtomFeed
 from werkzeug import secure_filename
 from werkzeug.exceptions import abort
 
-from websitemixer.models import User, Setting, Post, Page
 from websitemixer.functions import *
+from websitemixer.models import User, Setting, Post, Page
 
-from websitemixer import login_manager
-
-#from config import *
 
 bp = Blueprint('Admin', __name__)
 
