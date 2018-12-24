@@ -1,0 +1,22 @@
+{
+  "basics": {
+    "name": "Base",
+    "summary": "This is the default theme for WebsiteMixer.",
+    "version": "1.0",
+    "directory" : "Base",
+    "website": "http://websitemixer.com",
+    "email": "brad@bizzartech.com",
+    "image": "http://websitemixer.com/static/upload/screenshot-base.jpg",
+    "profiles": [{
+      "network": "Twitter",
+      "url": "https://twitter.com/bradderstine"
+    },{
+      "network": "Facebook",
+      "url": "https://facebook.com/bizzartech"
+    }]
+  },
+  "settings": {
+  },
+  "assets": {
+  }
+}

@@ -1,0 +1,99 @@
+{% extends "Install/base.html" %}
+
+{% block content %}
+<div style="width:600px;text-align:left;margin-left:auto;margin-right:auto;">
+<h1>WebsiteMixer Setup</h1>
+<form role="form" method="POST" action="/setup/step2/">
+  <h2>Basic Information</h2>
+  <div class="form-group">
+    <label for="appname">App Name:</label>
+    <input type="text" class="form-control" id="appname" name="appname" value="myapp">
+    <p class="help-block">Should be short, all one word, no special chars!</p>
+  </div>
+
+  <h2>Debug</h2>
+  <div class="form-group">
+    <label class="radio-inline"><input type="radio" name="debug" value="True" class="debug"> True</label> 
+    <label class="radio-inline"><input type="radio" name="debug" value="False" class="debug" checked="checked"> False</label>
+    <p class="help-block">Flask Debug Toolbar (FDT), can be updated later in config.py</p>
+  </div>
+
+  <div id="form-debug" style="display:none;">
+    <h4>Enable Profiler</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugprofile" value="True" checked="checked"> True</label>
+      <label class="radio-inline"><input type="radio" name="debugprofile" value="False"> False</label>
+      <p class="help-block">If debug enabled, shows everything.<br/>All debug settings can be updated in config.py.</p>
+    </div>
+
+    <h4>Template Editor</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugedit" value="True"> True</label>
+      <label class="radio-inline"><input type="radio" name="debugedit" value="False" checked="checked"> False</label>
+      <p class="help-block">Templates can be editted through FDT without authentication.<br/>Recommend disabling unless you really want this.</p>
+    </div>
+
+    <h4>Intercept Redirects</h4>
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="debugredirect" value="True"> True</label>
+      <label class="radio-inline"><input type="radio" name="debugredirect" value="False" checked="checked"> False</label>
+      <p class="help-block">This blocks redirects and makes you click a link to continue.<br/>Great for debugging, rough for developing.</p>
+    </div>
+  </div>
+
+  <h2>Database Method</h2>
+  <div class="form-group">
+    <label class="radio-inline"><input type="radio" name="dbmeth" value="sqlite" class="dtype" checked="checked"> SQlite</label>
+    <label class="radio-inline"><input type="radio" name="dbmeth" value="mysql" class="dtype"> MySQL</label>
+    <label class="radio-inline"><input type="radio" name="dbmeth" value="postgres" class="dtype"> Postgresql</label>
+  </div>
+
+  <div id="form-db" style="display:none;">
+    <h2>Database Information</h2>
+    <div class="form-group">
+      <label for="dbname">Database Name:</label>
+      <input type="text" class="form-control" id="dbname" name="dbname" placeholder="database_name">
+      <p class="help-block">Make sure to pre-create the database, this won't create the db... yet...</p>
+    </div>
+    <div class="form-group">
+      <label for="dbuser">Database Username:</label>
+      <input type="text" class="form-control" id="dbuser" name="dbuser" placeholder="database_user">
+      <p class="help-block">Do not use "root"! Recommend creating app specific db user.</p>
+    </div>
+    <div class="form-group">
+      <label for="dbpwd">Database Password:</label>
+      <input type="password" class="form-control" id="dbpwd" name="dbpwd">
+    </div>
+    <div class="form-group">
+      <label for="dbsrv">Database Server:</label>
+      <input type="text" class="form-control" id="dbsrv" name="dbsrv" value="localhost">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success">Next</button>
+</form>
+</div>
+{% endblock %}
+
+{% block footerjs %}
+<script type="text/javascript">
+$(function() {
+  $('.dtype').change(function() {
+    if ($(this).val() == 'sqlite') {
+      $('#form-db').slideUp('500');
+    }
+    else {
+      $('#form-db').slideDown('500');
+    }
+  });
+  $('.debug').change(function() {
+    if ($(this).val() == 'False') {
+      $('#form-debug').slideUp('500');
+    }
+    else {
+      $('#form-debug').slideDown('500');
+    }
+  });
+});
+</script>
+{% endblock %}

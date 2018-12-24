@@ -1,0 +1,15 @@
+{% extends "Base/base.html" %}
+
+{% block pagetitle %}
+  <title>{{pageData.title}} :: {{s.siteName}}</title>
+{% endblock %}
+
+{% block content %}
+  <main role="main" class="container">
+    <h1>{{pageData.title}}</h1>
+
+    <article>
+        {{ pageData.content|safe }}
+    </article>
+  </main>
+{% endblock %}

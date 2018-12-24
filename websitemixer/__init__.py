@@ -29,8 +29,12 @@ def create_app(test_config=None):
         pass
 
     # register the database commands
-    from websitemixer.database import create_tables
-    create_tables()
+    #from websitemixer.database import create_tables
+    #create_tables()
+
+    with app.app_context():
+        from websitemixer.database import create_tables
+        create_tables()
 
     # apply the blueprints to the app
     from websitemixer import auth, blog

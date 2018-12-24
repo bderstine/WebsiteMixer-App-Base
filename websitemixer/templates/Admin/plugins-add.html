@@ -1,0 +1,21 @@
+{% extends "Admin/index.html" %}
+
+{% block content %}
+   <h1 class="page-header">Add New Plugin</h1>
+
+        {% for p in pluginData %}
+        <div class="row">
+            <div class="col-md-4">
+                <img class="img-responsive img-hover" src="{{p.plugin_image}}" alt="">
+            </div>
+            <div class="col-md-8">
+                <h3>{{p.plugin_name}} {{p.plugin_version}}</h3>
+                <h4>{{p.plugin_tags}}</h4>
+                <p>{{p.plugin_summary}}</p>
+                <a class="btn btn-success" href="/admin/plugins/install/{{p.plugin_directory}}/">Install Plugin</i></a>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+
+{% endblock %}
