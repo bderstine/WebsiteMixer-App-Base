@@ -16,7 +16,7 @@ from werkzeug import secure_filename
 from werkzeug.exceptions import abort
 
 from websitemixer.functions import *
-from websitemixer.models import User, Setting, Post, Page
+from websitemixer.models import User, Setting, Post, Page, Logs
 
 
 bp = Blueprint('Admin', __name__)
