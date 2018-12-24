@@ -1,9 +1,13 @@
 import os
-from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
-db = SQLAlchemy()
+from flask_debugtoolbar import DebugToolbarExtension
+
+db = SQLAlchemy()  # done here so that db is importable
+migrate = Migrate()
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -31,15 +35,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    db.init_app(app)
-
     # register the database commands
     #from websitemixer.database import create_tables
     #create_tables()
 
-    #with app.app_context():
-    #    from websitemixer.database import create_tables
-    #    create_tables()
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     # apply the blueprints to the app
     #from websitemixer import auth, blog
