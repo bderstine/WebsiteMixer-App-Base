@@ -12,8 +12,8 @@ import binascii
 #from websitemixer import app, models
 #from websitemixer.database import db
 
+from websitemixer import db
 from websitemixer.models import User, Setting, Post, Page
-
 
 @bp.route('/setup/step1/')
 def setup1():
@@ -69,11 +69,8 @@ def setup2():
 
 @bp.route('/setup/step3/', methods=['POST'])
 def setup3():
-    #db.drop_all()
-    #db.create_all()
-
-    from websitemixer.database import create_tables, db_session
-    create_tables()
+    db.drop_all()
+    db.create_all()
 
     sitename = request.form['sitename']
     sitedesc = request.form['sitedesc']
@@ -86,28 +83,28 @@ def setup3():
         return 'Admin passwords do not match! Click back and try again!'
 
     a = User(admuser, admpwd1, admemail)
-    db_session.add(a)
+    db.session.add(a)
 
     update = User.query.filter_by(username=admuser).update({'admin': 1})
 
     a = Setting('siteName', sitename)
-    db_session.add(a)
+    db.session.add(a)
     a = Setting('siteSubheading', sitedesc)
-    db_session.add(a)
+    db.session.add(a)
     a = Setting('theme', 'Base')
-    db_session.add(a)
+    db.session.add(a)
 
     post_text = '<p>This is your first post!'
     post_text += ' You can delete this and start posting!</p>'
     a = Post(admuser, 'Hello World!', '/hello-world/', post_text,
                     '', '', 'Hello World, Welcome')
-    db_session.add(a)
+    db.session.add(a)
     a = Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
     db.session.add(a)
     a = Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
                     '', '')
-    db_session.add(a)
+    db.session.add(a)
 
-    db_session.commit()
+    db.session.commit()
     return redirect('/')
 

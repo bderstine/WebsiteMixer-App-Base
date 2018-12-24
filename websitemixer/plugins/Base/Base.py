@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
 
@@ -9,7 +9,7 @@ bp = Blueprint('Base', __name__)
 @bp.route('/', defaults={'tag': None})
 @bp.route('/tag/<tag>/')
 def home(tag):
-    if 'UPLOAD_FOLDER' not in globals():
+    if 'UPLOAD_FOLDER' not in current_app.config.keys():
         return redirect('/setup/step1/')
 
     s = getSettings()
