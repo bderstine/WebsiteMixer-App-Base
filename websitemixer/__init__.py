@@ -1,4 +1,5 @@
 import os
+from flask_debugtoolbar import DebugToolbarExtension
 
 from flask import Flask
 
@@ -21,6 +22,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     app.debug = app.config['DEBUG']
+    toolbar = DebugToolbarExtension(app)
 
     # ensure the instance folder exists
     try:
