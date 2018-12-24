@@ -1,15 +1,13 @@
-import os
-from flask import render_template, redirect, request, url_for, session
-from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.contrib.atom import AtomFeed
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, url_for
+)
+from werkzeug.exceptions import abort
 
-from websitemixer import app
-from websitemixer.models import *
-from websitemixer.functions import *
+bp = Blueprint('Base', __name__)
 
 
-@app.route('/', defaults={'tag': None})
-@app.route('/tag/<tag>/')
+@bp.route('/', defaults={'tag': None})
+@bp.route('/tag/<tag>/')
 def home(tag):
     if 'UPLOAD_FOLDER' not in globals():
         return redirect('/setup/step1/')
@@ -23,7 +21,7 @@ def home(tag):
     return render_template(s['theme'] + '/index.html', blogData=blogData, s=s)
 
 
-@app.route('/login/', methods=['GET', 'POST'])
+@bp.route('/login/', methods=['GET', 'POST'])
 def login():
     s = getSettings()
     error = None
@@ -39,15 +37,15 @@ def login():
     return redirect('/admin/')
 
 
-@app.route("/logout/")
+@bp.route("/logout/")
 def logout():
     session.clear()
     logout_user()
     return redirect('/')
 
 
-@app.route('/feed/', defaults={'tag': None})
-@app.route('/feed/<tag>/')
+@bp.route('/feed/', defaults={'tag': None})
+@bp.route('/feed/<tag>/')
 def recent_feed(tag):
     feed = AtomFeed('Recent Articles', feed_url=request.url,
                     url=request.url_root)
@@ -66,7 +64,7 @@ def recent_feed(tag):
     return feed.get_response()
 
 
-@app.route('/<path:path>')
+@bp.route('/<path:path>')
 def content(path):
     s = getSettings()
     slug = "/" + path
@@ -87,13 +85,13 @@ def content(path):
 # Error handlers
 
 
-@app.errorhandler(404)
+@bp.errorhandler(404)
 def not_found_error(error):
     s = getSettings()
     return render_template(s['theme'] + '/404.html', s=s), 404
 
 
-@app.errorhandler(500)
+@bp.errorhandler(500)
 def internal_error(error):
     s = getSettings()
     db.session.rollback()

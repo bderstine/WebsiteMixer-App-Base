@@ -1,16 +1,24 @@
-import os
-import binascii
-from flask import render_template, request, redirect
-from websitemixer import app, models
-from websitemixer.database import db
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, url_for
+)
+from werkzeug.exceptions import abort
+
+bp = Blueprint('Setup', __name__)
 
 
-@app.route('/setup/step1/')
+#import os
+#import binascii
+#from flask import render_template, request, redirect
+#from websitemixer import app, models
+#from websitemixer.database import db
+
+
+@bp.route('/setup/step1/')
 def setup1():
     return render_template("Install/step1.html")
 
 
-@app.route('/setup/step2/', methods=['POST'])
+@bp.route('/setup/step2/', methods=['POST'])
 def setup2():
     secretkey = binascii.hexlify(os.urandom(24)).decode("utf-8")
     appname = request.form['appname']
@@ -57,7 +65,7 @@ def setup2():
     return render_template("Install/step2.html")
 
 
-@app.route('/setup/step3/', methods=['POST'])
+@bp.route('/setup/step3/', methods=['POST'])
 def setup3():
     db.drop_all()
     db.create_all()
