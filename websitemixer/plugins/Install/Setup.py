@@ -13,7 +13,7 @@ import binascii
 #from websitemixer.database import db
 
 from websitemixer import db
-#from websitemixer.models import User, Setting, Post, Page
+from websitemixer.models import User, Setting, Post, Page
 
 @bp.route('/setup/step1/')
 def setup1():
@@ -82,7 +82,7 @@ def setup3():
     if admpwd1 != admpwd2:
         return 'Admin passwords do not match! Click back and try again!'
 
-    a = db.User(admuser, admpwd1, admemail)
+    a = User(admuser, admpwd1, admemail)
     db.session.add(a)
 
     update = User.query.filter_by(username=admuser).update({'admin': 1})

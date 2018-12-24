@@ -4,47 +4,32 @@ import signal
 import urllib
 from urllib.request import urlopen
 import zipfile
-from flask import render_template, redirect, request, g
+
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, url_for
+)
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_login import LoginManager
+
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug import secure_filename
+from werkzeug.exceptions import abort
 
-from websitemixer import app
-from websitemixer.models import *
+from websitemixer.models import User, Setting, Post, Page
 from websitemixer.functions import *
-from config import *
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+from websitemixer import login_manager
 
+#from config import *
 
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+bp = Blueprint('Admin', __name__)
 
-
-@app.before_request
-def before_request():
-    g.user = current_user
-
-
-@app.after_request
-def add_header(response):
-    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-    response.headers['Cache-Control'] = 'public, max-age=0'
-    return response
-
-##############################################################################
-
-
-@app.route('/admin/')
+@bp.route('/admin/')
 def admin():
     return redirect('/admin/dashboard/')
 
 
-@app.route('/admin/dashboard/')
+@bp.route('/admin/dashboard/')
 @login_required
 def admindashboard():
     s = getSettings()
@@ -52,7 +37,7 @@ def admindashboard():
     return render_template('Admin/index.html', eventData=eventData, s=s)
 
 
-@app.route('/admin/clear-logs/', methods=['GET', 'POST'])
+@bp.route('/admin/clear-logs/', methods=['GET', 'POST'])
 @login_required
 def adminclearlogs():
     # s = getSettings()
@@ -69,7 +54,7 @@ def adminclearlogs():
         return message
 
 
-@app.route('/admin/posts/')
+@bp.route('/admin/posts/')
 @login_required
 def adminposts():
     s = getSettings()
@@ -77,7 +62,7 @@ def adminposts():
     return render_template('Admin/manage-posts.html', postData=postData, s=s)
 
 
-@app.route('/admin/pages/')
+@bp.route('/admin/pages/')
 @login_required
 def adminpages():
     s = getSettings()
@@ -85,7 +70,7 @@ def adminpages():
     return render_template('Admin/manage-pages.html', pageData=pageData, s=s)
 
 
-@app.route('/admin/settings/', methods=['GET', 'POST'])
+@bp.route('/admin/settings/', methods=['GET', 'POST'])
 @login_required
 def manageSettings():
     s = getSettings()
@@ -103,7 +88,7 @@ def manageSettings():
     return render_template('Admin/manage-settings.html', s=s)
 
 
-@app.route('/admin/files/', methods=['GET', 'POST'])
+@bp.route('/admin/files/', methods=['GET', 'POST'])
 @login_required
 def manageFiles():
     s = getSettings()
@@ -129,7 +114,7 @@ def manageFiles():
     return render_template('Admin/manage-files.html', tree=data, s=s)
 
 
-@app.route('/admin/users/')
+@bp.route('/admin/users/')
 @login_required
 def adminusers():
     s = getSettings()
@@ -137,7 +122,7 @@ def adminusers():
     return render_template('Admin/manage-users.html', userData=userData, s=s)
 
 
-@app.route('/admin/users/add/', methods=['GET', 'POST'])
+@bp.route('/admin/users/add/', methods=['GET', 'POST'])
 @login_required
 def adminadduser():
     s = getSettings()
@@ -157,9 +142,9 @@ def adminadduser():
     return render_template('Admin/users-add.html', s=s)
 
 
-@app.route('/admin/users/profile/', defaults={'user': None},
+@bp.route('/admin/users/profile/', defaults={'user': None},
            methods=['GET', 'POST'])
-@app.route('/admin/users/profile/<user>/', methods=['GET', 'POST'])
+@bp.route('/admin/users/profile/<user>/', methods=['GET', 'POST'])
 @login_required
 def adminprofileuser(user):
     s = getSettings()
@@ -184,7 +169,7 @@ def adminprofileuser(user):
         return redirect("/admin/users/")
 
 
-@app.route('/admin/posts/add/', methods=['GET', 'POST'])
+@bp.route('/admin/posts/add/', methods=['GET', 'POST'])
 @login_required
 def addpost():
     s = getSettings()
@@ -203,7 +188,7 @@ def addpost():
         return redirect("/admin/posts/")
 
 
-@app.route('/admin/pages/add/', methods=['GET', 'POST'])
+@bp.route('/admin/pages/add/', methods=['GET', 'POST'])
 @login_required
 def addpage():
     s = getSettings()
@@ -220,7 +205,7 @@ def addpage():
         return redirect("/admin/pages/")
 
 
-@app.route('/admin/posts/edit/<id>/', methods=['GET', 'POST'])
+@bp.route('/admin/posts/edit/<id>/', methods=['GET', 'POST'])
 @login_required
 def editpost(id):
     s = getSettings()
@@ -242,7 +227,7 @@ def editpost(id):
         return redirect("/admin/posts/")
 
 
-@app.route('/admin/pages/edit/<id>/', methods=['GET', 'POST'])
+@bp.route('/admin/pages/edit/<id>/', methods=['GET', 'POST'])
 @login_required
 def editpage(id):
     s = getSettings()
@@ -269,7 +254,7 @@ def editpage(id):
         return redirect("/admin/pages/")
 
 
-@app.route('/admin/posts/delete/<id>/')
+@bp.route('/admin/posts/delete/<id>/')
 @login_required
 def deletepost(id):
     s = getSettings()
@@ -286,7 +271,7 @@ def deletepost(id):
         return message
 
 
-@app.route('/admin/pages/delete/<id>/')
+@bp.route('/admin/pages/delete/<id>/')
 @login_required
 def deletepage(id):
     s = getSettings()
@@ -303,7 +288,7 @@ def deletepage(id):
         return message
 
 
-@app.route('/admin/files/delete/')
+@bp.route('/admin/files/delete/')
 @login_required
 def deleteFile():
     s = getSettings()
@@ -327,7 +312,7 @@ def deleteFile():
         return message
 
 
-@app.route('/admin/users/delete/<id>/')
+@bp.route('/admin/users/delete/<id>/')
 @login_required
 def deleteUser(id):
     userData = User.query.filter_by(id=id).first()
@@ -344,7 +329,7 @@ def deleteUser(id):
         return message
 
 
-@app.route('/admin/changepassword/', methods=['POST'])
+@bp.route('/admin/changepassword/', methods=['POST'])
 @login_required
 def changePW():
     s = getSettings()
@@ -361,7 +346,7 @@ def changePW():
     return redirect('/admin/users/')
 
 
-@app.route('/admin/themes/')
+@bp.route('/admin/themes/')
 @login_required
 def adminthemes():
     s = getSettings()
@@ -371,7 +356,7 @@ def adminthemes():
                            themeData=themeData, activeTheme=activeTheme)
 
 
-@app.route('/admin/themes/add/')
+@bp.route('/admin/themes/add/')
 @login_required
 def adminthemesadd():
     s = getSettings()
@@ -392,7 +377,7 @@ def adminthemesadd():
     return render_template('Admin/themes-add.html', s=s, themeData=themeData)
 
 
-@app.route('/admin/themes/install/<theme>/')
+@bp.route('/admin/themes/install/<theme>/')
 @login_required
 def adminthemeinstall(theme):
     s = getSettings()
@@ -437,7 +422,7 @@ def adminthemeinstall(theme):
     return redirect('/admin/themes/')
 
 
-@app.route('/admin/themes/activate/<theme>/')
+@bp.route('/admin/themes/activate/<theme>/')
 @login_required
 def adminthemesactivate(theme):
     s = getSettings()
@@ -473,7 +458,7 @@ def adminthemesactivate(theme):
     return redirect("/admin/themes/")
 
 
-@app.route('/admin/themes/delete/<theme>/')
+@bp.route('/admin/themes/delete/<theme>/')
 @login_required
 def adminthemesdelete(theme):
     s = getSettings()
@@ -489,7 +474,7 @@ def adminthemesdelete(theme):
         return message
 
 
-@app.route('/admin/plugins/')
+@bp.route('/admin/plugins/')
 @login_required
 def adminplugins():
     s = getSettings()
@@ -498,7 +483,7 @@ def adminplugins():
                            pluginData=pluginData)
 
 
-@app.route('/admin/plugins/add/')
+@bp.route('/admin/plugins/add/')
 @login_required
 def adminpluginsadd():
     s = getSettings()
@@ -520,7 +505,7 @@ def adminpluginsadd():
                            pluginData=pluginData)
 
 
-@app.route('/admin/plugins/install/<plugin>/')
+@bp.route('/admin/plugins/install/<plugin>/')
 @login_required
 def adminpluginsinstall(plugin):
     s = getSettings()
@@ -576,7 +561,7 @@ def adminpluginsinstall(plugin):
     return redirect('/admin/plugins/')
 
 
-@app.route('/admin/plugins/delete/<plugin>/')
+@bp.route('/admin/plugins/delete/<plugin>/')
 @login_required
 def adminpluginsdelete(plugin):
     s = getSettings()
@@ -597,8 +582,9 @@ def adminpluginsdelete(plugin):
         return message
 
 
-@app.route('/admin/plugins/restart/')
+@bp.route('/admin/plugins/restart/')
 @login_required
 def adminpluginsrestart():
     os.kill(os.getpid(), signal.SIGINT)
     return redirect("/admin/plugins/")
+

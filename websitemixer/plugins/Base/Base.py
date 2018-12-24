@@ -3,8 +3,11 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-bp = Blueprint('Base', __name__)
+#from websitemixer import db
+from websitemixer.functions import *
+from websitemixer.models import User, Setting, Post, Page
 
+bp = Blueprint('Base', __name__)
 
 @bp.route('/', defaults={'tag': None})
 @bp.route('/tag/<tag>/')
