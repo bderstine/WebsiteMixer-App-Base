@@ -3,158 +3,150 @@ from datetime import datetime
 import hashlib
 import passlib.hash
 
-from sqlalchemy import Column, Integer, String, Table, ForeignKey, DateTime, Text
-from websitemixer.database import Base
+from websitemixer import db
 
-user_roles = Table(
+user_roles = db.Table(
     'user_roles',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'user_id',
-        Integer,
-        ForeignKey('user.id', ondelete='cascade')),
-    Column(
+        db.Integer,
+        db.ForeignKey('user.id', ondelete='cascade')),
+    db.Column(
         'role_id',
-        Integer,
-        ForeignKey('role.id', ondelete='cascade'))
+        db.Integer,
+        db.ForeignKey('role.id', ondelete='cascade'))
 )
 
-user_posts = Table(
+user_posts = db.Table(
     'user_posts',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'user_id',
-        Integer,
-        ForeignKey('user.id')),
-    Column(
+        db.Integer,
+        db.ForeignKey('user.id')),
+    db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id'))
+        db.Integer,
+        db.ForeignKey('post.id'))
 )
 
-user_comments = Table(
+user_comments = db.Table(
     'user_comments',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'user_id',
-        Integer,
-        ForeignKey('user.id')),
-    Column(
+        db.Integer,
+        db.ForeignKey('user.id')),
+    db.Column(
         'comment_id',
-        Integer,
-        ForeignKey('comment.id'))
+        db.Integer,
+        db.ForeignKey('comment.id'))
 )
 
-user_preferences = Table(
+user_preferences = db.Table(
     'user_preferences',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'user_id',
-        Integer,
-        ForeignKey('user.id', ondelete='cascade')),
-    Column(
+        db.Integer,
+        db.ForeignKey('user.id', ondelete='cascade')),
+    db.Column(
         'preference_id',
-        Integer,
-        ForeignKey('preference.id', ondelete='cascade'))
+        db.Integer,
+        db.ForeignKey('preference.id', ondelete='cascade'))
 )
 
-post_categories = Table(
+post_categories = db.Table(
     'post_categories',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id', ondelete='cascade')),
-    Column(
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade')),
+    db.Column(
         'category_id',
-        Integer,
-        ForeignKey('category.id', ondelete='cascade'))
+        db.Integer,
+        db.ForeignKey('category.id', ondelete='cascade'))
 )
 
-post_comments = Table(
+post_comments = db.Table(
     'post_comments',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id', ondelete='cascade')),
-    Column(
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade')),
+    db.Column(
         'comment_id',
-        Integer,
-        ForeignKey('comment.id', ondelete='cascade'))
+        db.Integer,
+        db.ForeignKey('comment.id', ondelete='cascade'))
 )
 
-page_posts = Table(
+page_posts = db.Table(
     'page_posts',
-    Base.metadata,
-    Column(
+    db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True),
-    Column(
+    db.Column(
         'page_id',
-        Integer,
-        ForeignKey('page.id', ondelete='cascade')),
-    Column(
+        db.Integer,
+        db.ForeignKey('page.id', ondelete='cascade')),
+    db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id', ondelete='cascade'))
+        db.Integer,
+        db.ForeignKey('post.id', ondelete='cascade'))
 )
 
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'user'
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True, index=True)
-    username = Column(
+    username = db.Column(
         'username',
-        String(255),
+        db.String(255),
         unique=True,
         nullable=False,
         index=True)
-    password = Column('password', String(255), nullable=False)
-    email = Column('email', String(50), nullable=False)
-    registered_on = Column('registered_on', DateTime)
-    admin = Column('admin', Integer, default=0)
-    name = Column('name', String(255))
-    image = Column('image', String(255))
-    facebook = Column('facebook', String(255))
-    twitter = Column('twitter', String(255))
-    google = Column('google', String(255))
+    password = db.Column('password', db.String(255), nullable=False)
+    email = db.Column('email', db.String(50), nullable=False)
+    registered_on = db.Column('registered_on', db.DateTime)
+    admin = db.Column('admin', db.Integer, default=0)
+    name = db.Column('name', db.String(255))
+    image = db.Column('image', db.String(255))
+    facebook = db.Column('facebook', db.String(255))
+    twitter = db.Column('twitter', db.String(255))
+    google = db.Column('google', db.String(255))
 
     #roles = relationship(
     #    'Role',
@@ -269,33 +261,33 @@ class User(Base):
         return "<User email={0}>".format(self.email)
 
 
-class Post(Base):
+class Post(db.Model):
     __tablename__ = 'post'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    author = Column('author', String(255))
-    title = Column('title', String(255), index=True)
-    subheading = Column('subheading', String(255))
-    slug = Column('slug', String(255))
-    content = Column('content', Text)
-    image = Column('image', Text)
-    status = Column('status', Integer, default=1)
-    date = Column(
+    author = db.Column('author', db.String(255))
+    title = db.Column('title', db.String(255), index=True)
+    subheading = db.Column('subheading', db.String(255))
+    slug = db.Column('slug', db.String(255))
+    content = db.Column('content', db.Text)
+    image = db.Column('image', db.Text)
+    status = db.Column('status', db.Integer, default=1)
+    date = db.Column(
         'date',
-        DateTime,
+        db.DateTime,
         default=datetime.utcnow(),
         index=True)
-    modified = Column(
+    modified = db.Column(
         'modified',
-        DateTime,
+        db.DateTime,
         default=datetime.utcnow(),
         index=True)
-    tags = Column('tags', Text)
+    tags = db.Column('tags', db.Text)
 
     #comments = relationship(
     #    'Comment',
@@ -336,20 +328,20 @@ class Post(Base):
         return kls.query.filter(kls.id == id.lower()).first()
 
 
-class Category(Base):
+class Category(db.Model):
     __tablename__ = 'category'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = Column('name', String(255))
-    post_id = Column(
+    name = db.Column('name', db.String(255))
+    post_id = db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id'), index=True)
+        db.Integer,
+        db.ForeignKey('post.id'), index=True)
 
     def __init__(self, name, post_id):
         self.name = name
@@ -359,37 +351,37 @@ class Category(Base):
         return "<Category name={0}>".format(self.name)
 
 
-class Comment(Base):
+class Comment(db.Model):
     __tablename__ = 'comment'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    author = Column('author', String(255))
-    title = Column('title', String(255), index=True)
-    content = Column('content', Text)
-    status = Column('status', Integer, default=1)
-    date = Column(
+    author = db.Column('author', db.String(255))
+    title = db.Column('title', db.String(255), index=True)
+    content = db.Column('content', db.Text)
+    status = db.Column('status', db.Integer, default=1)
+    date = db.Column(
         'date',
-        DateTime,
+        db.DateTime,
         default=datetime.utcnow(),
         index=True)
-    modified = Column(
+    modified = db.Column(
         'modified',
-        DateTime,
+        db.DateTime,
         default=datetime.utcnow(),
         index=True)
-    post_id = Column(
+    post_id = db.Column(
         'post_id',
-        Integer,
-        ForeignKey('post.id'), nullable=True, index=True)
-    page_id = Column(
+        db.Integer,
+        db.ForeignKey('post.id'), nullable=True, index=True)
+    page_id = db.Column(
         'page_id',
-        Integer,
-        ForeignKey('page.id'), nullable=True, index=True)
+        db.Integer,
+        db.ForeignKey('page.id'), nullable=True, index=True)
 
     def __init__(self, author, title, content, post_id):
         self.author = author
@@ -416,27 +408,27 @@ class Comment(Base):
         return kls.query.filter(kls.id == id.lower()).first()
 
 
-class Page(Base):
+class Page(db.Model):
     __tablename__ = 'page'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    title = Column('title', String(255), index=True)
-    subheading = Column('subheading', String(255))
-    slug = Column('slug', String(255))
-    content = Column('content', Text)
-    image = Column('image', Text)
-    status = Column('status', Integer, default=1)
-    modified = Column(
+    title = db.Column('title', db.String(255), index=True)
+    subheading = db.Column('subheading', db.String(255))
+    slug = db.Column('slug', db.String(255))
+    content = db.Column('content', db.Text)
+    image = db.Column('image', db.Text)
+    status = db.Column('status', db.Integer, default=1)
+    modified = db.Column(
         'modified',
-        DateTime,
+        db.DateTime,
         default=datetime.utcnow(),
         index=True)
-    parent = Column('parent', Integer, default=0, index=True)
+    parent = db.Column('parent', db.Integer, default=0, index=True)
 
     #posts = relationship(
     #    'Post',
@@ -467,29 +459,29 @@ class Page(Base):
         return kls.query.filter(kls.id == id.lower()).first()
 
 
-class Logs(Base):
+class Logs(db.Model):
     __tablename__ = 'site_logs'
 
-    id = Column('id', Integer, primary_key=True)
-    log_message = Column('log_message', Text)
-    log_date = Column('log_date', DateTime)
+    id = db.Column('id', db.Integer, primary_key=True)
+    log_message = db.Column('log_message', db.Text)
+    log_date = db.Column('log_date', db.DateTime)
 
     def __init__(self, content):
         self.log_message = content
         self.log_date = datetime.utcnow()
 
 
-class Setting(Base):
+class Setting(db.Model):
     __tablename__ = 'setting'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = Column('name', String(255))
-    value = Column('value', Text)
+    name = db.Column('name', db.String(255))
+    value = db.Column('value', db.Text)
 
     def __init__(self, name, value):
         self.name = name
@@ -499,16 +491,16 @@ class Setting(Base):
         return "<Setting name={0}, value={1}>".format(self.name, self.value)
 
 
-class Role(Base):
+class Role(db.Model):
     __tablename__ = 'role'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    name = Column('rolename', String(255), index=True)
+    name = db.Column('rolename', db.String(255), index=True)
 
     def __init__(self, name):
         self.name = name
@@ -517,18 +509,18 @@ class Role(Base):
         return "<Role {0}>".format(self.name)
 
 
-class Preference(Base):
+class Preference(db.Model):
     __tablename__ = 'preference'
 
-    id = Column(
+    id = db.Column(
         'id',
-        Integer,
+        db.Integer,
         primary_key=True,
         autoincrement=True,
         index=True)
-    option = Column('option', String(256))
-    value = Column('value', String(256))
-    user_id = Column(Integer, ForeignKey('user.id'))
+    option = db.Column('option', db.String(256))
+    value = db.Column('value', db.String(256))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, user_id, option, value):
         self.user_id = user_id

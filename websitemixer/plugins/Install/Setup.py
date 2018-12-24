@@ -6,11 +6,13 @@ from werkzeug.exceptions import abort
 bp = Blueprint('Setup', __name__)
 
 
-#import os
-#import binascii
+import os
+import binascii
 #from flask import render_template, request, redirect
 #from websitemixer import app, models
 #from websitemixer.database import db
+
+from websitemixer.models import User, Setting, Post, Page
 
 
 @bp.route('/setup/step1/')
@@ -31,7 +33,7 @@ def setup2():
     debugredirect = request.form['debugredirect']
     debugprofile = request.form['debugprofile']
 
-    with open('config.py', 'w') as file:
+    with open('instance/config.py', 'w') as file:
         file.seek(0)
         file.truncate()
         file.write("import os\n")
@@ -67,8 +69,11 @@ def setup2():
 
 @bp.route('/setup/step3/', methods=['POST'])
 def setup3():
-    db.drop_all()
-    db.create_all()
+    #db.drop_all()
+    #db.create_all()
+
+    from websitemixer.database import create_tables, db_session
+    create_tables()
 
     sitename = request.form['sitename']
     sitedesc = request.form['sitedesc']
@@ -80,28 +85,29 @@ def setup3():
     if admpwd1 != admpwd2:
         return 'Admin passwords do not match! Click back and try again!'
 
-    a = models.User(admuser, admpwd1, admemail)
-    db.session.add(a)
+    a = User(admuser, admpwd1, admemail)
+    db_session.add(a)
 
-    update = models.User.query.filter_by(username=admuser).update({'admin': 1})
+    update = User.query.filter_by(username=admuser).update({'admin': 1})
 
-    a = models.Setting('siteName', sitename)
-    db.session.add(a)
-    a = models.Setting('siteSubheading', sitedesc)
-    db.session.add(a)
-    a = models.Setting('theme', 'Base')
-    db.session.add(a)
+    a = Setting('siteName', sitename)
+    db_session.add(a)
+    a = Setting('siteSubheading', sitedesc)
+    db_session.add(a)
+    a = Setting('theme', 'Base')
+    db_session.add(a)
 
     post_text = '<p>This is your first post!'
     post_text += ' You can delete this and start posting!</p>'
-    a = models.Post(admuser, 'Hello World!', '/hello-world/', post_text,
+    a = Post(admuser, 'Hello World!', '/hello-world/', post_text,
                     '', '', 'Hello World, Welcome')
+    db_session.add(a)
+    a = Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
     db.session.add(a)
-    a = models.Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
-    db.session.add(a)
-    a = models.Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
+    a = Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
                     '', '')
-    db.session.add(a)
+    db_session.add(a)
 
-    db.session.commit()
+    db_session.commit()
     return redirect('/')
+
