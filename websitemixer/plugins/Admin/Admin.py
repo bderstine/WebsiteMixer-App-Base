@@ -6,7 +6,7 @@ from urllib.request import urlopen
 import zipfile
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_login import LoginManager
@@ -91,9 +91,9 @@ def manageFiles():
     s = getSettings()
     path = request.args.get('path')
     if path is not None:
-        UPLOAD_PATH = UPLOAD_FOLDER+'/'+path
+        UPLOAD_PATH = current_app.config['UPLOAD_FOLDER']+'/'+path
     else:
-        UPLOAD_PATH = UPLOAD_FOLDER
+        UPLOAD_PATH = current_app.config['UPLOAD_FOLDER']
     if request.method == 'POST':
         file = request.files['file']
         # if file and allowed_file(file.filename):
@@ -293,10 +293,10 @@ def deleteFile():
     path = request.args.get('path')
     if request.args.get('confirmed'):
         if path:
-            os.remove(os.path.join(UPLOAD_FOLDER+path, filename))
+            os.remove(os.path.join(current_app.config['UPLOAD_FOLDER']+path, filename))
             return redirect('/admin/files/?path='+path)
         else:
-            os.remove(os.path.join(UPLOAD_FOLDER, filename))
+            os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
             return redirect('/admin/files/')
     else:
         message = 'Are you sure you want to delete the file: '

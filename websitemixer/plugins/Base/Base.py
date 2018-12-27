@@ -17,6 +17,10 @@ def home(tag):
     if 'UPLOAD_FOLDER' not in current_app.config.keys():
         return redirect('/setup/step1/')
 
+    if request.args.get('setup_complete'):
+        print("Reloading config!")
+        current_app.config.from_pyfile('config.py')
+
     s = getSettings()
     if tag:
         blogData = Post.query.filter(Post.tags.like('%'+tag+'%')).\

@@ -103,5 +103,5 @@ def setup3():
     db.session.add(a)
 
     db.session.commit()
-    return redirect('/')
+    return redirect('/?setup_complete=true')
 
