@@ -18,7 +18,6 @@ def home(tag):
         return redirect('/setup/step1/')
 
     s = getSettings()
-    print(s)
     if tag:
         blogData = Post.query.filter(Post.tags.like('%'+tag+'%')).\
                        order_by(Post.date.desc()).all()
