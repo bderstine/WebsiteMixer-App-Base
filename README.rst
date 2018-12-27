@@ -3,22 +3,32 @@ WebsiteMixer
 
 A Python/Flask alternative to WordPress and Drupal.
 
+Tested with: Ubuntu 18.04, Flask 1.0.2, Python 3.6.7
+
 Run
 ---
 
 ::
 
+    ./run.sh
+
+Which runs with the following options::
+
     export FLASK_APP=websitemixer
     export FLASK_ENV=development
-    flask init-db
-    flask run
+    export FLASK_DEBUG=1
 
-Or on Windows cmd::
+    flask run --host=0.0.0.0
 
-    set FLASK_APP=websitemixer
-    set FLASK_ENV=development
-    flask init-db
-    flask run
+And it should have output similar to::
+
+    * Serving Flask app "websitemixer" (lazy loading)
+    * Environment: development
+    * Debug mode: on
+    * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+    * Restarting with stat
+    * Debugger is active!
+    * Debugger PIN: XXX-XXX-XXX
 
 Open http://0.0.0.0:5000 in a browser.
 
