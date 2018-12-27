@@ -2,7 +2,7 @@ import os
 import binascii
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
 
@@ -60,13 +60,12 @@ def setup2():
             file.write(sqlUrl + base)
         file.write("SQLALCHEMY_TRACK_MODIFICATIONS = True")
         file.close()
-    db.drop_all()
-    db.create_all()
     return render_template("Install/step2.html")
 
 
 @bp.route('/setup/step3/', methods=['POST'])
 def setup3():
+    current_app.config.from_pyfile('config.py')
     db.drop_all()
     db.create_all()
 
