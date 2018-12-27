@@ -35,6 +35,7 @@ Open http://0.0.0.0:5000 in a browser.
 
 Test
 ----
+These don't work... yet. I'm still working on the v0.4 upgrade! -Brad
 
 ::
 
