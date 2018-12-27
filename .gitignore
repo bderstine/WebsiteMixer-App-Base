@@ -1,5 +1,4 @@
-#websitemixer/config.py
-#instance/config.py
+instance/config.py
 instance/websitemixer.sqlite
 
 .pytest_cache/
