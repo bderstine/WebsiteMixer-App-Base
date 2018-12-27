@@ -1,6 +1,6 @@
 import os
 import json
-from flask import session
+from flask import session, current_app
 from datetime import date, datetime, timedelta
 from bs4 import BeautifulSoup
 
@@ -40,13 +40,13 @@ def make_tree(path):
 
 
 def get_plugin_info(plugin):
-    conf = basedir+'/websitemixer/plugins/'+plugin+'/config.json'
+    conf = current_app.config['APPDIR']+'/plugins/'+plugin+'/config.json'
     with open(conf) as data_file:
         data = json.load(data_file)
     return dict(data)
 
 def get_theme_info(theme):
-    conf = basedir+'/websitemixer/templates/'+theme+'/config.json'
+    conf = current_app.config['APPDIR']+'/templates/'+theme+'/config.json'
     with open(conf) as data_file:
         data = json.load(data_file)
     return dict(data)
@@ -54,7 +54,7 @@ def get_theme_info(theme):
 
 def get_all_theme_info():
     themeData = []
-    dirs = os.walk(basedir+'/websitemixer/templates/')
+    dirs = os.walk(current_app.config['APPDIR']+'/templates/')
     for x in dirs:
         if os.path.isfile(x[0]+'/config.json'):
             with open(x[0]+'/config.json') as data_file:
@@ -65,7 +65,7 @@ def get_all_theme_info():
 
 def get_all_plugin_info():
     pluginData = []
-    dirs = os.walk(basedir+'/websitemixer/plugins/')
+    dirs = os.walk(current_app.config['APPDIR']+'/plugins/')
     for x in dirs:
         if os.path.isfile(x[0]+'/config.json'):
             with open(x[0]+'/config.json') as data_file:

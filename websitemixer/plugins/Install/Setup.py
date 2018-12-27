@@ -35,12 +35,13 @@ def setup2():
         file.truncate()
         file.write("import os\n")
         file.write("basedir = os.path.abspath(os.path.dirname(__file__))\n\n")
+        file.write("APPDIR = os.getcwd()\n")
         file.write("DEBUG = "+debug+"\n")
         file.write("DEBUG_TB_INTERCEPT_REDIRECTS = "+debugredirect+"\n")
         file.write("DEBUG_TB_PROFILER_ENABLED = "+debugprofile+"\n")
         file.write("DEBUG_TB_TEMPLATE_EDITOR_ENABLED = "+debugedit+"\n")
         file.write("SECRET_KEY = '"+secretkey+"'\n")
-        file.write("UPLOAD_FOLDER = basedir+'/websitemixer/static/upload/'\n")
+        file.write("UPLOAD_FOLDER = APPDIR+'/websitemixer/static/upload/'\n")
 
         extensions = "set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'," +\
                      " 'zip'])\n\n"
