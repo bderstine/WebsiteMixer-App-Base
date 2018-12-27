@@ -386,7 +386,7 @@ def adminthemeinstall(theme):
     themeFile = urlopen(theme_url)
 
     theme_dir = themeData['json_list'][0]['theme_directory']
-    saveDir = basedir + '/websitemixer/templates/' + theme_dir
+    saveDir = current_app.config['APPDIR'] + '/websitemixer/templates/' + theme_dir
 
     os.makedirs(saveDir)
     output = open(saveDir+'/master.zip', 'wb')
@@ -427,9 +427,9 @@ def adminthemesactivate(theme):
     activeTheme = get_theme_info(s['theme'])
     if 'assets' in activeTheme.keys():
         for d in activeTheme['assets'].values():
-            src = basedir + '/websitemixer/static/' + d
+            src = current_app.config['APPDIR'] + '/websitemixer/static/' + d
             theme_dir = activeTheme['basics']['directory']
-            dst = basedir + '/websitemixer/templates/' + theme_dir + '/'
+            dst = current_app.config['APPDIR'] + '/websitemixer/templates/' + theme_dir + '/'
             try:
                 shutil.move(src, dst)
             except Exception as e:
@@ -439,8 +439,8 @@ def adminthemesactivate(theme):
     if 'assets' in newTheme.keys():
         for d in newTheme['assets'].values():
             theme_dir = newTheme['basics']['directory']
-            src = basedir + '/websitemixer/templates/' + theme_dir + '/' + d
-            dst = basedir + '/websitemixer/static/'
+            src = current_app.config['APPDIR'] + '/websitemixer/templates/' + theme_dir + '/' + d
+            dst = current_app.config['APPDIR'] + '/websitemixer/static/'
             try:
                 shutil.move(src, dst)
             except Exception as e:
@@ -460,7 +460,7 @@ def adminthemesactivate(theme):
 def adminthemesdelete(theme):
     s = getSettings()
     if request.args.get('confirmed'):
-        shutil.rmtree(basedir+'/websitemixer/templates/'+theme)
+        shutil.rmtree(current_app.config['APPDIR']+'/websitemixer/templates/'+theme)
         return redirect("/admin/themes/")
     else:
         message = 'Are you sure you want to delete theme: '
@@ -514,7 +514,7 @@ def adminpluginsinstall(plugin):
     pluginFile = urlopen(pluginUrl + '/archive/master.zip')
 
     pluginDir = pluginData['json_list'][0]['plugin_directory']
-    saveDir = basedir + '/websitemixer/plugins/' + pluginDir
+    saveDir = current_app.config['APPDIR'] + '/websitemixer/plugins/' + pluginDir
     os.makedirs(saveDir)
     output = open(saveDir+'/master.zip', 'wb')
     output.write(pluginFile.read())
@@ -548,8 +548,8 @@ def adminpluginsinstall(plugin):
     if pluginInfo['assets']['templates']:
         for k, v in pluginInfo['assets'].items():
             if k == 'templates':
-                src = basedir + '/websitemixer/plugins/' + pluginDir + '/' + v
-                dst = basedir + '/websitemixer/templates/' + v + '/'
+                src = current_app.config['APPDIR'] + '/websitemixer/plugins/' + pluginDir + '/' + v
+                dst = current_app.config['APPDIR'] + '/websitemixer/templates/' + v + '/'
                 try:
                     shutil.move(src, dst)
                 except Exception as e:
@@ -567,8 +567,8 @@ def adminpluginsdelete(plugin):
         if pluginInfo['assets']['templates']:
             for k, v in pluginInfo['assets'].items():
                 if k == 'templates':
-                    shutil.rmtree(basedir+'/websitemixer/templates/'+v)
-        shutil.rmtree(basedir+'/websitemixer/plugins/'+plugin)
+                    shutil.rmtree(current_app.config['APPDIR']+'/websitemixer/templates/'+v)
+        shutil.rmtree(current_app.config['APPDIR']+'/websitemixer/plugins/'+plugin)
         return redirect("/admin/plugins/")
     else:
         message = 'Are you sure you want to delete plugin: '
