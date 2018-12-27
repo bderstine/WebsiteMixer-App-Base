@@ -1,9 +1,9 @@
 WebsiteMixer
 ======
 
-A Python/Flask alternative to WordPress and Drupal.
+A Python/Flask alternative to WordPress and Drupal. 
 
-Tested with: Ubuntu 18.04, Flask 1.0.2, Python 3.6.7
+Developed for Ubuntu 18.04, Flask 1.0.2, Python 3.6.7, SQLAchemy 1.2.15 
 
 Run
 ---
@@ -46,3 +46,21 @@ Run with coverage report::
     coverage run -m pytest
     coverage report
     coverage html  # open htmlcov/index.html in a browser
+
+Installation
+------------
+NEW!! - This project now uses a web based installer/setup similar to WordPress!
+
+
+Why?
+----
+I love WordPress and Drupal, but they can definitely be frustrating and have their own drawbacks. I used Django and it was a great toolset, but seemed like overkill for just building a basic website and made cloning websites and code bases a bit more difficult. So as I've been learning and working with Python more, I stumbled upon Flask, and completely fell in love.
+
+
+To do
+-----
+See the [issues page](https://github.com/bderstine/WebsiteMixer-App-Base/issues) if you're interested in contributing or helping!
+
+Thanks for stopping by and visiting!
+
+-Brad
