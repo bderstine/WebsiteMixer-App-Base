@@ -60,7 +60,8 @@ def setup2():
             file.write(sqlUrl + base)
         file.write("SQLALCHEMY_TRACK_MODIFICATIONS = True")
         file.close()
-
+    db.drop_all()
+    db.create_all()
     return render_template("Install/step2.html")
 
 
