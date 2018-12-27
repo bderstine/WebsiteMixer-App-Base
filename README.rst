@@ -1,7 +1,7 @@
 WebsiteMixer
 ======
 
-A Python/Flask alternative to WordPress and Drupal. 
+A Python/Flask alternative to WordPress and Drupal, with themes and plugins! 
 
 Developed for Ubuntu 18.04, Flask 1.0.2, Python 3.6.7, SQLAchemy 1.2.15 
 
