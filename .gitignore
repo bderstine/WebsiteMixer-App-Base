@@ -1,6 +1,6 @@
 #websitemixer/config.py
+#instance/config.py
 instance/websitemixer.sqlite
-instance/config.py
 
 .pytest_cache/
 *.db
