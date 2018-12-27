@@ -18,7 +18,7 @@ def home(tag):
         return redirect('/setup/step1/')
 
     if request.args.get('setup_complete'):
-        print("Reloading config!")
+        #This doesn't work, the Flask Toolbar still shows until dev server restarted :(
         current_app.config.from_pyfile('config.py')
 
     s = getSettings()
