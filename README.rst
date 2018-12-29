@@ -60,7 +60,7 @@ I love WordPress and Drupal, but they can definitely be frustrating and have the
 
 To do
 -----
-See the [issues page](https://github.com/bderstine/WebsiteMixer-App-Base/issues) if you're interested in contributing or helping!
+See the `issues page <https://github.com/bderstine/WebsiteMixer-App-Base/issues>`_ if you're interested in contributing or helping!
 
 Thanks for stopping by and visiting!
 
