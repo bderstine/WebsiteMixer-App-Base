@@ -1,7 +1,11 @@
+virtualhost/websitemixer.com.conf
+instance/config.py
+instance/websitemixer.sqlite
+
+.pytest_cache/
 *.db
 api.wsgi
 virtualhost/
-config.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from websitemixer.database import db
 import hashlib
 import passlib.hash
+
+from websitemixer import db
+from websitemixer import login_manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_by_id(user_id)
 
 user_roles = db.Table(
     'user_roles',
@@ -147,29 +154,29 @@ class User(db.Model):
     twitter = db.Column('twitter', db.String(255))
     google = db.Column('google', db.String(255))
 
-    roles = db.relationship(
-        'Role',
-        secondary=user_roles,
-        backref=db.backref('user', lazy='dynamic'),
-    )
+    #roles = relationship(
+    #    'Role',
+    #    secondary=user_roles,
+    #    backref=backref('user', lazy='dynamic'),
+    #)
 
-    posts = db.relationship(
-        'Post',
-        secondary=user_posts,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #posts = relationship(
+    #    'Post',
+    #    secondary=user_posts,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
-    comments = db.relationship(
-        'Comment',
-        secondary=user_comments,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #comments = relationship(
+    #    'Comment',
+    #    secondary=user_comments,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
-    preferences = db.relationship(
-        'Preference',
-        secondary=user_preferences,
-        backref=db.backref('user', lazy='dynamic')
-    )
+    #preferences = relationship(
+    #    'Preference',
+    #    secondary=user_preferences,
+    #    backref=backref('user', lazy='dynamic')
+    #)
 
     def __init__(self, username, password, email):
         self.username = username
@@ -189,6 +196,10 @@ class User(db.Model):
         :rtype: instance or None
         """
         return kls.query.filter(kls.username == username.lower()).first()
+    
+    @classmethod
+    def get_by_id(kls, id):
+        return kls.query.filter(kls.id == id).first()
 
     def delete_by_email(kls, email):
         """Delete artifacts of a user account then the user account itself.
@@ -288,17 +299,17 @@ class Post(db.Model):
         index=True)
     tags = db.Column('tags', db.Text)
 
-    comments = db.relationship(
-        'Comment',
-        secondary=post_comments,
-        backref=db.backref('post', lazy='dynamic')
-    )
+    #comments = relationship(
+    #    'Comment',
+    #    secondary=post_comments,
+    #    backref=backref('post', lazy='dynamic')
+    #)
 
-    categories = db.relationship(
-        'Category',
-        secondary=post_categories,
-        backref=db.backref('post', lazy='dynamic')
-    )
+    #categories = relationship(
+    #    'Category',
+    #    secondary=post_categories,
+    #    backref=backref('post', lazy='dynamic')
+    #)
 
     def __init__(self, author, title, slug, content, subheading, image, tags):
         self.author = author
@@ -429,11 +440,11 @@ class Page(db.Model):
         index=True)
     parent = db.Column('parent', db.Integer, default=0, index=True)
 
-    posts = db.relationship(
-        'Post',
-        secondary=page_posts,
-        backref=db.backref('page', lazy='dynamic')
-    )
+    #posts = relationship(
+    #    'Post',
+    #    secondary=page_posts,
+    #    backref=backref('page', lazy='dynamic')
+    #)
 
     def __init__(self, title, slug, content, subheading, image):
         self.title = title
@@ -530,10 +541,3 @@ class Preference(db.Model):
         return "<Preference user_id={0}, option={1}, value={2}>".format(
             self.user_id, self.option, self.value)
 
-
-def get_pw_hash(password):
-    """Hash the password with a unique salt, then return the hex result."""
-    pw_salt = "#N@?-+Xb"
-    data = "{0}{1}".format(pw_salt, password)
-    hash_str = hashlib.sha384(data).hexdigest()
-    return hash_str

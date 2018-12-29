@@ -1,16 +1,23 @@
 import os
 import binascii
-from flask import render_template, request, redirect
-from websitemixer import app, models
-from websitemixer.database import db
+
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
+)
+from werkzeug.exceptions import abort
+
+from websitemixer import db
+from websitemixer.models import User, Setting, Post, Page
 
 
-@app.route('/setup/step1/')
+bp = Blueprint('Setup', __name__)
+
+@bp.route('/setup/step1/')
 def setup1():
     return render_template("Install/step1.html")
 
 
-@app.route('/setup/step2/', methods=['POST'])
+@bp.route('/setup/step2/', methods=['POST'])
 def setup2():
     secretkey = binascii.hexlify(os.urandom(24)).decode("utf-8")
     appname = request.form['appname']
@@ -23,17 +30,18 @@ def setup2():
     debugredirect = request.form['debugredirect']
     debugprofile = request.form['debugprofile']
 
-    with open('config.py', 'w') as file:
+    with open('instance/config.py', 'w') as file:
         file.seek(0)
         file.truncate()
         file.write("import os\n")
         file.write("basedir = os.path.abspath(os.path.dirname(__file__))\n\n")
+        file.write("APPDIR = os.getcwd()\n")
         file.write("DEBUG = "+debug+"\n")
         file.write("DEBUG_TB_INTERCEPT_REDIRECTS = "+debugredirect+"\n")
         file.write("DEBUG_TB_PROFILER_ENABLED = "+debugprofile+"\n")
         file.write("DEBUG_TB_TEMPLATE_EDITOR_ENABLED = "+debugedit+"\n")
         file.write("SECRET_KEY = '"+secretkey+"'\n")
-        file.write("UPLOAD_FOLDER = basedir+'/websitemixer/static/upload/'\n")
+        file.write("UPLOAD_FOLDER = APPDIR+'/websitemixer/static/upload/'\n")
 
         extensions = "set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'," +\
                      " 'zip'])\n\n"
@@ -53,12 +61,12 @@ def setup2():
             file.write(sqlUrl + base)
         file.write("SQLALCHEMY_TRACK_MODIFICATIONS = True")
         file.close()
-
     return render_template("Install/step2.html")
 
 
-@app.route('/setup/step3/', methods=['POST'])
+@bp.route('/setup/step3/', methods=['POST'])
 def setup3():
+    current_app.config.from_pyfile('config.py')
     db.drop_all()
     db.create_all()
 
@@ -72,28 +80,29 @@ def setup3():
     if admpwd1 != admpwd2:
         return 'Admin passwords do not match! Click back and try again!'
 
-    a = models.User(admuser, admpwd1, admemail)
+    a = User(admuser, admpwd1, admemail)
     db.session.add(a)
 
-    update = models.User.query.filter_by(username=admuser).update({'admin': 1})
+    update = User.query.filter_by(username=admuser).update({'admin': 1})
 
-    a = models.Setting('siteName', sitename)
+    a = Setting('siteName', sitename)
     db.session.add(a)
-    a = models.Setting('siteSubheading', sitedesc)
+    a = Setting('siteSubheading', sitedesc)
     db.session.add(a)
-    a = models.Setting('theme', 'Base')
+    a = Setting('theme', 'Base')
     db.session.add(a)
 
     post_text = '<p>This is your first post!'
     post_text += ' You can delete this and start posting!</p>'
-    a = models.Post(admuser, 'Hello World!', '/hello-world/', post_text,
+    a = Post(admuser, 'Hello World!', '/hello-world/', post_text,
                     '', '', 'Hello World, Welcome')
     db.session.add(a)
-    a = models.Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
+    a = Page('About', '/about/', '<p>It\'s an about page!</p>', '', '')
     db.session.add(a)
-    a = models.Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
+    a = Page('Contact', '/contact/', '<p>It\'s a contact page!</p>',
                     '', '')
     db.session.add(a)
 
     db.session.commit()
-    return redirect('/')
+    return redirect('/?setup_complete=true')
+
