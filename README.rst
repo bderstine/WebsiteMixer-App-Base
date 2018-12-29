@@ -10,6 +10,8 @@ Run
 
 ::
 
+    git clone https://github.com/bderstine/WebsiteMixer-App-Base
+    cd WebsiteMixer-App-Base
     ./run.sh
 
 Which runs with the following options::
