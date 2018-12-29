@@ -6,3 +6,4 @@ SECRET_KEY = 'websitemixersupersecretkey1234567890'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+
