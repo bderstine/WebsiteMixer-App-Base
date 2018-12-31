@@ -3,13 +3,8 @@ from datetime import datetime
 import hashlib
 import passlib.hash
 
-from websitemixer import db
-from websitemixer import login_manager
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get_by_id(user_id)
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
 user_roles = db.Table(
     'user_roles',

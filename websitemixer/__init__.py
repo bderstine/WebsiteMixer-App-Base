@@ -1,6 +1,5 @@
 import os
 from flask import Flask, g
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import login_user, logout_user, current_user, login_required
@@ -8,11 +7,10 @@ from flask_login import LoginManager
 from flask_moment import Moment
 
 from websitemixer.context import *
+from websitemixer.models import db
+from websitemixer.auth import login_manager
 
-
-db = SQLAlchemy()  # done here so that db is importable
 migrate = Migrate()
-login_manager = LoginManager()
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
