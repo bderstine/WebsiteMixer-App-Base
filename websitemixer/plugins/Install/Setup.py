@@ -29,13 +29,14 @@ def setup2():
     debugedit = request.form['debugedit']
     debugredirect = request.form['debugredirect']
     debugprofile = request.form['debugprofile']
+    appdir = os.getcwd()
 
     with open('instance/config.py', 'w') as file:
         file.seek(0)
         file.truncate()
         file.write("import os\n")
         file.write("basedir = os.path.abspath(os.path.dirname(__file__))\n\n")
-        file.write("APPDIR = os.getcwd()\n")
+        file.write("APPDIR = '"+appdir+"'\n")
         file.write("DEBUG = "+debug+"\n")
         file.write("DEBUG_TB_INTERCEPT_REDIRECTS = "+debugredirect+"\n")
         file.write("DEBUG_TB_PROFILER_ENABLED = "+debugprofile+"\n")
