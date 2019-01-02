@@ -7,7 +7,8 @@ Tested on the latest Ubuntu 18.04, Flask 1.0.2, Python 3.6.7, SQLAchemy 1.2.15
 
 Start with Ubuntu 18.04, recommend using venv
 
-```sudo apt update && sudo apt upgrade
+```
+sudo apt update && sudo apt upgrade
 sudo apt-get install python3-venv
 python3 -m venv www_env
 source www_env/bin/activate
@@ -15,24 +16,27 @@ source www_env/bin/activate
 
 ## Run
 
-```git clone https://github.com/bderstine/WebsiteMixer-App-Base
+```
+git clone https://github.com/bderstine/WebsiteMixer-App-Base
 cd WebsiteMixer-App-Base
 pip install -r requirements.txt
 ./run.sh
 ```
 
-Which runs with the following options::
+Which runs with the following options:
 
-```export FLASK_APP=websitemixer
+```
+export FLASK_APP=websitemixer
 export FLASK_ENV=development
 export FLASK_DEBUG=1
 
 flask run --host=0.0.0.0
 ```
 
-And it should have output similar to::
+And it should have output similar to:
 
-```Serving Flask app "websitemixer" (lazy loading)
+```
+Serving Flask app "websitemixer" (lazy loading)
 Environment: development
 Debug mode: on
 Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
@@ -47,13 +51,15 @@ Open http://0.0.0.0:5000 in a browser.
 
 These don't work... yet. I'm still working on the v0.4 upgrade! -Brad
 
-```pip install '.[test]'
+```
+pip install '.[test]'
 pytest
 ```
 
 Run with coverage report::
 
-```coverage run -m pytest
+```
+coverage run -m pytest
 coverage report
 coverage html  # open htmlcov/index.html in a browser
 ```
