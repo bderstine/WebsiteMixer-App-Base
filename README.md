@@ -1,7 +1,7 @@
 # WebsiteMixer [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/bderstine/WebsiteMixer-App-Base/pulls)
 
 A Python/Flask alternative to WordPress and Drupal, with themes and plugins!<br> 
-Tested on the latest Ubuntu 18.04, Flask 1.0.2, Python 3.6.7, SQLAchemy 1.2.15 
+Tested on the latest Ubuntu 18.04, Flask 1.0.2, Python 3.6.7
 
 ## Install Dependencies
 
