@@ -9,6 +9,7 @@ from flask_moment import Moment
 from websitemixer.context import *
 from websitemixer.models import db
 from websitemixer.auth import login_manager
+from websitemixer.functions import *
 
 migrate = Migrate()
 
@@ -53,12 +54,21 @@ def create_app(test_config=None):
     app.jinja_env.globals.update(process_tags=process_tags)
     app.jinja_env.globals.update(is_admin=is_admin)
 
+    app.jinja_env.globals.update(author_name=author_name)
+
     from websitemixer.plugins.Admin import Admin
     from websitemixer.plugins.Base import Base
     from websitemixer.plugins.Install import Setup
     app.register_blueprint(Admin.bp)
     app.register_blueprint(Base.bp)
     app.register_blueprint(Setup.bp)
+
+    #pluginData = get_all_plugin_info()
+    #for p in pluginData:
+    #    for mod in p['import']:
+    #        plugin = "websitemixer.plugins."+p['basics']['directory']
+    #        name = str(mod)
+    #        imported = getattr(__import__(plugin, fromlist=[name]), name)
 
     return app
 

@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from websitemixer.models import User
 
 
 def first_paragraph(content=""):
@@ -21,3 +22,10 @@ def process_tags(tags):
 def is_admin():
     check = User.query.filter_by(id=session['user_id']).first()
     return check.is_admin()
+
+def author_name(username):
+    author = User.query.filter_by(username=username).first()
+    if author.name is not None:
+        return author.name
+    else:
+        return author.username
