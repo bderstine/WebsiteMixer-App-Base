@@ -1,4 +1,5 @@
 # WebsiteMixer [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/bderstine/WebsiteMixer-App-Base/pulls)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbderstine%2FWebsiteMixer-App-Base.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbderstine%2FWebsiteMixer-App-Base?ref=badge_shield)
 
 A Python/Flask alternative to WordPress and Drupal, with themes and plugins!<br> 
 Tested on the latest Ubuntu 18.04, Flask 1.0.2, Python 3.6.7
@@ -79,3 +80,7 @@ See the [issues page](https://github.com/bderstine/WebsiteMixer-App-Base/issues)
 Thanks for stopping by and visiting!
 
 -Brad
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbderstine%2FWebsiteMixer-App-Base.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbderstine%2FWebsiteMixer-App-Base?ref=badge_large)
